@@ -9,11 +9,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $v = $_POST['login'];
 
-$email = stripslashes($email);
-$email = addslashes($email);
-$password = stripslashes($password); 
-$password = addslashes($password);
-$password=md5($password); 
+ 
 $result = mysqli_query($con,"SELECT name FROM user WHERE email = '$email' and password = '$password' and login = '$v'") or die('Error');
 $count=mysqli_num_rows($result);
 

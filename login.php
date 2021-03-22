@@ -17,9 +17,7 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="././images/favicon.png" />
 
-  <?php if(@$_GET['w'])
-{echo'<script>alert("'.@$_GET['w'].'");</script>';}
-?>
+ 
 </head>
 
 <body>
@@ -32,6 +30,19 @@
               <div class="brand-logo">
                 <img src="././images/logo1.png" alt="logo">
               </div>
+
+              
+<?php if(@$_GET['w'])
+{ echo'
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>Sorry!</strong>  - '.@$_GET['w'].'
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+';}?>
+
+
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form action="login1.php?q=login.php" method="POST" class="pt-3">
@@ -43,8 +54,8 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Sign in as</label>
-                    <select name="login" class="form-control form-control-lg" id="">
-                      <option value="0">Staff Member</option>
+                    <select style="color:gray" name="login" class="form-control form-control-lg" id="">
+                      <option  value="0">Staff Member</option>
                       <option value="1">Workplan Advicer</option>
                       <option value="2">Admin</option>
                     </select>

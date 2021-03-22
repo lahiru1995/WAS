@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+	if(!ISSET($_SESSION['email'])){
+		header('location:admin-dashboad.php');
+	}
+?>
 <html lang="en">
 
 <head>
@@ -19,6 +25,11 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   
+  <script>
+function validateForm() {var y = document.forms["form"]["name"].value;	var letters = /^[A-Za-z]+$/;if (y == null || y == "") {alert("Name must be filled out.");return false;}var z =document.forms["form"]["college"].value;if (z == null || z == "") {alert("college must be filled out.");return false;}var x = document.forms["form"]["email"].value;var atpos = x.indexOf("@");
+var dotpos = x.lastIndexOf(".");if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {alert("Not a valid e-mail address.");return false;}var a = document.forms["form"]["password"].value;if(a == null || a == ""){alert("Password must be filled out");return false;}if(a.length<5 || a.length>25){alert("Passwords must be 5 to 25 characters long.");return false;}
+var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords must match.");return false;}}
+</script>
 </head>
 <body>
   <div class="container-scroller">
@@ -135,15 +146,20 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
-              <span class="nav-profile-name">Louis Barnett</span>
+            <?php
+				include_once 'dbConnection.php';
+				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
+				$fetch = mysqli_fetch_array($query);
+        echo '<img src="./'.$fetch['file'].'" alt="profile"/>
+        <span class="nav-profile-name">'.$fetch['name'].'</span>';
+	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a href="logout.php?q=login.php" class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
@@ -240,28 +256,42 @@
       <div class="main-panel">
         <div class="content-wrapper">
           
-        
-
+       
+      
+<!----------------------------------- Add Staff memeber -------------------------------------------->
 <?php if(@$_GET['q']==2) {
+
+/*----------------------------------- alart------------ ---*/
+if(@$_GET['q7'])
+{ echo'
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>Error!</strong>  - '.@$_GET['q7'].'
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+';}
+/*----------------------------------- alart end------------ ---*/
   echo'
+
   <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
         <h4 class="card-title">New Staff Member</h4>
 
-        <form class="forms-sample">
+        <form class="forms-sample" name="form" action="add.php" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
         <div class="row">
               <div class="col-md-6">
               <div class="form-group">
               <label>Name</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Employee No</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
             </div>
               </div>
             </div>
@@ -270,13 +300,13 @@
               <div class="col-md-6">
               <div class="form-group">
               <label>Position</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
                       <label>Upload Image</label>
-                      <input type="file" name="img[]" class="file-upload-default">
+                      <input type="file" name="file" class="file-upload-default">
                       <div class="input-group col-xs-6">
                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                         <span class="input-group-append">
@@ -291,13 +321,13 @@
               <div class="col-md-6">
               <div class="form-group">
               <label>F. T. E.</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="FTE" name="FTE" type="text" class="form-control" placeholder="F T E" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Workplan Advicer</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username">
             </div>
               </div>
             </div>
@@ -306,32 +336,32 @@
               <div class="col-md-6">
               <div class="form-group">
               <label>Email</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Password</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
             </div>
               </div>
             </div>
-    
-            <button type="submit" class="btn btn-primary mr-2">Save</button>
-            <button type="submit" class="btn btn-success mr-2">Edit</button>
+            <input id="login" name="login" type="hidden" value="0">
+
+            <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
             <button class="btn btn-light">Cancel</button>
-            
-            </form>
+          </form>
             </div>
         </div>
       </div>
-      </div>
-      ';
-        }?>
+      </div>';
+    }?>
+        
 
 <?php if(@$_GET['q']==3) {
+include_once 'dbConnection.php';
+$result = mysqli_query($con,"SELECT * FROM user WHERE login ='0'") or die('Error');
   echo'
- 
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
@@ -344,103 +374,87 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>
+            <th>
                 User
               </th>
               <th>
-                User
+                Name
               </th>
               <th>
-                User
+                Employee No
               </th>
               <th>
-                User
+                Email
               </th>
               <th>
-                User
+                Position
               </th>
               <th>
-                First name
+                F.T.E.
               </th>
               <th>
-                Progress
+                Workplan Advicer
+              </th>
+              <th>
+                Action
               </th>
               <th>
               Manage
             </th>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-             
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-              <div class="btn-group">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item">Edit</a>
-                <a class="dropdown-item">Delete</a>
-              </div>                          
-            </div>
-              </td>
-              <td>
-              <a href="admin-staffmember.php?q=8" type="button" class="btn btn-outline-primary btn-fw">Manage</a>
-            </td>
-            </tr>
+          </thead><tbody>';
 
-            <tr>
-             
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-              <div class="btn-group">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item">Edit</a>
-                <a class="dropdown-item">Delete</a>
-              </div>                          
-            </div>
-              </td>
-              <td>
-              <a href="admin-staffmember.php?q=8" type="button" class="btn btn-outline-primary btn-fw">Manage</a>
-            </td>
-            </tr>
+          $c=1;
+while($row = mysqli_fetch_array($result)) {
+	$name = $row['name'];
+  $email = $row['email'];
+	$password = $row['password'];
+	$Employee_No = $row['Employee No'];
+  $Position = $row['Position'];
+  $FTE = $row['F. T. E.'];
+  $Workplan_Advicer = $row['Workplan Advicer'];
+  $file = $row['file'];
 
-            
-            
+  echo'<tr>
+  <td class="py-1">
+  <img src="./'.$file.'" alt="image"/>
+</td>         
+  <td>
+  '.$name.'
+  </td>
+  <td>
+  '.$Employee_No.'
+  </td>
+  <td>
+  '.$email.'
+  </td>
+  <td>
+  '.$Position.'
+  </td>
+  <td>
+  '.$FTE.'
+  </td>
+  <td>
+  '.$Workplan_Advicer.'
+  </td>
+  <td>
+  <div class="btn-group">
+  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item">Edit</a>
+    <a href="update.php?demail='.$email.'" class="dropdown-item">Delete</a>
+  </div>                          
+</div>
+  </td>
+  <td>
+  <a href="admin-staffmember.php?q=8" type="button" class="btn btn-outline-primary btn-fw">Manage</a>
+</td>
+</tr>
+';
+}
+
+          echo'
+           
           </tbody>
         </table>
        

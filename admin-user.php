@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+	if(!ISSET($_SESSION['email'])){
+		header('location:admin-dashboad.php');
+	}
+?>
 <html lang="en">
 
 <head>
@@ -135,15 +141,20 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
-              <span class="nav-profile-name">Louis Barnett</span>
+            <?php
+				include_once 'dbConnection.php';
+				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
+				$fetch = mysqli_fetch_array($query);
+        echo '<img src="./'.$fetch['file'].'" alt="profile"/>
+        <span class="nav-profile-name">'.$fetch['name'].'</span>';
+	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a href="logout.php?q=login.php" class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
@@ -243,6 +254,17 @@
         
 
 <?php if(@$_GET['q']==6) {
+  /*----------------------------------- alart------------ ---*/
+if(@$_GET['q7'])
+{ echo'
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>Error!</strong>  - '.@$_GET['q7'].'
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+';}
+/*----------------------------------- alart end------------ ---*/
   echo'
   <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
@@ -250,18 +272,18 @@
         <div class="card-body">
         <h4 class="card-title">New Staff Member</h4>
 
-        <form class="forms-sample">
+        <form class="forms-sample" name="form" action="add.php" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
         <div class="row">
               <div class="col-md-6">
               <div class="form-group">
               <label>Name</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Employee No</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
             </div>
               </div>
             </div>
@@ -270,13 +292,13 @@
               <div class="col-md-6">
               <div class="form-group">
               <label>Position</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
                       <label>Upload Image</label>
-                      <input type="file" name="img[]" class="file-upload-default">
+                      <input type="file" name="file" class="file-upload-default">
                       <div class="input-group col-xs-6">
                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                         <span class="input-group-append">
@@ -291,21 +313,21 @@
               <div class="col-md-6">
               <div class="form-group">
               <label>Email</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Password</label>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+              <input id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
             </div>
               </div>
             </div>
-
+            <input id="login" name="login" type="hidden" value="2">
             
     
-            <button type="submit" class="btn btn-primary mr-2">Save</button>
-            <button type="submit" class="btn btn-success mr-2">Edit</button>
+            <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
+            <!--<button type="submit" class="btn btn-success mr-2">Edit</button>-->
             <button class="btn btn-light">Cancel</button>
             
             </form>
@@ -317,116 +339,97 @@
         }?>
 
 <?php if(@$_GET['q']==7) {
+  include_once 'dbConnection.php';
+  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='2'") or die('Error');
+    echo'
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Admin List</h4>
+       <!-- <p class="card-description">
+          Add class <code>.table-striped</code>
+        </p>-->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              <th>
+                  User
+                </th>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Employee No
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Position
+                </th>
+               
+                <th>
+                  Action
+                </th>
+               
+              </tr>
+            </thead><tbody>';
   
-  echo'
-  <div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">Staff Member List</h4>
-     <!-- <p class="card-description">
-        Add class <code>.table-striped</code>
-      </p>-->
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>
-                User
-              </th>
-              <th>
-                User
-              </th>
-              <th>
-                User
-              </th>
-              <th>
-                User
-              </th>
-              <th>
-                User
-              </th>
-              <th>
-                First name
-              </th>
-              <th>
-                Progress
-              </th>
-            
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+            $c=1;
+  while($row = mysqli_fetch_array($result)) {
+    $name = $row['name'];
+    $email = $row['email'];
+    $password = $row['password'];
+    $Employee_No = $row['Employee No'];
+    $Position = $row['Position'];
+    $FTE = $row['F. T. E.'];
+    $Workplan_Advicer = $row['Workplan Advicer'];
+    $file = $row['file'];
+  
+    echo'<tr>
+    <td class="py-1">
+    <img src="./'.$file.'" alt="image"/>
+  </td>         
+    <td>
+    '.$name.'
+    </td>
+    <td>
+    '.$Employee_No.'
+    </td>
+    <td>
+    '.$email.'
+    </td>
+    <td>
+    '.$Position.'
+    </td>
+    
+    <td>
+    <div class="btn-group">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item">Edit</a>
+      <a href="update.php?demail='.$email.'" class="dropdown-item">Delete</a>
+    </div>                          
+  </div>
+    </td>
+    
+  </tr>
+  ';
+  }
+  
+            echo'
              
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-              <div class="btn-group">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item">Edit</a>
-                <a class="dropdown-item">Delete</a>
-              </div>                          
-            </div>
-              </td>
-            </tr>
-
-            <tr>
-             
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-            <div class="btn-group">
-            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item">Edit</a>
-              <a class="dropdown-item">Delete</a>
-            </div>                          
-          </div>
-            </td>
-          </tr>
-            
-          </tbody>
-        </table>
-       
+            </tbody>
+          </table>
+         
+        </div>
       </div>
     </div>
-  </div>
-    </div>
-   
-  </div>';
+      </div>
+     
+    </div>';
         }?>
 
 

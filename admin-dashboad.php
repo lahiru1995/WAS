@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+	if(!ISSET($_SESSION['email'])){
+		header('location:admin-dashboad.php');
+	}
+?>
 <html lang="en">
 
 <head>
@@ -135,15 +142,20 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
-              <span class="nav-profile-name">Louis Barnett</span>
+  <?php
+				include_once 'dbConnection.php';
+				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
+				$fetch = mysqli_fetch_array($query);
+        echo '<img src="./'.$fetch['file'].'" alt="profile"/>
+        <span class="nav-profile-name">'.$fetch['name'].'</span>';
+	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a href="logout.php?q=login.php" class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
