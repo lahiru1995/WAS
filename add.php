@@ -13,7 +13,7 @@ $Workplan_Advicer = $_POST['Workplan_Advicer'];
 $login = $_POST['login'];
 
 $filename = UploadImage();
-$location = "files/". $filename ;
+$location = $filename ;
 
 $page = "admin-staffmember.php?q=2";
 
@@ -22,7 +22,7 @@ $page = "admin-staffmember.php?q=2";
 $q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$email' , '$password','$login' ,'$Employee_No', '$Position', '$FTE', '$Workplan_Advicer', '$location')");
 if($q3)
 {
-session_start();
+
 $_SESSION["email"] = $email;
 $_SESSION["name"] = $name;
 

@@ -146,7 +146,7 @@
 				include_once 'dbConnection.php';
 				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
 				$fetch = mysqli_fetch_array($query);
-        echo '<img src="./'.$fetch['file'].'" alt="profile"/>
+        echo '<img src="./files/'.$fetch['file'].'" alt="profile"/>
         <span class="nav-profile-name">'.$fetch['name'].'</span>';
 	?>
             </a>

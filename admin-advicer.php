@@ -145,7 +145,7 @@
 				include_once 'dbConnection.php';
 				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
 				$fetch = mysqli_fetch_array($query);
-        echo '<img src="./'.$fetch['file'].'" alt="profile"/>
+        echo '<img src="./files/'.$fetch['file'].'" alt="profile"/>
         <span class="nav-profile-name">'.$fetch['name'].'</span>';
 	?>
             </a>
@@ -391,7 +391,7 @@ if(@$_GET['q7'])
   
     echo'<tr>
     <td class="py-1">
-    <img src="./'.$file.'" alt="image"/>
+    <img src="./files/'.$file.'" alt="image"/>
   </td>         
     <td>
     '.$name.'
@@ -410,7 +410,7 @@ if(@$_GET['q7'])
     <div class="btn-group">
     <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
     <div class="dropdown-menu">
-      <a class="dropdown-item">Edit</a>
+      <a href="admin-advicer.php?q=44&demail='.$email.'" class="dropdown-item">Edit</a>
       <a href="update.php?demail='.$email.'" class="dropdown-item">Delete</a>
     </div>                          
   </div>
@@ -434,6 +434,101 @@ if(@$_GET['q7'])
         }?>
 
 
+<?php if(@$_GET['q']==44) {
+include_once 'dbConnection.php';
+
+$email=$_SESSION['email'];
+
+if(@$_GET['demail'] ) {
+  $demail=@$_GET['demail'];
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$demail'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $password = $fetch['password'];
+  $file = $fetch['file'];
+
+
+  echo'
+
+  <div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+        <h4 class="card-title">Edit Advicer</h4>
+
+        <form class="forms-sample" name="form" action="update.php?upemail='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+        <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Name</label>
+              <input value='.$name.' id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Employee No</label>
+              <input value='.$Employee_No.' id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
+            </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Position</label>
+              <input value='.$Position.' id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+                      <label>Upload Image</label>
+                      <input value="'.$file.'" type="file" name="file" class="file-upload-default">
+                      <div class="input-group col-xs-6">
+                        <input value="'.$file.'" type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            
+
+            <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Email</label>
+              <input value='.$email.' id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username" readonly>
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Password</label>
+              <input value='.$password.' id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
+            </div>
+              </div>
+            </div>
+            <input id="login" name="login" type="hidden" value="0">
+
+            <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+            </div>
+        </div>
+      </div>
+      </div>';
+ 
+ // $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
+  }
+  
+    }?>
 
 
 
