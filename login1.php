@@ -7,18 +7,20 @@ include_once 'dbConnection.php';
 $ref=@$_GET['q'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-$v = $_POST['login'];
+//$v = $_POST['login'];
 
  
-$result = mysqli_query($con,"SELECT name FROM user WHERE email = '$email' and password = '$password' and login = '$v'") or die('Error');
+$result = mysqli_query($con,"SELECT * FROM user WHERE email = '$email' and password = '$password' ") or die('Error');
 $count=mysqli_num_rows($result);
 
 if($count==1){
 while($row = mysqli_fetch_array($result)) {
 	$name = $row['name'];
+	$v = $row['login'];
 }
 $_SESSION["name"] = $name;
 $_SESSION["email"] = $email;
+
 
 if($v==0){
 	header("location:index.php?q=1");

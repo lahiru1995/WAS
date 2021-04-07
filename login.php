@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
+  <title>W A S</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="././vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="././vendors/base/vendor.bundle.base.css">
@@ -52,14 +52,14 @@
                 <div class="form-group">
                   <input type="password" name="password" class="form-control form-control-lg"  placeholder="Password">
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="exampleFormControlSelect1">Sign in as</label>
                     <select style="color:gray" name="login" class="form-control form-control-lg" id="">
                       <option  value="0">Staff Member</option>
                       <option value="1">Workplan Advicer</option>
                       <option value="2">Admin</option>
                     </select>
-                  </div>
+                  </div>-->
 
                 <div class="mt-3">
                 <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >SIGN IN</button>

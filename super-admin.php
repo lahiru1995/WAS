@@ -11,7 +11,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
+  <title>W A S</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
@@ -47,7 +47,7 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
-           <!-- <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+            <!--<a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-message-text mx-0"></i>-->
               <span class="count"></span>
             </a>
@@ -150,11 +150,11 @@
 	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a id="myBtn" class="dropdown-item">
-                <i class="mdi mdi-settings text-primary"></i>
-                Profile
-              </a>
               <a class="dropdown-item">
+                <i class="mdi mdi-settings text-primary"></i>
+                Settings
+              </a>
+              <a href="logout.php?q=login.php" class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
@@ -172,77 +172,18 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==1) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=1">
+            <a class="nav-link" <?php if(@$_GET['q']==1) echo'style=" color: #4d83ff;"'; ?> href="super-admin.php?q=1">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=2">
-              <i class="mdi mdi-flask-outline menu-icon"></i>
-              <span class="menu-title">Research</span>
+            <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="super-admin.php?q=2">
+              <i class="mdi mdi mdi-bell-ring menu-icon"></i>
+              <span class="menu-title">Other 1, 2,3 ...</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==3) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=3">
-              <i class="mdi mdi mdi-account menu-icon"></i>
-              <span class="menu-title">Administration</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==4) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=4">
-              <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">PD & community Engagement</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==5) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=5">
-              <i class="mdi mdi mdi-calendar-clock menu-icon"></i>
-              <span class="menu-title">Leave</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" 
-            <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
-            data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi mdi-book-open-page-variant menu-icon"></i>
-              <span class="menu-title">Teaching</span>
-              <i <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
-            class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic" >
-              <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==11) echo'style=" font-weight:500;"'; ?> href="teaching.php?q=11">Course Coordination</a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==22) echo'style="font-weight:500;"'; ?> href="teaching.php?q=22">Teaching </a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==33) echo'style=" font-weight: 500;"'; ?> href="teaching.php?q=33">T & L Allowance </a></li>
-              </ul>
-            </div>
-          </li>
-          
          
-          <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==6) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=6">
-              <i class="mdi mdi-emoticon menu-icon"></i>
-              <span class="menu-title">HDR Supervisation</span>
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==7) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=7">
-              <i class="mdi mdi mdi-calendar-remove menu-icon"></i>
-              <span class="menu-title">Unallocated</span>
-            </a>
-          </li>
-		   <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==8) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=8">
-              <i class="mdi mdi-calculator menu-icon"></i>
-              <span class="menu-title">Calculator</span>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -251,89 +192,17 @@
           
         
 
-<?php if(@$_GET['q']==11) {
+<?php if(@$_GET['q']==1) {
   echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Global Course Coordination</h4>
+            <h2>Hi! Welcome To Super Admin Dashboad.</h2>
              <!-- <p class="card-description">
                 Add class <code>.table-striped</code>
               </p>-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        User
-                      </th>
-                      <th>
-                        First name
-                      </th>
-                      <th>
-                        Progress
-                      </th>
-                    
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                     
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                     
-                    </tr>
-                  </tbody>
-                </table>
-                <br>
-                <p class="text-muted">Each hour of face-to-face teaching delivery attracts an additional two teaching-related hours for preparation, marking, feedback. See School Academic Workload Model for details.
-                </p>
-                
-              </div>
+              
             </div>
           </div>
             </div>
@@ -342,41 +211,12 @@
         }?>
 
 
+<?php if(@$_GET['q']==2) {
+  
+        }?>
+
 
         </div>
-
-         <!--------------------------------- The Modal-------------------------------------- -->
-<div id="myModal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
- 
-    <span class="close">&times;</span>
-    
-  <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Staff Member Details</h4>
-                  <?php
-				include_once 'dbConnection.php';
-				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
-				$fetch = mysqli_fetch_array($query);
-        echo '
-        <ul>
-        <li><b>Name :</b> '.$fetch['name'].'</li>
-        <li><b>Employee No :</b> '.$fetch['Employee No'].'</li>
-        <li><b>Position :</b> '.$fetch['Position'].'</li>
-        <li><b>FTE :</b> '.$fetch['F. T. E.'].'</li>
-        <li><b>Workplan Advicer :</b> '.$fetch['Workplan Advicer'].'</li>
-      </ul>';
-	?>
-                 
-                </div>
-              </div>
-            </div>
-  </div>
-  
-</div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -395,33 +235,8 @@
   
 
 
-<!-- ------------------------------------pop up box------------------------------------------------>
 <script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+  
 </script>
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>

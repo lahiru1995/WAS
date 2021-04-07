@@ -11,7 +11,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
+  <title>W A S</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
@@ -52,11 +52,11 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
-            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i class="mdi mdi-message-text mx-0"></i>
+           <!-- <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-message-text mx-0"></i>-->
               <span class="count"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+          <!--  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
@@ -94,14 +94,14 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
                   </p>
                 </div>
               </a>
-            </div>
+            </div>-->
           </li>
           <li class="nav-item dropdown mr-4">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>
               <span class="count"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+            <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
@@ -142,7 +142,7 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
                   </p>
                 </div>
               </a>
-            </div>
+            </div>-->
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
@@ -247,7 +247,12 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
               </ul>
             </div>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link" <?php if(@$_GET['q']==9) echo'style=" color: #4d83ff;"'; ?> href="admin-dashboad.php?q=9">
+              <i class="mdi mdi-calendar-check menu-icon"></i>
+              <span class="menu-title">Approval</span>
+            </a>
+          </li>
          
          
         </ul>
@@ -381,7 +386,7 @@ $result = mysqli_query($con,"SELECT * FROM user WHERE login ='0'") or die('Error
                 Name
               </th>
               <th>
-                Employee No
+                Emp: No:
               </th>
               <th>
                 Email
@@ -393,7 +398,7 @@ $result = mysqli_query($con,"SELECT * FROM user WHERE login ='0'") or die('Error
                 F.T.E.
               </th>
               <th>
-                Workplan Advicer
+                WP Advicer
               </th>
               <th>
                 Action
@@ -448,7 +453,7 @@ while($row = mysqli_fetch_array($result)) {
 </div>
   </td>
   <td>
-  <a href="admin-staffmember.php?q=8" type="button" class="btn btn-outline-primary btn-fw">Manage</a>
+  <a href="admin-staffmember.php?q=8&memail='.$email.'" type="button" class="btn btn-outline-primary btn-fw">Manage</a>
 </td>
 </tr>
 ';
@@ -471,10 +476,50 @@ while($row = mysqli_fetch_array($result)) {
 
 
 <?php if(@$_GET['q']==8) {
-    echo'
-    <a href="admin-staffmember.php?q=3" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
-    Back</a>
 
+include_once 'dbConnection.php';
+
+$email=$_SESSION['email'];
+
+if(@$_GET['memail'] ) {
+  $memail=@$_GET['memail'];
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$memail'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $file = $fetch['file'];
+
+echo'
+<a href="admin-staffmember.php?q=3" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
+Back</a>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+  <div class="card-body">
+  <div style="display:flex;  align-items:center; ">
+  <img src="./files/'.$file.'" style="margin-right: 30px; width:40px; heigth:40px; border-radius:50%"alt="Avatar" class="avatar">
+  <h5 style="padding-right:30px">Name: <small class="text-muted">'.$name.'</small></h5>
+  <h5 style="padding-right:30px">Employee No: <small class="text-muted">'.$Employee_No.'</small></h5>
+  <h5 style="padding-right:30px">Email: <small class="text-muted">'.$email.'</small></h5>
+  <h5 style="padding-right:30px">Position: <small class="text-muted">'.$Position.'</small></h5></div>
+   <!-- <p class="card-description">
+      Add class <code>.table-striped</code>
+    </p>-->
+    
+  </div>
+</div>
+  </div>
+ 
+</div>';}
+
+
+    echo'
     
     <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -483,86 +528,583 @@ while($row = mysqli_fetch_array($result)) {
           <h4 class="card-title">Global Course Coordination</h4>
 
           <form class="forms-sample">
+          
           <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code" name="Course_code" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Semester</label>
+                <input id="Semester" name="Semester" type="text" class="form-control form-control-sm" placeholder="Semester" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>*Total Cordi: Hours</label>
+                <input id="Total_hours" name="Total_hours" type="text" class="form-control form-control-sm" placeholder="Total hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation Melbourne</label>
+                <input id="Alo_Melbourne" name="Alo_Melbourne" type="text" class="form-control form-control-sm" placeholder="Allocation Melbourne" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation OUA</label>
+                <input id="Allocation_OUA" name="Allocation_OUA" type="text" class="form-control form-control-sm" placeholder="Allocation OUA" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>RMIT online</label>
+                <input id="RMIT_online" name="RMIT_online" type="text" class="form-control form-control-sm" placeholder="RMIT online" aria-label="Username">
+              </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation SIM</label>
+                <input id="Allocation_SIM" name="Allocation_SIM" type="text" class="form-control form-control-sm" placeholder="Allocation SIM" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation VM</label>
+                <input id="Allocation_VM" name="Allocation_VM" type="text" class="form-control form-control-sm" placeholder="Allocation VM" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation SUIBE</label>
+                <input id="Allocation_SUIBE" name="Allocation_SUIBE" type="text" class="form-control form-control-sm" placeholder="Allocation SUIBE" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Allocation UPH</label>
+                <input id="Allocation_UPH" name="Allocation_UPH" type="text" class="form-control form-control-sm" placeholder="Allocation UPH" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Extra WIL</label>
+                <input id="Extra_WIL" name="Extra_WIL" type="text" class="form-control form-control-sm" placeholder="Extra WIL" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              
+              <hr>
+
+              <h4 class="card-title">Semester One Teaching</h4>
+              <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code1" name="Course_code1" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Description</label>
+                <input id="Description1" name="Description1" type="text" class="form-control form-control-sm" placeholder="Description" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Activity Type</label>
+                <input id="Activity_Type1" name="Activity_Type1" type="text" class="form-control form-control-sm" placeholder="Activity Type" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Scheduled Dates</label>
+                <input id="Scheduled_Dates1" name="Scheduled_Dates1" type="text" class="form-control form-control-sm" placeholder="Scheduled Dates" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Scheduled Start time</label>
+                <input id="Scheduled_Start_time1" name="Scheduled_Start_time1" type="text" class="form-control form-control-sm" placeholder="Scheduled Start time" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Duration</label>
+                <input id="Duration1" name="Duration1" type="text" class="form-control form-control-sm" placeholder="Duration" aria-label="Username">
+              </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Class Gap</label>
+                <input id="Class_Gap1" name="Class_Gap1" type="text" class="form-control form-control-sm" placeholder="Class Gap" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Teaching Weeks</label>
+                <input id="Teaching_Weeks1" name="Teaching_Weeks1" type="text" class="form-control form-control-sm" placeholder="Teaching Weeks" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Workload hours</label>
+                <input id="Workload_hours1" name="Workload_hours1" type="text" class="form-control form-control-sm" placeholder="Workload hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">Semester Two Teaching</h4>
+              <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code2" name="Course_code2" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Description</label>
+                <input id="Description2" name="Description2" type="text" class="form-control form-control-sm" placeholder="Description" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Activity Type</label>
+                <input id="Activity_Type2" name="Activity_Type2" type="text" class="form-control form-control-sm" placeholder="Activity Type" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Scheduled Dates</label>
+                <input id="Scheduled_Dates2" name="Scheduled_Dates2" type="text" class="form-control form-control-sm" placeholder="Scheduled Dates" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Scheduled Start time</label>
+                <input id="Scheduled_Start_time2" name="Scheduled_Start_time2" type="text" class="form-control form-control-sm" placeholder="Scheduled Start time" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Duration</label>
+                <input id="Duration2" name="Duration2" type="text" class="form-control form-control-sm" placeholder="Duration" aria-label="Username">
+              </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Class Gap</label>
+                <input id="Class_Gap2" name="Class_Gap2" type="text" class="form-control form-control-sm" placeholder="Class_Gap" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Teaching Weeks</label>
+                <input id="Teaching_Weeks2" name="Teaching_Weeks2" type="text" class="form-control form-control-sm" placeholder="Teaching Weeks" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+                <label>Workload hours</label>
+                <input id="Workload_hours2" name="Workload_hours2" type="text" class="form-control form-control-sm" placeholder="Workload hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-2">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">SIM Semester One Teaching</h4>
+              <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Course code</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Course_code3" name="Course_code3" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Semester</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <label>Course Coordinator</label>
+                <input id="Course_Coordinator" name="Course_Coordinator" type="text" class="form-control form-control-sm" placeholder="Course Coordinator" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Cordination Hours</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <label>Meeting atendees</label>
+                <input id="Meeting_atendees" name="Meeting_atendees" type="text" class="form-control form-control-sm" placeholder="Meeting atendees" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Allocation for Location 1</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <label>Visiting Lecture</label>
+                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
               </div>
                 </div>
-              </div><hr>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>First Time visit to SIM</label>
+                <input id="First_Time_visit" name="First_Time_visit" type="text" class="form-control form-control-sm" placeholder="First Time visit" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Staff Member</label>
+                <input id="Visiting_Staff_Member" name="Visiting_Staff_Member" type="text" class="form-control form-control-sm" placeholder="Visiting Staff Member" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Sum Workload Hours</label>
+                <input id="Sum_Workload_Hours" name="Sum_Workload_Hours" type="text" class="form-control form-control-sm" placeholder="Sum Workload Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">SIM Semester Two Teaching</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code4" name="Course_code4" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course Coordinator</label>
+                <input id="Course_Coordinator1" name="Course_Coordinator1" type="text" class="form-control form-control-sm" placeholder="Course Coordinator" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Meeting atendees</label>
+                <input id="Meeting_atendees1" name="Meeting_atendees1" type="text" class="form-control form-control-sm" placeholder="Meeting atendees" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Lecture</label>
+                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
+              </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>First Time visit to SIM</label>
+                <input id="First_Time_visit1" name="First_Time_visit1" type="text" class="form-control form-control-sm" placeholder="First Time visit" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Staff Member</label>
+                <input id="Visiting_Staff1" name="Visiting_Staff1" type="text" class="form-control form-control-sm" placeholder="Visiting Staff" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Sum Workload Hours</label>
+                <input id="Sum_Workload1" name="Sum_Workload1" type="text" class="form-control form-control-sm" placeholder="Sum Workload" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">Online Teaching 1</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Melb Course code</label>
+                <input id="Melb_Course_code" name="Melb_Course_code" type="text" class="form-control form-control-sm" placeholder="Melb Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>OUA Course Code</label>
+                <input id="OUA_Course_Code" name="OUA_Course_Code" type="text" class="form-control form-control-sm" placeholder="OUA Course Code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course Name</label>
+                <input id="Course_Name" name="Course_Name" type="text" class="form-control form-control-sm" placeholder="Course Name" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Study Session</label>
+                <input id="Study_Session" name="Study_Session" type="text" class="form-control form-control-sm" placeholder="Study Session" aria-label="Username">
+              </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Delivary Staff</label>
+                <input id="Delivary_Staff" name="Delivary_Staff" type="text" class="form-control form-control-sm" placeholder="Delivary Staff" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>E No.</label>
+                <input id="" name="" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Hours</label>
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">Online Teaching 2</h4>
+              <div class="row">
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>Melb Course code</label>
+              <input id="Melb_Course_code" name="Melb_Course_code" type="text" class="form-control form-control-sm" placeholder="Melb Course code" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>OUA Course Code</label>
+              <input id="OUA_Course_Code" name="OUA_Course_Code" type="text" class="form-control form-control-sm" placeholder="OUA Course Code" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>Course Name</label>
+              <input id="Course_Name" name="Course_Name" type="text" class="form-control form-control-sm" placeholder="Course Name" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>Study Session</label>
+              <input id="Study_Session" name="Study_Session" type="text" class="form-control form-control-sm" placeholder="Study Session" aria-label="Username">
+            </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>Delivary Staff</label>
+              <input id="Delivary_Staff" name="Delivary_Staff" type="text" class="form-control form-control-sm" placeholder="Delivary Staff" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>E No.</label>
+              <input id="" name="" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+              <label>Hours</label>
+              <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-3">
+              <div class="form-group">
+            </div>
+              </div>
+            </div>
+              <hr>
+
+
+              <h4 class="card-title">SUIBE Teaching 1</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code" name="Course_code" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course</label>
+                <input id="Course" name="Course" type="text" class="form-control form-control-sm" placeholder="Course" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Lecture</label>
+                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Sum of workload Hours</label>
+                <input id="Sum_of_workload" name="Sum_of_workload" type="text" class="form-control form-control-sm" placeholder="Sum of workload" aria-label="Username">
+              </div>
+                </div>
+              </div>
+              <hr>
+
+              <h4 class="card-title">SUIBE Teaching 2</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course code</label>
+                <input id="Course_code" name="Course_code" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course</label>
+                <input id="Course" name="Course" type="text" class="form-control form-control-sm" placeholder="Course" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Lecture</label>
+                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Sum of workload Hours</label>
+                <input id="Sum_of_workload" name="Sum_of_workload" type="text" class="form-control form-control-sm" placeholder="Sum of workload" aria-label="Username">
+              </div>
+                </div>
+              </div>
+              <hr>
 
               <h4 class="card-title">T&L Allowance</h4>
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="T&L" name="T&L" type="text" class="form-control form-control-sm" placeholder="T&L" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Notes</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Notes" name="Notes" type="text" class="form-control form-control-sm" placeholder="Notes" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Hours</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Large input</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Large_input" name="Large_input" type="text" class="form-control form-control-sm" placeholder="Large input" aria-label="Username">
               </div>
                 </div>
               </div>
               <hr>
       
               <h4 class="card-title">Research</h4>
+
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>HDR Hours</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="HDR_Hours" name="HDR_Hours" type="text" class="form-control form-control-sm" placeholder="HDR Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Associate Supervisor</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Associate_Supervisor" name="Associate_Supervisor" type="text" class="form-control form-control-sm" placeholder="Associate Supervisor" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Joint Senior Supervisor</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Joint_Senior_Supervisor" name="Joint_Senior_Supervisor" type="text" class="form-control form-control-sm" placeholder="Joint Senior Supervisor" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Senior Supervisor</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Senior_Supervisor" name="Senior_Supervisor" type="text" class="form-control form-control-sm" placeholder="Senior Supervisor" aria-label="Username">
+              </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Total Research Hours</label>
+                <input id="Total_Research_Hours" name="Total_Research_Hours" type="text" class="form-control form-control-sm" placeholder="Total Research Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
               </div>
                 </div>
               </div><hr>
@@ -572,19 +1114,19 @@ while($row = mysqli_fetch_array($result)) {
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Standard Administration</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Standard_Administration" name="Standard_Administration" type="text" class="form-control form-control-sm" placeholder="Standard Administration" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Allocation_Name" name="Allocation_Name" type="text" class="form-control form-control-sm" placeholder="Allocation Name" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Hours</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -599,19 +1141,45 @@ while($row = mysqli_fetch_array($result)) {
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Standard Professional</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Standard_Professional" name="Standard_Professional" type="text" class="form-control form-control-sm" placeholder="Standard Professional" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Allocation_Name" name="Allocation_Name" type="text" class="form-control form-control-sm" placeholder="Allocation Name" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Hours</label>
-                <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                
+              </div>
+                </div>
+              </div><hr>
+
+              <h4 class="card-title">Leave</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Allocation Name</label>
+                <input id="Allocation_Name" name="Allocation_Name" type="text" class="form-control form-control-sm" placeholder="Allocation Name" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Hours</label>
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                
               </div>
                 </div>
                 <div class="col-md-3">

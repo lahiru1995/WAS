@@ -12,7 +12,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
+  <title>W A S</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
@@ -48,11 +48,11 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
-            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i class="mdi mdi-message-text mx-0"></i>
+           <!-- <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-message-text mx-0"></i>-->
               <span class="count"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+            <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
@@ -90,14 +90,14 @@
                   </p>
                 </div>
               </a>
-            </div>
+            </div>-->
           </li>
           <li class="nav-item dropdown mr-4">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>
               <span class="count"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+           <!-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
@@ -138,7 +138,7 @@
                   </p>
                 </div>
               </a>
-            </div>
+            </div>-->
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
@@ -244,6 +244,12 @@
             </div>
           </li>
           
+          <li class="nav-item">
+            <a class="nav-link" <?php if(@$_GET['q']==9) echo'style=" color: #4d83ff;"'; ?> href="admin-dashboad.php?q=9">
+              <i class="mdi mdi-calendar-check menu-icon"></i>
+              <span class="menu-title">Approval</span>
+            </a>
+          </li>
          
          
         </ul>
@@ -270,6 +276,138 @@
             </div>
            
           </div>';
+
+
+
+
+          /*echo'
+    
+          <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Global Course Coordination</h4>
+      
+                <form class="forms-sample" name="form" action="update.php?q=addlocation" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                      <div class="col-md-3">
+                      <div class="form-group">
+                      <label>Add Location</label>
+                      <input name="l1" id="l1" type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                      </div>
+             
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              
+              
+              </form>
+              </div>
+          </div>
+        </div>
+        </div>
+        ';
+
+
+        include_once 'dbConnection.php';
+$result = mysqli_query($con,"SELECT * FROM location") or die('Error');
+$c=1;
+
+echo'
+  <div class="row">
+    <div class="col-md-12 grid-margin ">
+    <div class="card">
+    <div class="card-body">
+     
+     <!-- <p class="card-description">
+        Add class <code>.table-striped</code>
+      </p>-->
+      <div class="">
+       
+       
+       
+        <tbody>
+          ';
+  while($row = mysqli_fetch_array($result)) {
+            $name1 = $row['name'];
+            $l1 = $row['l1'];
+            $l2 = $row['l2'];
+            $l3 = $row['l3'];
+            $l4 = $row['l4'];
+
+            $k1  = "text";
+            $k2  = "text";
+            $k3  = "text";
+            $k4  = "text";
+          if($l1 =="" )
+            $k1 = "hidden";
+            if($l2 =="" )
+            $k2 = "hidden";
+            if($l3 =="" )
+            $k3 = "hidden";
+            if($l4 =="" )
+            $k4 = "hidden";
+          
+  echo'
+  <form name="form" action="update.php?q=adddb" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data"> 
+  <tr>
+  <div class="row">     
+  <td>
+  <div class="col-md-3">
+  <div class="form-group">
+  <label>'.$l1.'</label>
+  <input name='.$l1.' id="l4" type='.$k1.' class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+</div>
+  </div>
+  </td>
+  <td>
+  <div class="col-md-3">
+  <div class="form-group">
+  <label>'.$l2.'</label>
+  <input name='.$l2.' id="l4" type='.$k2.' class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+</div>
+  </div>
+  </td>
+  <td>
+  <div class="col-md-3">
+  <div class="form-group">
+  <label>'.$l3.'</label>
+  <input name='.$l3.' id="l4" type='.$k3.' class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+</div>
+  </div>
+  </td>
+  <td>
+  <div class="col-md-3">
+  <div class="form-group">
+  <label>'.$l4.'</label>
+  <input name='.$l4.' id="l4" type='.$k4.' class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+</div>
+  </div>
+          
+  
+  </td>
+  </div>
+</tr>
+';
+          
+}
+
+          echo'
+           
+          </tbody>
+          
+       
+        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+       
+  </form> 
+      </div>
+    </div>
+  </div>
+    </div>
+   
+  </div>';*/
+
         }?>
 
 
