@@ -107,8 +107,248 @@ if(@$_GET['q']== 'addlocation') {
     }
 
 
+    //add global course codination
+    if(@$_GET['GC-email'] ) {
+        $email=@$_GET['GC-email'];
+       
+        $Course_code =  $_POST['Course_code'];
+        $Semester =  $_POST['Semester'];
+        $Total_hours =  $_POST['Total_hours'];
+        $Alo_Melbourne =  $_POST['Alo_Melbourne'];
+        $Allocation_OUA =  $_POST['Allocation_OUA'];
+        $RMIT_online =  $_POST['RMIT_online'];
+        $Allocation_SIM =  $_POST['Allocation_SIM'];
+        $Allocation_VM =  $_POST['Allocation_VM'];
+        $Allocation_SUIBE =  $_POST['Allocation_SUIBE'];
+        $Allocation_UPH =  $_POST['Allocation_UPH'];
+        $Extra_WIL =  $_POST['Extra_WIL'];
+        
+        $result=mysqli_query($con,"INSERT INTO course_coordination VALUES  ('$email' , '$Course_code' , '$Semester','$Total_hours' ,'$Alo_Melbourne', '$Allocation_OUA', '$RMIT_online', '$Allocation_SIM', '$Allocation_VM', '$Allocation_SUIBE', '$Allocation_UPH', '$Extra_WIL')") or die('Error');
+        header("location:admin-staffmember.php?q=8&memail=$email");
+    }
+
+        //add to semster teaching one
+        if(@$_GET['ST1-email'] ) {
+            $email=@$_GET['ST1-email'];
+            $c=0;
+             $c++;
+            $Course_code =  $_POST['Course_code1'];
+            $Description1 =  $_POST['Description1'];
+            $Activity_Type1 =  $_POST['Activity_Type1'];
+            $Scheduled_Dates1 =  $_POST['Scheduled_Dates1'];
+            $Scheduled_Start_time1 =  $_POST['Scheduled_Start_time1'];
+            $Duration1 =  $_POST['Duration1'];
+            $Class_Gap1 =  $_POST['Class_Gap1'];
+            $Teaching_Weeks1 =  $_POST['Teaching_Weeks1'];
+            $Workload_hours1 =  $_POST['Workload_hours1'];
+            $sem =  $_POST['sem'];
+           
+            
+            $result=mysqli_query($con,"INSERT INTO semester_teaching VALUES  ('$email' , '$sem' , '$Course_code','$Description1' ,'$Activity_Type1', '$Scheduled_Dates1', '$Scheduled_Start_time1', '$Duration1', '$Class_Gap1', '$Teaching_Weeks1', '$Workload_hours1', '$c')") or die('Error');
+            header("location:admin-staffmember.php?q=8&memail=$email&id=#sem");
+        }
+
+        //add to semster teaching Two
+        if(@$_GET['ST2-email'] ) {
+            $email=@$_GET['ST2-email'];
+            $c=0;
+             $c++;
+            $Course_code =  $_POST['Course_code1'];
+            $Description1 =  $_POST['Description1'];
+            $Activity_Type1 =  $_POST['Activity_Type1'];
+            $Scheduled_Dates1 =  $_POST['Scheduled_Dates1'];
+            $Scheduled_Start_time1 =  $_POST['Scheduled_Start_time1'];
+            $Duration1 =  $_POST['Duration1'];
+            $Class_Gap1 =  $_POST['Class_Gap1'];
+            $Teaching_Weeks1 =  $_POST['Teaching_Weeks1'];
+            $Workload_hours1 =  $_POST['Workload_hours1'];
+            $sem =  $_POST['sem'];
+           
+            
+            $result=mysqli_query($con,"INSERT INTO semester_teaching VALUES  ('$email' , '$sem' , '$Course_code','$Description1' ,'$Activity_Type1', '$Scheduled_Dates1', '$Scheduled_Start_time1', '$Duration1', '$Class_Gap1', '$Teaching_Weeks1', '$Workload_hours1', '$c')") or die('Error');
+            header("location:admin-staffmember.php?q=8&memail=$email&id=#sem");
+        }
+
+ //add to SIM semster teaching one
+ if(@$_GET['SST1-email'] ) {
+    $email=@$_GET['SST1-email'];
+    $c=0;
+   $c++;
+    $Course_code =  $_POST['Course_code3'];
+    $Course_Coordinator =  $_POST['Course_Coordinator'];
+    $Meeting_atendees =  $_POST['Meeting_atendees'];
+    $Visiting_Lecture =  $_POST['Visiting_Lecture'];
+    $First_Time_visit =  $_POST['First_Time_visit'];
+    $Visiting_Staff_Member =  $_POST['Visiting_Staff_Member'];
+    $Sum_Workload_Hours =  $_POST['Sum_Workload_Hours'];
+   
+    $sem =  $_POST['sem'];
+   
+    
+    $result=mysqli_query($con,"INSERT INTO sim_semester VALUES  ('$email' , '$sem' , '$Course_code','$Course_Coordinator' ,'$Meeting_atendees', '$Visiting_Lecture', '$First_Time_visit', '$Visiting_Staff_Member', '$Sum_Workload_Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#sim");
+}
+
+ //add to SIM semster teaching Two
+ if(@$_GET['SST2-email'] ) {
+    $email=@$_GET['SST2-email'];
+    $c=0;
+   $c++;
+    $Course_code =  $_POST['Course_code3'];
+    $Course_Coordinator =  $_POST['Course_Coordinator'];
+    $Meeting_atendees =  $_POST['Meeting_atendees'];
+    $Visiting_Lecture =  $_POST['Visiting_Lecture'];
+    $First_Time_visit =  $_POST['First_Time_visit'];
+    $Visiting_Staff_Member =  $_POST['Visiting_Staff_Member'];
+    $Sum_Workload_Hours =  $_POST['Sum_Workload_Hours'];
+   
+    $sem =  $_POST['sem'];
+   
+    
+    $result=mysqli_query($con,"INSERT INTO sim_semester VALUES  ('$email' , '$sem' , '$Course_code','$Course_Coordinator' ,'$Meeting_atendees', '$Visiting_Lecture', '$First_Time_visit', '$Visiting_Staff_Member', '$Sum_Workload_Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#sim");
+}
 
 
+//add to online teaching one
+if(@$_GET['OT1-email'] ) {
+    $email=@$_GET['OT1-email'];
+    $c=0;
+   $c++;
+    $Melb_Course_code =  $_POST['Melb_Course_code'];
+    $OUA_Course_Code =  $_POST['OUA_Course_Code'];
+    $Course_Name =  $_POST['Course_Name'];
+    $Study_Session =  $_POST['Study_Session'];
+    $Delivary_Staff =  $_POST['Delivary_Staff'];
+    $Hours =  $_POST['Hours'];
+   
+    $sem =  $_POST['sem'];
+   
+    
+    $result=mysqli_query($con,"INSERT INTO online_teaching VALUES  ('$email' , '$sem' , '$Melb_Course_code','$OUA_Course_Code' ,'$Course_Name', '$Study_Session', '$Delivary_Staff', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#online");
+}
+
+//add to online teaching Two
+if(@$_GET['OT2-email'] ) {
+    $email=@$_GET['OT2-email'];
+    $c=0;
+   $c++;
+    $Melb_Course_code =  $_POST['Melb_Course_code'];
+    $OUA_Course_Code =  $_POST['OUA_Course_Code'];
+    $Course_Name =  $_POST['Course_Name'];
+    $Study_Session =  $_POST['Study_Session'];
+    $Delivary_Staff =  $_POST['Delivary_Staff'];
+    $Hours =  $_POST['Hours'];
+   
+    $sem =  $_POST['sem'];
+   
+    
+    $result=mysqli_query($con,"INSERT INTO online_teaching VALUES  ('$email' , '$sem' , '$Melb_Course_code','$OUA_Course_Code' ,'$Course_Name', '$Study_Session', '$Delivary_Staff', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#online");
+}
+
+//add to suibe 01
+if(@$_GET['SU1-email'] ) {
+    $email=@$_GET['SU1-email'];
+    $c=0;
+   $c++;
+    $Course_code =  $_POST['Course_code'];
+    $Course =  $_POST['Course'];
+    $Visiting_Lecture =  $_POST['Visiting_Lecture'];
+    $Sum_of_workload =  $_POST['Sum_of_workload'];
+   
+    $sem =  $_POST['sem'];
+   
+    $result=mysqli_query($con,"INSERT INTO suibe VALUES  ('$email' , '$sem' , '$Course_code','$Course' ,'$Visiting_Lecture', '$Sum_of_workload', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#suib");
+}
+
+
+//add to suibe 02
+if(@$_GET['SU2-email'] ) {
+    $email=@$_GET['SU2-email'];
+    $c=0;
+   $c++;
+    $Course_code =  $_POST['Course_code'];
+    $Course =  $_POST['Course'];
+    $Visiting_Lecture =  $_POST['Visiting_Lecture'];
+    $Sum_of_workload =  $_POST['Sum_of_workload'];
+   
+    $sem =  $_POST['sem'];
+   
+    $result=mysqli_query($con,"INSERT INTO suibe VALUES  ('$email' , '$sem' , '$Course_code','$Course' ,'$Visiting_Lecture', '$Sum_of_workload', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#suib");
+}
+
+//add to T&L allowance
+if(@$_GET['TL-email'] ) {
+    $email=@$_GET['TL-email'];
+    $c=0;
+   $c++;
+    $TL1 =  $_POST['TL1'];
+    $Notes =  $_POST['Notes'];
+    $Hours =  $_POST['Hours'];
+   
+   
+    $result=mysqli_query($con,"INSERT INTO tl_allowance VALUES  ('$email', '$TL1', '$Notes', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#tl");
+}
+
+//add to Research
+if(@$_GET['R-email'] ) {
+    $email=@$_GET['R-email'];
+    $c=0;
+   $c++;
+    $Total_Research_Hours =  $_POST['Total_Research_Hours'];
+    $Associate_Supervisor =  $_POST['Associate_Supervisor'];
+    $Joint_Senior_Supervisor =  $_POST['Joint_Senior_Supervisor'];
+    $Senior_Supervisor =  $_POST['Senior_Supervisor'];
+    $HDR_Hours =  $_POST['HDR_Hours'];
+   
+   
+    $result=mysqli_query($con,"INSERT INTO research VALUES  ('$email', '$Total_Research_Hours', '$Associate_Supervisor', '$Joint_Senior_Supervisor', '$Senior_Supervisor', '$HDR_Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#res");
+}
+
+//add to Admistration
+if(@$_GET['AD-email'] ) {
+    $email=@$_GET['AD-email'];
+   $c=0;
+   $c++;
+    $Standard_Administration =  $_POST['Standard_Administration'];
+    $Allocation_Name =  $_POST['Allocation_Name'];
+    $Hours =  $_POST['Hours'];
+   
+    $result=mysqli_query($con,"INSERT INTO administration VALUES  ('$email', ' $Standard_Administration', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#admin");
+}
+
+//add to community eng
+if(@$_GET['CE-email'] ) {
+    $email=@$_GET['CE-email'];
+    $c=0;
+   $c++;
+    $Standard_Professional =  $_POST['Standard_Professional'];
+    $Allocation_Name =  $_POST['Allocation_Name'];
+    $Hours =  $_POST['Hours'];
+   
+    $result=mysqli_query($con,"INSERT INTO community_eng VALUES  ('$email', '$Standard_Professional', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#com");
+}
+
+
+//add to leave
+if(@$_GET['LEV-email'] ) {
+    $email=@$_GET['LEV-email'];
+    $c=0;
+   $c++;
+    $Allocation_Name =  $_POST['Allocation_Name'];
+    $Hours =  $_POST['Hours'];
+   
+    $result=mysqli_query($con,"INSERT INTO leave1 VALUES  ('$email', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#lev");
+}
 
         function UploadImage(){
             $target_dir = "files/";

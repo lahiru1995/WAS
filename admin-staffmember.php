@@ -507,8 +507,12 @@ Back</a>
   <h5 style="padding-right:30px">Name: <small class="text-muted">'.$name.'</small></h5>
   <h5 style="padding-right:30px">Employee No: <small class="text-muted">'.$Employee_No.'</small></h5>
   <h5 style="padding-right:30px">Email: <small class="text-muted">'.$email.'</small></h5>
-  <h5 style="padding-right:30px">Position: <small class="text-muted">'.$Position.'</small></h5></div>
-   <!-- <p class="card-description">
+  <h5 style="padding-right:30px">Position: <small class="text-muted">'.$Position.'</small></h5>
+  <a href="" style="margin: 0px 10px 0px 10px" type="button" class="btn btn-outline-primary btn-fw">Edit</a>
+  <a href="" style="margin: 0px 10px 0px 10px" type="button" class="btn btn-outline-primary btn-fw">View</a>
+  </div>
+  
+  <!-- <p class="card-description">
       Add class <code>.table-striped</code>
     </p>-->
     
@@ -516,7 +520,7 @@ Back</a>
 </div>
   </div>
  
-</div>';}
+</div>';
 
 
     echo'
@@ -527,7 +531,7 @@ Back</a>
           <div class="card-body">
           <h4 class="card-title">Global Course Coordination</h4>
 
-          <form class="forms-sample">
+          <form class="forms-sample" name="form-GC" action="update.php?GC-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
           
           <div class="row">
                 <div class="col-md-2">
@@ -604,10 +608,26 @@ Back</a>
               </div>
                 </div>
               </div>
-              
-              <hr>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+          </div>
+        </div>
+        </div>
+             
 
-              <h4 class="card-title">Semester One Teaching</h4>
+              <div id="sem" class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+
+          <div class="tab1" style="display:flex">
+              <button id="defaultOpen" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab2" onclick="openCity(event, `sem-one`)">Semester One Teaching</button>
+              <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab2" onclick="openCity(event, `sem-two`)">Semester Two Teaching</button>
+            </div>
+
+              <div id="sem-one" class="tabcontent">
+              <form class="forms-sample" name="forms-semester1" action="update.php?ST1-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-2">
                 <div class="form-group">
@@ -679,44 +699,48 @@ Back</a>
               </div>
                 </div>
               </div>
-              <hr>
+              <input id="sem" name="sem" type="hidden" value="1">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+            </div>
 
-              <h4 class="card-title">Semester Two Teaching</h4>
+              <div id="sem-two" class="tabcontent" style="display:none">
+              <form class="forms-sample" name="forms-semester2" action="update.php?ST2-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-2">
                 <div class="form-group">
-                <label>Course code</label>
-                <input id="Course_code2" name="Course_code2" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+                <label>Course code*</label>
+                <input id="Course_code1" name="Course_code1" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Description</label>
-                <input id="Description2" name="Description2" type="text" class="form-control form-control-sm" placeholder="Description" aria-label="Username">
+                <input id="Description1" name="Description1" type="text" class="form-control form-control-sm" placeholder="Description" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Activity Type</label>
-                <input id="Activity_Type2" name="Activity_Type2" type="text" class="form-control form-control-sm" placeholder="Activity Type" aria-label="Username">
+                <input id="Activity_Type1" name="Activity_Type1" type="text" class="form-control form-control-sm" placeholder="Activity Type" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Scheduled Dates</label>
-                <input id="Scheduled_Dates2" name="Scheduled_Dates2" type="text" class="form-control form-control-sm" placeholder="Scheduled Dates" aria-label="Username">
+                <input id="Scheduled_Dates1" name="Scheduled_Dates1" type="text" class="form-control form-control-sm" placeholder="Scheduled Dates" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Scheduled Start time</label>
-                <input id="Scheduled_Start_time2" name="Scheduled_Start_time2" type="text" class="form-control form-control-sm" placeholder="Scheduled Start time" aria-label="Username">
+                <input id="Scheduled_Start_time1" name="Scheduled_Start_time1" type="text" class="form-control form-control-sm" placeholder="Scheduled Start time" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Duration</label>
-                <input id="Duration2" name="Duration2" type="text" class="form-control form-control-sm" placeholder="Duration" aria-label="Username">
+                <input id="Duration1" name="Duration1" type="text" class="form-control form-control-sm" placeholder="Duration" aria-label="Username">
               </div>
                 </div>
               </div>
@@ -725,19 +749,19 @@ Back</a>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Class Gap</label>
-                <input id="Class_Gap2" name="Class_Gap2" type="text" class="form-control form-control-sm" placeholder="Class_Gap" aria-label="Username">
+                <input id="Class_Gap1" name="Class_Gap1" type="text" class="form-control form-control-sm" placeholder="Class Gap" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Teaching Weeks</label>
-                <input id="Teaching_Weeks2" name="Teaching_Weeks2" type="text" class="form-control form-control-sm" placeholder="Teaching Weeks" aria-label="Username">
+                <input id="Teaching_Weeks1" name="Teaching_Weeks1" type="text" class="form-control form-control-sm" placeholder="Teaching Weeks" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
                 <div class="form-group">
                 <label>Workload hours</label>
-                <input id="Workload_hours2" name="Workload_hours2" type="text" class="form-control form-control-sm" placeholder="Workload hours" aria-label="Username">
+                <input id="Workload_hours1" name="Workload_hours1" type="text" class="form-control form-control-sm" placeholder="Workload hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-2">
@@ -753,9 +777,29 @@ Back</a>
               </div>
                 </div>
               </div>
-              <hr>
+              <input id="sem" name="sem" type="hidden" value="2">
+              <button type="submit" class="btn btn-primary mr-2">Submit*</button>
+              </form></div>
+              </div>
+          </div>
+        </div>
+        </div>
+           
+        
+      
 
-              <h4 class="card-title">SIM Semester One Teaching</h4>
+        <div id="sim" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+              
+              <div class="tab1" style="display:flex">
+              <button id="defaultOpen1" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab3" onclick="openCity1(event, `sim-sem-one`)">SIM Semester One Teaching</button>
+              <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab3" onclick="openCity1(event, `sim-sem-two`)">SIM Semester Two Teaching</button>
+            </div>
+
+              <div id="sim-sem-one" class="tabcontent1">
+              <form class="forms-sample" name="forms-sim-semester1" action="update.php?SST1-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
@@ -807,26 +851,29 @@ Back</a>
               </div>
                 </div>
               </div>
-              <hr>
+              <input id="sem" name="sem" type="hidden" value="1">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
 
-              <h4 class="card-title">SIM Semester Two Teaching</h4>
+              <div id="sim-sem-two" class="tabcontent1" style="display:none">
+              <form class="forms-sample" name="forms-sim-semester2" action="update.php?SST2-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Course code</label>
-                <input id="Course_code4" name="Course_code4" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+                <label>Course code*</label>
+                <input id="Course_code3" name="Course_code3" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Course Coordinator</label>
-                <input id="Course_Coordinator1" name="Course_Coordinator1" type="text" class="form-control form-control-sm" placeholder="Course Coordinator" aria-label="Username">
+                <input id="Course_Coordinator" name="Course_Coordinator" type="text" class="form-control form-control-sm" placeholder="Course Coordinator" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Meeting atendees</label>
-                <input id="Meeting_atendees1" name="Meeting_atendees1" type="text" class="form-control form-control-sm" placeholder="Meeting atendees" aria-label="Username">
+                <input id="Meeting_atendees" name="Meeting_atendees" type="text" class="form-control form-control-sm" placeholder="Meeting atendees" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -841,19 +888,19 @@ Back</a>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>First Time visit to SIM</label>
-                <input id="First_Time_visit1" name="First_Time_visit1" type="text" class="form-control form-control-sm" placeholder="First Time visit" aria-label="Username">
+                <input id="First_Time_visit" name="First_Time_visit" type="text" class="form-control form-control-sm" placeholder="First Time visit" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Visiting Staff Member</label>
-                <input id="Visiting_Staff1" name="Visiting_Staff1" type="text" class="form-control form-control-sm" placeholder="Visiting Staff" aria-label="Username">
+                <input id="Visiting_Staff_Member" name="Visiting_Staff_Member" type="text" class="form-control form-control-sm" placeholder="Visiting Staff Member" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Sum Workload Hours</label>
-                <input id="Sum_Workload1" name="Sum_Workload1" type="text" class="form-control form-control-sm" placeholder="Sum Workload" aria-label="Username">
+                <input id="Sum_Workload_Hours" name="Sum_Workload_Hours" type="text" class="form-control form-control-sm" placeholder="Sum Workload Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -861,9 +908,29 @@ Back</a>
               </div>
                 </div>
               </div>
-              <hr>
+              <input id="sem" name="sem" type="hidden" value="2">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
+              </div>
+          </div>
+        </div>
+        </div>
 
-              <h4 class="card-title">Online Teaching 1</h4>
+    
+
+        <div id="online" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+              
+              
+              <div class="tab1" style="display:flex">
+              <button id="defaultOpen2" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab4" onclick="openCity2(event, `online-teach1`)">ONLINE TEACHING 1</button>
+              <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab4" onclick="openCity2(event, `online-teach2`)">ONLINE TEACHING 2</button>
+            </div>
+
+              <div id="online-teach1" class="tabcontent2">
+              <form class="forms-sample" name="forms-online1" action="update.php?OT1-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
@@ -898,12 +965,7 @@ Back</a>
                 <input id="Delivary_Staff" name="Delivary_Staff" type="text" class="form-control form-control-sm" placeholder="Delivary Staff" aria-label="Username">
               </div>
                 </div>
-                <div class="col-md-3">
-                <div class="form-group">
-                <label>E No.</label>
-                <input id="" name="" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
-              </div>
-                </div>
+                
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Hours</label>
@@ -914,94 +976,89 @@ Back</a>
                 <div class="form-group">
               </div>
                 </div>
+                <div class="col-md-3">
+                <div class="form-group">
               </div>
-              <hr>
+                </div>
+              </div>
+              <input id="sem" name="sem" type="hidden" value="1">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
 
-              <h4 class="card-title">Online Teaching 2</h4>
-              <div class="row">
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>Melb Course code</label>
-              <input id="Melb_Course_code" name="Melb_Course_code" type="text" class="form-control form-control-sm" placeholder="Melb Course code" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>OUA Course Code</label>
-              <input id="OUA_Course_Code" name="OUA_Course_Code" type="text" class="form-control form-control-sm" placeholder="OUA Course Code" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>Course Name</label>
-              <input id="Course_Name" name="Course_Name" type="text" class="form-control form-control-sm" placeholder="Course Name" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>Study Session</label>
-              <input id="Study_Session" name="Study_Session" type="text" class="form-control form-control-sm" placeholder="Study Session" aria-label="Username">
-            </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>Delivary Staff</label>
-              <input id="Delivary_Staff" name="Delivary_Staff" type="text" class="form-control form-control-sm" placeholder="Delivary Staff" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>E No.</label>
-              <input id="" name="" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-              <label>Hours</label>
-              <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
-            </div>
-              </div>
-              <div class="col-md-3">
-              <div class="form-group">
-            </div>
-              </div>
-            </div>
-              <hr>
-
-
-              <h4 class="card-title">SUIBE Teaching 1</h4>
+              <div id="online-teach2" class="tabcontent2" style="display:none">
+              <form class="forms-sample" name="forms-online2" action="update.php?OT2-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Course code</label>
-                <input id="Course_code" name="Course_code" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+                <label>Melb Course code*</label>
+                <input id="Melb_Course_code" name="Melb_Course_code" type="text" class="form-control form-control-sm" placeholder="Melb Course code" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Course</label>
-                <input id="Course" name="Course" type="text" class="form-control form-control-sm" placeholder="Course" aria-label="Username">
+                <label>OUA Course Code</label>
+                <input id="OUA_Course_Code" name="OUA_Course_Code" type="text" class="form-control form-control-sm" placeholder="OUA Course Code" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Visiting Lecture</label>
-                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
+                <label>Course Name</label>
+                <input id="Course_Name" name="Course_Name" type="text" class="form-control form-control-sm" placeholder="Course Name" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Sum of workload Hours</label>
-                <input id="Sum_of_workload" name="Sum_of_workload" type="text" class="form-control form-control-sm" placeholder="Sum of workload" aria-label="Username">
+                <label>Study Session</label>
+                <input id="Study_Session" name="Study_Session" type="text" class="form-control form-control-sm" placeholder="Study Session" aria-label="Username">
               </div>
                 </div>
               </div>
-              <hr>
 
-              <h4 class="card-title">SUIBE Teaching 2</h4>
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Delivary Staff</label>
+                <input id="Delivary_Staff" name="Delivary_Staff" type="text" class="form-control form-control-sm" placeholder="Delivary Staff" aria-label="Username">
+              </div>
+                </div>
+                
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Hours</label>
+                <input id="Hours" name="Hours" type="text" class="form-control form-control-sm" placeholder="Hours" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <input id="sem" name="sem" type="hidden" value="2">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
+              </div>
+          </div>
+        </div>
+        </div>
+
+    
+
+      <div id="suib" class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              
+              <div class="tab1" style="display:flex">
+              <button id="defaultOpen3" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab5" onclick="openCity3(event, `SUIBE1`)">SUIBE Teaching 1</button>
+              <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab5" onclick="openCity3(event, `SUIBE2`)">SUIBE Teaching 2</button>
+            </div>
+
+              <div id="SUIBE1" class="tabcontent3">
+              <form class="forms-sample" name="forms-suibe1" action="update.php?SU1-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
@@ -1028,14 +1085,59 @@ Back</a>
               </div>
                 </div>
               </div>
-              <hr>
+              <input id="sem" name="sem" type="hidden" value="1">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
 
+              <div id="SUIBE2" class="tabcontent3" style="display:none">
+              <form class="forms-sample" name="forms-suibe2" action="update.php?SU2-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course code*</label>
+                <input id="Course_code" name="Course_code" type="text" class="form-control form-control-sm" placeholder="Course code" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Course</label>
+                <input id="Course" name="Course" type="text" class="form-control form-control-sm" placeholder="Course" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Visiting Lecture</label>
+                <input id="Visiting_Lecture" name="Visiting_Lecture" type="text" class="form-control form-control-sm" placeholder="Visiting Lecture" aria-label="Username">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>Sum of workload Hours</label>
+                <input id="Sum_of_workload" name="Sum_of_workload" type="text" class="form-control form-control-sm" placeholder="Sum of workload" aria-label="Username">
+              </div>
+                </div>
+              </div>
+              <input id="sem" name="sem" type="hidden" value="2">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form></div>
+              </div>
+          </div>
+        </div>
+        </div>
+
+     
+
+        <div id="tl" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
               <h4 class="card-title">T&L Allowance</h4>
+              <form class="forms-sample" name="forms-tl" action="update.php?TL-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
-                <input id="T&L" name="T&L" type="text" class="form-control form-control-sm" placeholder="T&L" aria-label="Username">
+                <input id="TL1" name="TL1" type="text" class="form-control form-control-sm" placeholder="T&L" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -1052,20 +1154,29 @@ Back</a>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Large input</label>
-                <input id="Large_input" name="Large_input" type="text" class="form-control form-control-sm" placeholder="Large input" aria-label="Username">
               </div>
                 </div>
               </div>
-              <hr>
-      
-              <h4 class="card-title">Research</h4>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+          </div>
+        </div>
+        </div><hr>
 
+        
+      
+        <div id="res" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+              <h4 class="card-title">Research</h4>
+              <form class="forms-sample" name="forms-R" action="update.php?R-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>HDR Hours</label>
-                <input id="HDR_Hours" name="HDR_Hours" type="text" class="form-control form-control-sm" placeholder="HDR Hours" aria-label="Username">
+                <label>Total Research Hours</label>
+                <input id="Total_Research_Hours" name="Total_Research_Hours" type="text" class="form-control form-control-sm" placeholder="HDR Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -1091,8 +1202,8 @@ Back</a>
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Total Research Hours</label>
-                <input id="Total_Research_Hours" name="Total_Research_Hours" type="text" class="form-control form-control-sm" placeholder="Total Research Hours" aria-label="Username">
+                <label>HDR Hours</label>
+                <input id="HDR_Hours" name="HDR_Hours" type="text" class="form-control form-control-sm" placeholder="Total Research Hours" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-3">
@@ -1107,13 +1218,24 @@ Back</a>
                 <div class="form-group">
               </div>
                 </div>
-              </div><hr>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+          </div>
+        </div>
+        </div>
 
+        <div id="admin" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
               <h4 class="card-title">Administration</h4>
+              <form class="forms-sample" name="forms-AD" action="update.php?AD-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Standard Administration</label>
+                <label>Standard Administration Hours</label>
                 <input id="Standard_Administration" name="Standard_Administration" type="text" class="form-control form-control-sm" placeholder="Standard Administration" aria-label="Username">
               </div>
                 </div>
@@ -1134,9 +1256,20 @@ Back</a>
                 
               </div>
                 </div>
-              </div><hr>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+          </div>
+        </div>
+        </div>
 
+        <div id="com" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
               <h4 class="card-title">Professional/ community Engagement</h4>
+              <form class="forms-sample" name="forms-CE" action="update.php?CE-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
@@ -1161,9 +1294,20 @@ Back</a>
                 
               </div>
                 </div>
-              </div><hr>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+          </div>
+        </div>
+        </div>
 
+        <div id="lev" class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
               <h4 class="card-title">Leave</h4>
+              <form class="forms-sample" name="forms-LEV" action="update.php?LEV-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
@@ -1187,19 +1331,20 @@ Back</a>
                 
               </div>
                 </div>
-              </div><hr>
-
+              </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
-              <button type="submit" class="btn btn-success mr-2">Submit</button>
-              <button class="btn btn-light">Cancel</button>
-              
               </form>
               </div>
           </div>
         </div>
         </div>
-        ';
+
+              
+        ';}
+
+        
 }?>
+
 
 
 <?php if(@$_GET['q']==22) {
@@ -1221,7 +1366,7 @@ if(@$_GET['demail'] ) {
   $password = $fetch['password'];
   $file = $fetch['file'];
 
-
+}
   echo'
 
   <div class="row">
@@ -1307,7 +1452,7 @@ if(@$_GET['demail'] ) {
       </div>';
  
  // $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
-  }
+  
   
     }?>
 
@@ -1329,10 +1474,70 @@ if(@$_GET['demail'] ) {
   <!-- container-scroller -->
   
 
-
-<script>
   
+  <script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab2");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+function openCity1(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent1");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab3");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openCity2(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent2");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab4");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openCity3(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent3");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab5");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen3").click();
+document.getElementById("defaultOpen2").click();
+document.getElementById("defaultOpen").click();
+document.getElementById("defaultOpen1").click();
 </script>
+
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->

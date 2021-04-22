@@ -21970,3 +21970,19 @@ dl li {
   color: white;
 }
 /*# sourceMappingURL=maps/style.css.map */
+
+
+.tab2, .tab3, .tab4, .tab5{
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-size: .875rem;
+  font-weight: bold;
+}
+.tab2.active, .tab3.active, .tab4.active, .tab5.active {
+ 
+  color:#4a4a4a;
+}
+html{
+    scroll-behavior: auto;
+}

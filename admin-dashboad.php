@@ -410,6 +410,80 @@ echo'
 
         }?>
 
+<?php if(@$_GET['q']==9) {
+  echo'
+ 
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Staff Member List</h4>
+     <!-- <p class="card-description">
+        Add class <code>.table-striped</code>
+      </p>-->
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+               Staffmember Email
+              </th>
+              <th>
+              Emp No:
+              </th>
+              <th>
+                Advicer
+              </th>
+
+              <th>
+              Approve
+            </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+             
+              
+              <td>
+                -
+              </td>
+              <td>
+                -
+              </td>
+              <td>
+                -
+              </td>
+              <td>
+              <a href="" type="button" class="btn btn-outline-primary btn-fw">OK</a>
+            </td>
+            </tr>
+            <tr>
+             
+              
+            <td>
+              -
+            </td>
+            <td>
+              -
+            </td>
+            <td>
+              -
+            </td>
+            <td>
+            <a href="" type="button" class="btn btn-outline-primary btn-fw">OK</a>
+          </td>
+          </tr>
+            
+          </tbody>
+        </table>
+       
+      </div>
+    </div>
+  </div>
+    </div>
+   
+  </div>';
+        }?>
 
 
         </div>
