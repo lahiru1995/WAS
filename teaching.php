@@ -252,6 +252,12 @@
         
 
 <?php if(@$_GET['q']==11) {
+
+include_once 'dbConnection.php';
+$email=$_SESSION['email'];
+
+$result = mysqli_query($con, "SELECT * FROM course_coordination WHERE email='$email'") or die(mysqli_error());
+
   echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -266,68 +272,96 @@
                   <thead>
                     <tr>
                       <th>
-                        User
+                      Course code
                       </th>
                       <th>
-                        First name
+                      Sem
                       </th>
                       <th>
-                        Progress
+                      Total Hours
                       </th>
+                      <th>
+                      Allocation Melbourne
+                      </th>
+                      <th>
+                      Allocation OUA
+                      </th>
+                      <th>
+                      RMIT online
+                      </th>
+                      <th>
+                      Allocation SIM
+                      </th>
+                      <th>
+                      Allocation VM
+                      </th>
+                      <th>
+                      Allocation SUIBE
+                      </th>
+                      <th>
+                      Allocation UPH
+                      </th>
+                      <th>
+                      Extra WIL
+                      </th>
+                      
                     
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody>';
+                  while($row = mysqli_fetch_array($result)) {
+                    $Course_code = $row['Course_code'];
+                    $Semester = $row['Semester'];
+                    $Total_Hours = $row['Total_Hours'];
+                    $Allocation_Melbourne = $row['Allocation_Melbourne'];
+                    $Allocation_OUA = $row['Allocation_OUA'];
+                    $RMIT_online = $row['RMIT_online'];
+                    $Allocation_SIM = $row['Allocation_SIM'];
+                    $Allocation_VM = $row['Allocation_VM'];
+                    $Allocation_SUIBE = $row['Allocation_SUIBE'];
+                    $Allocation_UPH = $row['Allocation_UPH'];
+                    $Extra_WIL = $row['Extra_WIL'];
+                    
+                  echo'
                     <tr>
                      
                       <td>
-                        -
+                        '.$Course_code.'
                       </td>
                       <td>
-                        -
+                        '.$Semester.'
                       </td>
                       <td>
-                        -
+                        '. $Total_Hours.'
                       </td>
+                      <td>
+                      '.$Allocation_Melbourne.'
+                    </td>
+                    <td>
+                    '.$Allocation_OUA.'
+                  </td>
+                  <td>
+                  '.$RMIT_online.'
+                </td>
+                <td>
+                '.$Allocation_SIM.'
+              </td>
+                <td>
+                '.$Allocation_VM.'
+              </td>
+              <td>
+                '.$Allocation_SUIBE.'
+              </td>
+              <td>
+                '.$Allocation_UPH.'
+              </td>
+              <td>
+              '.$Extra_WIL.'
+            </td>
                       
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
+                    </tr>';}
                      
-                    </tr>
-                  </tbody>
+                  echo'</tbody>
                 </table>
                 <br>
                 <p class="text-muted">Each hour of face-to-face teaching delivery attracts an additional two teaching-related hours for preparation, marking, feedback. See School Academic Workload Model for details.
@@ -342,7 +376,751 @@
         }?>
 
 
+<?php if(@$_GET['q']==22) {
 
+include_once 'dbConnection.php';
+$email=$_SESSION['email'];
+
+$result = mysqli_query($con, "SELECT * FROM semester_teaching WHERE email='$email' AND sem='1'") or die(mysqli_error());
+$result1 = mysqli_query($con, "SELECT * FROM semester_teaching WHERE email='$email' AND sem='2'") or die(mysqli_error());
+  echo'
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+              
+            <div class="tab1" style="display:flex">
+              <button id="defaultOpen" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab2" onclick="openCity(event, `sem-one`)">Semester One Teaching</button>
+              <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab2" onclick="openCity(event, `sem-two`)">Semester Two Teaching</button>
+            </div>
+
+             <!-- <p class="card-description">
+                Add class <code>.table-striped</code>
+              </p>-->
+
+              <div id="sem-one" class="tabcontent">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                      Course code
+                      </th>
+                      <th>
+                      Description
+                      </th>
+                      <th>
+                      Activity Type
+                      </th>
+                      <th>
+                      Scheduled Dates
+                      </th>
+                      <th>
+                      Scheduled Start time
+                      </th>
+                      <th>
+                      Duration
+                      </th>
+                      <th>
+                      Class Gap
+                      </th>
+                      <th>
+                      Teaching Weeks
+                      </th>
+                      <th>
+                      Workload hours
+                      </th>
+                      
+                      
+                    
+                    </tr>
+                  </thead>
+                  <tbody>';
+                  while($row = mysqli_fetch_array($result)) {
+                    $Course_code = $row['Course_code'];
+                    $Description = $row['Description'];
+                    $Activity_Type = $row['Activity_Type'];
+                    $Scheduled_Dates = $row['Scheduled_Dates'];
+                    $Scheduled_Start_time = $row['Scheduled_Start_time'];
+                    $Duration = $row['Duration'];
+                    $Class_Gap = $row['Class_Gap'];
+                    $Teaching_Weeks = $row['Teaching_Weeks'];
+                    $Workload_hours = $row['Workload_hours'];
+                    
+                    
+                  echo'
+                    <tr>
+                     
+                      <td>
+                        '.$Course_code.'
+                      </td>
+                      <td>
+                        '.$Description.'
+                      </td>
+                      <td>
+                        '.$Activity_Type.'
+                      </td>
+                      <td>
+                      '.$Scheduled_Dates.'
+                    </td>
+                    <td>
+                    '.$Scheduled_Start_time.'
+                  </td>
+                  <td>
+                  '.$Duration.'
+                </td>
+                <td>
+                '.$Class_Gap.'
+              </td>
+                <td>
+                '.$Teaching_Weeks.'
+              </td>
+              <td>
+                '.$Workload_hours.'
+              </td>
+             
+                      
+                    </tr>';}
+                     
+                  echo'</tbody>
+                </table>
+               
+                
+              </div></div>
+
+              <div id="sem-two" class="tabcontent" style="display:none">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                      Course code
+                      </th>
+                      <th>
+                      Description
+                      </th>
+                      <th>
+                      Activity Type
+                      </th>
+                      <th>
+                      Scheduled Dates
+                      </th>
+                      <th>
+                      Scheduled Start time
+                      </th>
+                      <th>
+                      Duration
+                      </th>
+                      <th>
+                      Class Gap
+                      </th>
+                      <th>
+                      Teaching Weeks
+                      </th>
+                      <th>
+                      Workload hours
+                      </th>
+                      
+                      
+                    
+                    </tr>
+                  </thead>
+                  <tbody>';
+                  while($row = mysqli_fetch_array($result1)) {
+                    $Course_code = $row['Course_code'];
+                    $Description = $row['Description'];
+                    $Activity_Type = $row['Activity_Type'];
+                    $Scheduled_Dates = $row['Scheduled_Dates'];
+                    $Scheduled_Start_time = $row['Scheduled_Start_time'];
+                    $Duration = $row['Duration'];
+                    $Class_Gap = $row['Class_Gap'];
+                    $Teaching_Weeks = $row['Teaching_Weeks'];
+                    $Workload_hours = $row['Workload_hours'];
+                    
+                    
+                  echo'
+                    <tr>
+                     
+                      <td>
+                        '.$Course_code.'
+                      </td>
+                      <td>
+                        '.$Description.'
+                      </td>
+                      <td>
+                        '.$Activity_Type.'
+                      </td>
+                      <td>
+                      '.$Scheduled_Dates.'
+                    </td>
+                    <td>
+                    '.$Scheduled_Start_time.'
+                  </td>
+                  <td>
+                  '.$Duration.'
+                </td>
+                <td>
+                '.$Class_Gap.'
+              </td>
+                <td>
+                '.$Teaching_Weeks.'
+              </td>
+              <td>
+                '.$Workload_hours.'
+              </td>
+             
+                      
+                    </tr>';}
+                     
+                  echo'</tbody>
+                </table>
+               
+                
+              </div></div>
+
+            </div>
+          </div>
+            </div>
+           
+          </div>';
+
+
+          
+//SIM semester teaching
+$sim1 = mysqli_query($con, "SELECT * FROM sim_semester WHERE email='$email' AND sem='1'") or die(mysqli_error());
+$sim2 = mysqli_query($con, "SELECT * FROM sim_semester WHERE email='$email' AND sem='2'") or die(mysqli_error());
+echo'
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+  <div class="card-body">
+    
+  <div class="tab1" style="display:flex">
+    <button id="defaultOpen1" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab3" onclick="openCity1(event, `simsem-one`)">SIM Semester One Teaching</button>
+    <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab3" onclick="openCity1(event, `simsem-two`)">SIM Semester Two Teaching</button>
+  </div>
+
+   <!-- <p class="card-description">
+      Add class <code>.table-striped</code>
+    </p>-->
+
+    <div id="simsem-one" class="tabcontent1">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+            Course code
+            </th>
+            <th>
+            Course Coordinator
+            </th>
+            <th>
+            Meeting atendees
+            </th>
+            <th>
+            Visiting Lecture
+            </th>
+            <th>
+            First Time visit
+            </th>
+            <th>
+            Visiting Staff Member
+            </th>
+            <th>
+            Sum Workload Hours
+            </th>
+            
+          
+          </tr>
+        </thead>
+        <tbody>';
+        while($row = mysqli_fetch_array($sim1)) {
+          $Course_code = $row['Course_code'];
+          $Course_Coordinator = $row['Course_Coordinator'];
+          $Meeting_atendees = $row['Meeting_atendees'];
+          $Visiting_Lecture = $row['Visiting_Lecture'];
+          $First_Time_visit = $row['First_Time_visit'];
+          $Visiting_Staff_Member = $row['Visiting_Staff_Member'];
+          $Sum_Workload_Hours = $row['Sum_Workload_Hours'];
+         
+          
+        echo'
+          <tr>
+           
+            <td>
+              '.$Course_code.'
+            </td>
+            <td>
+              '.$Course_Coordinator.'
+            </td>
+            <td>
+              '.$Meeting_atendees.'
+            </td>
+            <td>
+            '.$Visiting_Lecture.'
+          </td>
+          <td>
+          '.$First_Time_visit.'
+        </td>
+        <td>
+        '.$Visiting_Staff_Member.'
+      </td>
+      <td>
+      '.$Sum_Workload_Hours.'
+    </td>
+        
+          </tr>';}
+           
+        echo'</tbody>
+      </table>
+     
+      
+    </div></div>
+
+    <div id="simsem-two" class="tabcontent1" style="display:none">
+    <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+          Course code
+          </th>
+          <th>
+          Course Coordinator
+          </th>
+          <th>
+          Meeting atendees
+          </th>
+          <th>
+          Visiting Lecture
+          </th>
+          <th>
+          First Time visit
+          </th>
+          <th>
+          Visiting Staff Member
+          </th>
+          <th>
+          Sum Workload Hours
+          </th>
+          
+        
+        </tr>
+      </thead>
+      <tbody>';
+      while($row = mysqli_fetch_array($sim2)) {
+        $Course_code = $row['Course_code'];
+        $Course_Coordinator = $row['Course_Coordinator'];
+        $Meeting_atendees = $row['Meeting_atendees'];
+        $Visiting_Lecture = $row['Visiting_Lecture'];
+        $First_Time_visit = $row['First_Time_visit'];
+        $Visiting_Staff_Member = $row['Visiting_Staff_Member'];
+        $Sum_Workload_Hours = $row['Sum_Workload_Hours'];
+       
+        
+      echo'
+        <tr>
+         
+          <td>
+            '.$Course_code.'
+          </td>
+          <td>
+            '.$Course_Coordinator.'
+          </td>
+          <td>
+            '.$Meeting_atendees.'
+          </td>
+          <td>
+          '.$Visiting_Lecture.'
+        </td>
+        <td>
+        '.$First_Time_visit.'
+      </td>
+      <td>
+      '.$Visiting_Staff_Member.'
+    </td>
+    <td>
+    '.$Sum_Workload_Hours.'
+  </td>
+      
+        </tr>';}
+         
+      echo'</tbody>
+    </table>
+   
+    
+  </div></div>
+
+  </div>
+</div>
+  </div>
+ 
+</div>'; 
+
+
+//Online teaching
+$online1 = mysqli_query($con, "SELECT * FROM online_teaching WHERE email='$email' AND sem='1'") or die(mysqli_error());
+$online2 = mysqli_query($con, "SELECT * FROM online_teaching WHERE email='$email' AND sem='2'") or die(mysqli_error());
+echo'
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+  <div class="card-body">
+    
+  <div class="tab1" style="display:flex">
+    <button id="defaultOpen2" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab4" onclick="openCity2(event, `online-one`)">Online Teaching 1</button>
+    <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab4" onclick="openCity2(event, `online-two`)">Online Teaching 2</button>
+  </div>
+
+   <!-- <p class="card-description">
+      Add class <code>.table-striped</code>
+    </p>-->
+
+    <div id="online-one" class="tabcontent2">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+            Melb Course code
+            </th>
+            <th>
+            OUA Course Code
+            </th>
+            <th>
+            Course Name
+            </th>
+            <th>
+            Study Session
+            </th>
+            <th>
+            Delivary Staff
+            </th>
+            <th>
+            Hours
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody>';
+        while($row = mysqli_fetch_array($online1)) {
+          $Melb_Course_code = $row['Melb_Course_code'];
+          $OUA_Course_Code = $row['OUA_Course_Code'];
+          $Course_Name = $row['Course_Name'];
+          $Study_Session = $row['Study_Session'];
+          $Delivary_Staff = $row['Delivary Staff'];
+          $Hours= $row['Hours'];
+        
+         
+          
+        echo'
+          <tr>
+           
+            <td>
+              '.$Melb_Course_code.'
+            </td>
+            <td>
+              '.$OUA_Course_Code.'
+            </td>
+            <td>
+              '.$Course_Name.'
+            </td>
+            <td>
+            '.$Study_Session.'
+          </td>
+          <td>
+          '.$Delivary_Staff.'
+        </td>
+        <td>
+        '.$Hours.'
+      </td>
+      
+        
+          </tr>';}
+           
+        echo'</tbody>
+      </table>
+     
+      
+    </div></div>
+
+    <div id="online-two" class="tabcontent2" style="display:none">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+            Melb Course code
+            </th>
+            <th>
+            OUA Course Code
+            </th>
+            <th>
+            Course Name
+            </th>
+            <th>
+            Study Session
+            </th>
+            <th>
+            Delivary Staff
+            </th>
+            <th>
+            Hours
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody>';
+        while($row = mysqli_fetch_array($online2)) {
+          $Melb_Course_code = $row['Melb_Course_code'];
+          $OUA_Course_Code = $row['OUA_Course_Code'];
+          $Course_Name = $row['Course_Name'];
+          $Study_Session = $row['Study_Session'];
+          $Delivary_Staff = $row['Delivary Staff'];
+          $Hours= $row['Hours'];
+        
+         
+          
+        echo'
+          <tr>
+           
+            <td>
+              '.$Melb_Course_code.'
+            </td>
+            <td>
+              '.$OUA_Course_Code.'
+            </td>
+            <td>
+              '.$Course_Name.'
+            </td>
+            <td>
+            '.$Study_Session.'
+          </td>
+          <td>
+          '.$Delivary_Staff.'
+        </td>
+        <td>
+        '.$Hours.'
+      </td>
+      
+        
+          </tr>';}
+           
+        echo'</tbody>
+      </table>
+     
+      
+    </div></div>
+
+  </div>
+</div>
+  </div>
+ 
+</div>'; 
+
+
+//SUIBE teaching
+$suibe1 = mysqli_query($con, "SELECT * FROM suibe WHERE email='$email' AND sem='1'") or die(mysqli_error());
+$suibe2 = mysqli_query($con, "SELECT * FROM suibe WHERE email='$email' AND sem='2'") or die(mysqli_error());
+echo'
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+  <div class="card-body">
+    
+  <div class="tab1" style="display:flex">
+    <button id="defaultOpen3" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab5" onclick="openCity3(event, `suibe-one`)">SUIBE Teaching 1</button>
+    <button style="padding-top:0px; margin-top:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab5" onclick="openCity3(event, `suibe-two`)">SUIBE Teaching 2</button>
+  </div>
+
+   <!-- <p class="card-description">
+      Add class <code>.table-striped</code>
+    </p>-->
+
+    <div id="suibe-one" class="tabcontent3">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+          Course code
+            </th>
+            <th>
+            Course
+            </th>
+            <th>
+            Visiting Lecture
+            </th>
+            <th>
+            Sum of workload
+            </th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>';
+        while($row = mysqli_fetch_array($suibe1)) {
+          $Course_code = $row['Course_code'];
+          $Course = $row['Course'];
+          $Visiting_Lecture = $row['Visiting_Lecture'];
+          $Sum_of_workload = $row['Sum_of_workload'];
+          
+         
+          
+        echo'
+          <tr>
+           
+            <td>
+              '.$Course_code.'
+            </td>
+            <td>
+              '.$Course.'
+            </td>
+            <td>
+              '.$Visiting_Lecture.'
+            </td>
+            <td>
+            '.$Sum_of_workload.'
+          </td>
+          
+        
+          </tr>';}
+           
+        echo'</tbody>
+      </table>
+     
+      
+    </div></div>
+
+    <div id="suibe-two" class="tabcontent3" style="display:none">
+    <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+        Course code
+          </th>
+          <th>
+          Course
+          </th>
+          <th>
+          Visiting Lecture
+          </th>
+          <th>
+          Sum of workload
+          </th>
+          
+          
+        </tr>
+      </thead>
+      <tbody>';
+      while($row = mysqli_fetch_array($suibe2)) {
+        $Course_code = $row['Course_code'];
+        $Course = $row['Course'];
+        $Visiting_Lecture = $row['Visiting_Lecture'];
+        $Sum_of_workload = $row['Sum_of_workload'];
+        
+       
+        
+      echo'
+        <tr>
+         
+          <td>
+            '.$Course_code.'
+          </td>
+          <td>
+            '.$Course.'
+          </td>
+          <td>
+            '.$Visiting_Lecture.'
+          </td>
+          <td>
+          '.$Sum_of_workload.'
+        </td>
+        
+      
+        </tr>';}
+         
+      echo'</tbody>
+    </table>
+   
+    
+  </div></div>
+
+  </div>
+</div>
+  </div>
+ 
+</div>'; 
+        }?>
+
+
+
+<?php if(@$_GET['q']==33) {
+
+include_once 'dbConnection.php';
+$email=$_SESSION['email'];
+
+$result = mysqli_query($con, "SELECT * FROM tl_allowance WHERE email='$email'") or die(mysqli_error());
+
+  echo'
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">T & L Allowance</h4>
+             <!-- <p class="card-description">
+                Add class <code>.table-striped</code>
+              </p>-->
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                      Allocation Name
+                      </th>
+                      <th>
+                      Notes
+                      </th>
+                      <th>
+                      hours
+                      </th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>';
+                  while($row = mysqli_fetch_array($result)) {
+                    $Allocation_Name = $row['Allocation_Name'];
+                    $Notes = $row['Notes'];
+                    $hours = $row['hours'];
+                    
+                    
+                  echo'
+                    <tr>
+                     
+                      <td>
+                        '.$Allocation_Name.'
+                      </td>
+                      <td>
+                        '.$Notes.'
+                      </td>
+                      <td>
+                        '. $hours.'
+                      </td>
+                     
+                    </tr>';}
+                     
+                  echo'</tbody>
+                </table>
+                
+              </div>
+            </div>
+          </div>
+            </div>
+           
+          </div>';
+        }?>
         </div>
 
          <!--------------------------------- The Modal-------------------------------------- -->
@@ -362,7 +1140,7 @@
 				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
 				$fetch = mysqli_fetch_array($query);
         echo '
-        <ul>
+      <ul>
         <li><b>Name :</b> '.$fetch['name'].'</li>
         <li><b>Employee No :</b> '.$fetch['Employee No'].'</li>
         <li><b>Position :</b> '.$fetch['Position'].'</li>
@@ -422,6 +1200,69 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+//tab teaching
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab2");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openCity1(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent1");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab3");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openCity2(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent2");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab4");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openCity3(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent3");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tab5");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+document.getElementById("defaultOpen1").click();
+document.getElementById("defaultOpen2").click();
+document.getElementById("defaultOpen3").click();
 </script>
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>

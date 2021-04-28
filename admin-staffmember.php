@@ -1171,12 +1171,39 @@ Back</a>
             <div class="card">
               <div class="card-body">
               <h4 class="card-title">Research</h4>
-              <form class="forms-sample" name="forms-R" action="update.php?R-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample" name="forms-R-total" action="update.php?Rt-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Total Research Hours</label>
-                <input id="Total_Research_Hours" name="Total_Research_Hours" type="text" class="form-control form-control-sm" placeholder="HDR Hours" aria-label="Username">
+                <label><b>Total Research Hours</b></label>
+                 <input id="Total_Research_Hours" name="Total_Research_Hours" type="text" class="form-control form-control-sm" placeholder="Total Research Hours" aria-label="Username">
+                
+                </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+              <button style="margin-top:3.5px;" type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+              </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div>
+              <hr>
+              
+              <form class="forms-sample" name="forms-R-hdr" action="update.php?R-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                <label>HDR Hours</label>
+                <input id="HDR_Hours" name="HDR_Hours" type="text" class="form-control form-control-sm" placeholder="HDR Hours" aria-label="Username">
+                
               </div>
                 </div>
                 <div class="col-md-3">
@@ -1199,26 +1226,7 @@ Back</a>
                 </div>
               </div>
               
-              <div class="row">
-                <div class="col-md-3">
-                <div class="form-group">
-                <label>HDR Hours</label>
-                <input id="HDR_Hours" name="HDR_Hours" type="text" class="form-control form-control-sm" placeholder="Total Research Hours" aria-label="Username">
-              </div>
-                </div>
-                <div class="col-md-3">
-                <div class="form-group">
-              </div>
-                </div>
-                <div class="col-md-3">
-                <div class="form-group">
-              </div>
-                </div>
-                <div class="col-md-3">
-                <div class="form-group">
-              </div>
-                </div>
-              </div>
+              
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
               </form>
               </div>
@@ -1231,14 +1239,32 @@ Back</a>
             <div class="card">
               <div class="card-body">
               <h4 class="card-title">Administration</h4>
-              <form class="forms-sample" name="forms-AD" action="update.php?AD-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample" name="forms-ADt" action="update.php?ADt-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Standard Administration Hours</label>
+                <label><b>Standard Administration Hours</b></label>
                 <input id="Standard_Administration" name="Standard_Administration" type="text" class="form-control form-control-sm" placeholder="Standard Administration" aria-label="Username">
               </div>
                 </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+              <button style="margin-top:3.5px;" type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+              </div><hr>
+
+              <form class="forms-sample" name="forms-AD" action="update.php?AD-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
@@ -1253,7 +1279,10 @@ Back</a>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
               </div>
                 </div>
               </div>
@@ -1269,14 +1298,34 @@ Back</a>
             <div class="card">
               <div class="card-body">
               <h4 class="card-title">Professional/ community Engagement</h4>
-              <form class="forms-sample" name="forms-CE" action="update.php?CE-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample" name="forms-CEt" action="update.php?CEt-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-3">
                 <div class="form-group">
-                <label>Standard Professional</label>
+                <label><b>Standard Professional Hours</b></label>
                 <input id="Standard_Professional" name="Standard_Professional" type="text" class="form-control form-control-sm" placeholder="Standard Professional" aria-label="Username">
               </div>
                 </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+              <button style="margin-top:3.5px;" type="submit" class="btn btn-primary mr-2">Submit</button>
+              </form>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                
+              </div>
+                </div>
+              </div><hr>
+
+              <form class="forms-sample" name="forms-CE" action="update.php?CE-email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                
                 <div class="col-md-3">
                 <div class="form-group">
                 <label>Allocation Name</label>
@@ -1291,7 +1340,10 @@ Back</a>
                 </div>
                 <div class="col-md-3">
                 <div class="form-group">
-                
+              </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
               </div>
                 </div>
               </div>
@@ -1536,6 +1588,10 @@ document.getElementById("defaultOpen3").click();
 document.getElementById("defaultOpen2").click();
 document.getElementById("defaultOpen").click();
 document.getElementById("defaultOpen1").click();
+
+
+
+
 </script>
 
   <!-- plugins:js -->

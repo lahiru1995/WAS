@@ -101,8 +101,8 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'Pink',
-      'Blue',
+      'Pink1',
+      'Blue1',
       'Yellow',
     ]
   };
@@ -305,8 +305,8 @@ $(function() {
     });
   }
 
-  if ($("#doughnutChart").length) {
-    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+  if ($("#doughnutChart1").length) {
+    var doughnutChartCanvas = $("#doughnutChart1").get(0).getContext("2d");
     var doughnutChart = new Chart(doughnutChartCanvas, {
       type: 'doughnut',
       data: doughnutPieData,

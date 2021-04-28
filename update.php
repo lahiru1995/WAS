@@ -131,7 +131,7 @@ if(@$_GET['q']== 'addlocation') {
         if(@$_GET['ST1-email'] ) {
             $email=@$_GET['ST1-email'];
             $c=0;
-             $c++;
+             
             $Course_code =  $_POST['Course_code1'];
             $Description1 =  $_POST['Description1'];
             $Activity_Type1 =  $_POST['Activity_Type1'];
@@ -152,7 +152,7 @@ if(@$_GET['q']== 'addlocation') {
         if(@$_GET['ST2-email'] ) {
             $email=@$_GET['ST2-email'];
             $c=0;
-             $c++;
+             
             $Course_code =  $_POST['Course_code1'];
             $Description1 =  $_POST['Description1'];
             $Activity_Type1 =  $_POST['Activity_Type1'];
@@ -173,7 +173,7 @@ if(@$_GET['q']== 'addlocation') {
  if(@$_GET['SST1-email'] ) {
     $email=@$_GET['SST1-email'];
     $c=0;
-   $c++;
+   
     $Course_code =  $_POST['Course_code3'];
     $Course_Coordinator =  $_POST['Course_Coordinator'];
     $Meeting_atendees =  $_POST['Meeting_atendees'];
@@ -193,7 +193,7 @@ if(@$_GET['q']== 'addlocation') {
  if(@$_GET['SST2-email'] ) {
     $email=@$_GET['SST2-email'];
     $c=0;
-   $c++;
+   
     $Course_code =  $_POST['Course_code3'];
     $Course_Coordinator =  $_POST['Course_Coordinator'];
     $Meeting_atendees =  $_POST['Meeting_atendees'];
@@ -214,7 +214,7 @@ if(@$_GET['q']== 'addlocation') {
 if(@$_GET['OT1-email'] ) {
     $email=@$_GET['OT1-email'];
     $c=0;
-   $c++;
+  
     $Melb_Course_code =  $_POST['Melb_Course_code'];
     $OUA_Course_Code =  $_POST['OUA_Course_Code'];
     $Course_Name =  $_POST['Course_Name'];
@@ -233,7 +233,7 @@ if(@$_GET['OT1-email'] ) {
 if(@$_GET['OT2-email'] ) {
     $email=@$_GET['OT2-email'];
     $c=0;
-   $c++;
+   
     $Melb_Course_code =  $_POST['Melb_Course_code'];
     $OUA_Course_Code =  $_POST['OUA_Course_Code'];
     $Course_Name =  $_POST['Course_Name'];
@@ -252,7 +252,7 @@ if(@$_GET['OT2-email'] ) {
 if(@$_GET['SU1-email'] ) {
     $email=@$_GET['SU1-email'];
     $c=0;
-   $c++;
+   
     $Course_code =  $_POST['Course_code'];
     $Course =  $_POST['Course'];
     $Visiting_Lecture =  $_POST['Visiting_Lecture'];
@@ -269,7 +269,7 @@ if(@$_GET['SU1-email'] ) {
 if(@$_GET['SU2-email'] ) {
     $email=@$_GET['SU2-email'];
     $c=0;
-   $c++;
+   
     $Course_code =  $_POST['Course_code'];
     $Course =  $_POST['Course'];
     $Visiting_Lecture =  $_POST['Visiting_Lecture'];
@@ -285,7 +285,7 @@ if(@$_GET['SU2-email'] ) {
 if(@$_GET['TL-email'] ) {
     $email=@$_GET['TL-email'];
     $c=0;
-   $c++;
+  
     $TL1 =  $_POST['TL1'];
     $Notes =  $_POST['Notes'];
     $Hours =  $_POST['Hours'];
@@ -295,11 +295,11 @@ if(@$_GET['TL-email'] ) {
     header("location:admin-staffmember.php?q=8&memail=$email&id=#tl");
 }
 
-//add to Research
+//add to Research hdr
 if(@$_GET['R-email'] ) {
     $email=@$_GET['R-email'];
     $c=0;
-   $c++;
+  
     $Total_Research_Hours =  $_POST['Total_Research_Hours'];
     $Associate_Supervisor =  $_POST['Associate_Supervisor'];
     $Joint_Senior_Supervisor =  $_POST['Joint_Senior_Supervisor'];
@@ -307,7 +307,18 @@ if(@$_GET['R-email'] ) {
     $HDR_Hours =  $_POST['HDR_Hours'];
    
    
-    $result=mysqli_query($con,"INSERT INTO research VALUES  ('$email', '$Total_Research_Hours', '$Associate_Supervisor', '$Joint_Senior_Supervisor', '$Senior_Supervisor', '$HDR_Hours', '$c')") or die('Error');
+    $result=mysqli_query($con,"INSERT INTO research VALUES  ('$email', '$Associate_Supervisor', '$Joint_Senior_Supervisor', '$Senior_Supervisor', '$HDR_Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#res");
+}
+
+//add to Research total
+if(@$_GET['Rt-email'] ) {
+    $email=@$_GET['Rt-email'];
+    $c=0;
+  
+    $Total_Research_Hours =  $_POST['Total_Research_Hours'];
+    
+    $result=mysqli_query($con,"INSERT INTO total_research VALUES  ('$email', '$Total_Research_Hours', '$c')") or die('Error');
     header("location:admin-staffmember.php?q=8&memail=$email&id=#res");
 }
 
@@ -315,12 +326,22 @@ if(@$_GET['R-email'] ) {
 if(@$_GET['AD-email'] ) {
     $email=@$_GET['AD-email'];
    $c=0;
-   $c++;
-    $Standard_Administration =  $_POST['Standard_Administration'];
+   
     $Allocation_Name =  $_POST['Allocation_Name'];
     $Hours =  $_POST['Hours'];
    
-    $result=mysqli_query($con,"INSERT INTO administration VALUES  ('$email', ' $Standard_Administration', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    $result=mysqli_query($con,"INSERT INTO administration VALUES  ('$email', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#admin");
+}
+
+//add to Admistration total
+if(@$_GET['ADt-email'] ) {
+    $email=@$_GET['ADt-email'];
+   $c=0;
+   
+    $Standard_Administration =  $_POST['Standard_Administration'];
+    
+    $result=mysqli_query($con,"INSERT INTO total_administration VALUES  ('$email', ' $Standard_Administration', '$c')") or die('Error');
     header("location:admin-staffmember.php?q=8&memail=$email&id=#admin");
 }
 
@@ -328,12 +349,22 @@ if(@$_GET['AD-email'] ) {
 if(@$_GET['CE-email'] ) {
     $email=@$_GET['CE-email'];
     $c=0;
-   $c++;
-    $Standard_Professional =  $_POST['Standard_Professional'];
+   
     $Allocation_Name =  $_POST['Allocation_Name'];
     $Hours =  $_POST['Hours'];
    
-    $result=mysqli_query($con,"INSERT INTO community_eng VALUES  ('$email', '$Standard_Professional', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    $result=mysqli_query($con,"INSERT INTO community_eng VALUES  ('$email', '$Allocation_Name', '$Hours', '$c')") or die('Error');
+    header("location:admin-staffmember.php?q=8&memail=$email&id=#com");
+}
+
+//add to community eng total
+if(@$_GET['CEt-email'] ) {
+    $email=@$_GET['CEt-email'];
+    $c=0;
+   
+    $Standard_Professional =  $_POST['Standard_Professional'];
+
+    $result=mysqli_query($con,"INSERT INTO total_community_eng VALUES  ('$email', '$Standard_Professional', '$c')") or die('Error');
     header("location:admin-staffmember.php?q=8&memail=$email&id=#com");
 }
 
@@ -342,7 +373,7 @@ if(@$_GET['CE-email'] ) {
 if(@$_GET['LEV-email'] ) {
     $email=@$_GET['LEV-email'];
     $c=0;
-   $c++;
+   
     $Allocation_Name =  $_POST['Allocation_Name'];
     $Hours =  $_POST['Hours'];
    

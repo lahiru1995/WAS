@@ -25,6 +25,9 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
 </head>
 <body>
   <div class="container-scroller">
@@ -178,6 +181,20 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi mdi-book-open-page-variant menu-icon"></i>
+              <span class="menu-title">Teaching</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic" >
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=11">Course Coordination</a></li>
+                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=22">Teaching </a></li>
+                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=33">T & L Allowance </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=2">
               <i class="mdi mdi-flask-outline menu-icon"></i>
               <span class="menu-title">Research</span>
@@ -200,20 +217,6 @@
               <i class="mdi mdi mdi-calendar-clock menu-icon"></i>
               <span class="menu-title">Leave</span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi mdi-book-open-page-variant menu-icon"></i>
-              <span class="menu-title">Teaching</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic" >
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=11">Course Coordination</a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=22">Teaching </a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?> href="teaching.php?q=33">T & L Allowance </a></li>
-              </ul>
-            </div>
           </li>
           
          
@@ -243,8 +246,90 @@
         <div class="content-wrapper">
           
           <?php if(@$_GET['q']==1) {
+          include_once 'dbConnection.php';
+          $email=$_SESSION['email'];
           
-          echo'
+          $query1 = mysqli_query($con, "SELECT SUM(Workload_hours) AS sum FROM semester_teaching WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch = mysqli_fetch_assoc($query1);
+           $s = $fetch['sum'];
+
+           $query2 = mysqli_query($con, "SELECT SUM(Total_Hours) AS sum1 FROM course_coordination WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch1 = mysqli_fetch_assoc($query2);
+           $s1 = $fetch1['sum1'];
+
+           $query3 = mysqli_query($con, "SELECT SUM(Sum_Workload_Hours) AS sum2 FROM sim_semester WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch2 = mysqli_fetch_assoc($query3);
+           $s2 = $fetch2['sum2'];
+
+           $query4 = mysqli_query($con, "SELECT SUM(Hours) AS sum3 FROM online_teaching WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch3 = mysqli_fetch_assoc($query4);
+           $s3 = $fetch3['sum3'];
+
+           $query5 = mysqli_query($con, "SELECT SUM(Sum_of_workload) AS sum4 FROM suibe WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch4 = mysqli_fetch_assoc($query5);
+           $s4 = $fetch4['sum4'];
+
+           $query6 = mysqli_query($con, "SELECT SUM(hours) AS sum5 FROM tl_allowance WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch5 = mysqli_fetch_assoc($query6);
+           $s5 = $fetch5['sum5'];
+            
+          $total = $s+$s1+$s2+$s3+$s4+$s5;
+
+          $query7 = mysqli_query($con, "SELECT SUM(HDR_Hours) AS hdr FROM research WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch6 = mysqli_fetch_assoc($query7);
+           $hdr = $fetch6['hdr'];
+
+           $query8 = mysqli_query($con, "SELECT * FROM total_research WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch7 = mysqli_fetch_assoc($query8);
+           $resh = $fetch7['Total_Research_Hours'];
+
+           $query9 = mysqli_query($con, "SELECT * FROM total_administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch8 = mysqli_fetch_assoc($query9);
+           $adm = $fetch8['Standard_Administration'];
+
+           $query10 = mysqli_query($con, "SELECT SUM(Hours) AS th FROM administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch9 = mysqli_fetch_assoc($query10);
+           $th = $fetch9['th'];
+
+           $total_admis = $adm + $th;
+          
+           $query11 = mysqli_query($con, "SELECT * FROM total_community_eng WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch10 = mysqli_fetch_assoc($query11);
+           $sp = $fetch10['Standard_Professional'];
+
+           $query12 = mysqli_query($con, "SELECT SUM(Hours) AS tc FROM community_eng WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch11 = mysqli_fetch_assoc($query12);
+           $tc = $fetch11['tc'];
+
+           $total_comunity = $sp + $tc;
+
+           $query13 = mysqli_query($con, "SELECT SUM(Hours) AS tl FROM leave1 WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch12 = mysqli_fetch_assoc($query13);
+           $tl = $fetch12['tl'];
+           if($tl==''){$tl=0;}else{$tl=$tl;}
+
+           $unallocate = 1457 - ($total+$hdr+$resh+$total_admis+$total_comunity+$tl);
+
+           $total1 = 1457;
+
+          
+           include_once 'dbConnection.php';
+           $query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
+           $fetch = mysqli_fetch_array($query);
+           echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -260,6 +345,56 @@
            
           </div>';
 
+          
+           echo'
+           <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+
+           <div class="tab-content py-0 px-0">
+           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+           <div class="d-flex flex-wrap justify-content-xl-between">
+             
+             <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+               <i class="mdi mdi-star-circle mr-3 icon-lg text-danger"></i>
+               <div class="d-flex flex-column justify-content-around">
+                 <small class="mb-1 text-muted">Employee No:</small>
+                 <h5 class="mr-2 mb-0">'.$fetch['Employee No'].'</h5>
+               </div>
+             </div>
+             <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+               <i class="mdi mdi-watch mr-3 icon-lg text-success"></i>
+               <div class="d-flex flex-column justify-content-around">
+                 <small class="mb-1 text-muted">F. T. E.</small>
+                 <h5 class="mr-2 mb-0">'.$fetch['F. T. E.'].'</h5>
+               </div>
+             </div>
+             <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+               <i class="mdi mdi-account-card-details mr-3 icon-lg text-warning"></i>
+               <div class="d-flex flex-column justify-content-around">
+                 <small class="mb-1 text-muted">Position</small>
+                 <h5 class="mr-2 mb-0">'.$fetch['Position'].'</h5>
+               </div>
+             </div>
+             <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+               <i class="mdi mdi-account mr-3 icon-lg text-danger"></i>
+               <div class="d-flex flex-column justify-content-around">
+                 <small class="mb-1 text-muted">Workplan Advicer</small>
+                 <h5 class="mr-2 mb-0">'.$fetch['Workplan Advicer'].'</h5>
+               </div>
+             </div>
+           </div>
+         </div></div>
+         
+         </div>
+             </div>
+           </div>
+         </div>';
+
+
+          
+
             echo '
             <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
@@ -274,16 +409,16 @@
                       <thead>
                         <tr>
                           <th>
-                            User
+                          Category
                           </th>
                           <th>
-                            First name
+                          Actual
                           </th>
                           <th>
-                            Progress
+                          Percent of Activity
                           </th>
                           <th>
-                            Amount
+                          Indicative FTE WL
                           </th>
                           
                         </tr>
@@ -292,43 +427,28 @@
                         <tr>
                          
                           <td>
-                            -
+                          Teaching / Teaching-Related
                           </td>
                           <td>
-                            -
+                          '.$total.'
                           </td>
                           <td>
-                            -
+                          '.round($total / $total1 * 100) .'%
                           </td>
                           <td>
-                            -
+                          -
                           </td>
                         </tr>
                          <tr>
                          
                           <td>
-                            -
+                          HDR Supervision
                           </td>
                           <td>
-                            -
+                          '.$hdr.'
                           </td>
                           <td>
-                            -
-                          </td>
-                          <td>
-                            -
-                          </td>
-                        </tr>
-						 <tr>
-                         
-                          <td>
-                            -
-                          </td>
-                          <td>
-                            -
-                          </td>
-                          <td>
-                            -
+                            '.round($hdr / $total1 * 100) .'%
                           </td>
                           <td>
                             -
@@ -337,38 +457,152 @@
 						 <tr>
                          
                           <td>
-                            -
+                          Research
                           </td>
                           <td>
-                            -
+                          '.$resh.'
                           </td>
                           <td>
-                            -
+                            '.round($resh / $total1 * 100) .'%
                           </td>
                           <td>
                             -
                           </td>
                         </tr>
+						 <tr>
+                         
+                          <td>
+                          Leadership / Admin
+                          </td>
+                          <td>
+                          '.$total_admis.'
+                          </td>
+                          <td>
+                            '.round($total_admis / $total1 * 100) .'%
+                          </td>
+                          <td>
+                            -
+                          </td>
+                        </tr>
+                        <tr>
+                         
+                          <td>
+                          Prof / Comm Engagement
+                          </td>
+                          <td>
+                          '.$total_comunity.'
+                          </td>
+                          <td>
+                          '.round($total_comunity / $total1 * 100) .'%
+                          </td>
+                          <td>
+                            -
+                          </td>
+                        </tr>
+                        <tr>
+                         
+                        <td>
+                        Leave
+                        </td>
+                        <td>
+                          '.$tl.'
+                        </td>
+                        <td>
+                          '.round($tl / $total1 * 100) .'%
+                        </td>
+                        <td>
+                          -
+                        </td>
+                      </tr>
+                      <tr>
+                         
+                      <td>
+                      Unallocated*
+                      </td>
+                      <td>
+                      '.$unallocate.'
+                      </td>
+                      <td>
+                      '.round($unallocate / $total1 * 100) .'%
+                      </td>
+                      <td>
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                         
+                    <td>
+                    <b>TOTAL</b>
+                    </td>
+                    <td>
+                      '.$total1.'
+                    </td>
+                    <td>
+                    '.round($total1 / $total1 * 100) .'%
+                    </td>
+                    <td>
+                      -
+                    </td>
+                  </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-8 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Doughnut chart</h4>
-                  <canvas id="doughnutChart"></canvas>
+                  <h4 class="card-title">Workload summary</h4>
+                 <!-- <canvas id="doughnutChart"></canvas>-->
+                  <div id="donutchart" style="width: 100%; height: 400px;"></div>
                 </div>
               </div>
             </div>
             
          
-          </div>';
+          </div>
+          
+          ';
+
+    echo "<script type=\"text/javascript\">
+      
+      google.charts.load(\"current\", {packages:[\"corechart\"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours'],
+          ['Teaching',     $total],
+          ['HDR Supervision',      $hdr],
+          ['Research',  $resh],
+          ['Leadership/Admin', $total_admis],
+          ['Prof/Comm Engagement', $total_comunity],
+          ['Leave',    $tl]
+          
+        ]);
+
+        var options = {
+          title: 'Doughnut chart',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>";
+          
         }?>
 
 <?php if(@$_GET['q']==2) {
+  include_once 'dbConnection.php';
+  $email=$_SESSION['email'];
+
+  $query8 = mysqli_query($con, "SELECT * FROM total_research WHERE email='$email'") or die(mysqli_error());
+  //$fetch = mysqli_fetch_array($query1);
+  $fetch7 = mysqli_fetch_assoc($query8);
+  $resh = $fetch7['Total_Research_Hours'];
+
+  $result = mysqli_query($con, "SELECT * FROM research WHERE email='$email'") or die(mysqli_error());
   echo'
           <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
@@ -383,93 +617,48 @@
                   <thead>
                     <tr>
                       <th>
-                        User
+                        HDR Hours
                       </th>
                       <th>
-                        First name
+                      Associate Supervisor
                       </th>
                       <th>
-                        Progress
+                      Joint Senior Supervisor
                       </th>
                       <th>
-                        Amount
-                      </th>
-                      <th>
-                        Amount
+                      Senior Supervisor
                       </th>
                       
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody>';
+
+                  while($row = mysqli_fetch_array($result)) {
+                    $HDR_Hours = $row['HDR_Hours'];
+                    $Associate_Supervisor = $row['Associate_Supervisor'];
+                    $Joint_Senior_Supervisor = $row['Joint_Senior_Supervisor'];
+                    $Senior_Supervisor = $row['Senior_Supervisor'];
+                    
+                  echo'
                     <tr>
                      
                       <td>
-                        -
+                        '.$HDR_Hours.'
                       </td>
                       <td>
-                        -
+                        '.$Associate_Supervisor.'
                       </td>
                       <td>
-                        -
+                        '.$Joint_Senior_Supervisor.'
                       </td>
                       <td>
-                        -
+                        '.$Senior_Supervisor.'
                       </td>
-                      <td>
-                        -
-                      </td>
+                      
                     </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                    </tr>
+                     ';}
+                    echo'
+         
                   </tbody>
                 </table>
               </div>
@@ -480,7 +669,7 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">Total Research Hours</p>
-                  <h1>28835</h1>
+                  <h1>'.$resh.'</h1>
                   
                   <p class="text-muted">Adjusted pro-rata for part-time fraction or when you have leave (annual leave excepted) and any other adjustments.
                   </p><br>
@@ -497,6 +686,23 @@
         }?>
 
 <?php if(@$_GET['q']==3) {
+   include_once 'dbConnection.php';
+   $email=$_SESSION['email'];
+
+   $query9 = mysqli_query($con, "SELECT * FROM total_administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch8 = mysqli_fetch_assoc($query9);
+           $adm = $fetch8['Standard_Administration'];
+
+           $query10 = mysqli_query($con, "SELECT SUM(Hours) AS th FROM administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch9 = mysqli_fetch_assoc($query10);
+           $th = $fetch9['th'];
+
+           $total_admis = $adm + $th;
+
+           $result = mysqli_query($con, "SELECT * FROM administration WHERE email='$email'") or die(mysqli_error());
+           
   echo'
           <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
@@ -511,68 +717,34 @@
                   <thead>
                     <tr>
                       <th>
-                        User
+                        Allocation Name
                       </th>
                       <th>
-                        First name
+                        Hours
                       </th>
-                      <th>
-                        Progress
-                      </th>
-                    
+                      
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody>';
+
+                  while($row = mysqli_fetch_array($result)) {
+                    $Allocation_Name = $row['Allocation_Name'];
+                    $Hours = $row['Hours'];
+                    
+                  echo'
                     <tr>
                      
                       <td>
-                        -
+                        '.$Allocation_Name.'
                       </td>
                       <td>
-                        -
-                      </td>
-                      <td>
-                        -
+                        '.$Hours.'
                       </td>
                       
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
                       
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
+                    </tr>';}
                      
-                    </tr>
-                  </tbody>
+                  echo'</tbody>
                 </table>
               </div>
             </div>
@@ -582,7 +754,7 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">Standard Administration / Leadership Allocation</p>
-                  <h1>28835</h1>
+                  <h1>'.$total_admis.'</h1>
                   
                   <p class="text-muted">Administration and leadership should list all internal leadership / administrative roles and committee memberships which you undertake.
                   </p><br>
@@ -602,6 +774,23 @@
         }?>
 
 <?php if(@$_GET['q']==4) {
+
+include_once 'dbConnection.php';
+$email=$_SESSION['email'];
+
+$query11 = mysqli_query($con, "SELECT * FROM total_community_eng WHERE email='$email'") or die(mysqli_error());
+//$fetch = mysqli_fetch_array($query1);
+$fetch10 = mysqli_fetch_assoc($query11);
+$sp = $fetch10['Standard_Professional'];
+
+$query12 = mysqli_query($con, "SELECT SUM(Hours) AS tc FROM community_eng WHERE email='$email'") or die(mysqli_error());
+//$fetch = mysqli_fetch_array($query1);
+$fetch11 = mysqli_fetch_assoc($query12);
+$tc = $fetch11['tc'];
+
+$total_comunity = $sp + $tc;
+
+$result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'") or die(mysqli_error());
   echo'
           <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
@@ -616,68 +805,31 @@
                   <thead>
                     <tr>
                       <th>
-                        User
+                        Allocation Name
                       </th>
                       <th>
-                        First name
+                        Hours
                       </th>
-                      <th>
-                        Progress
-                      </th>
-                    
+                     
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody>';
+                    
+                  while($row = mysqli_fetch_array($result)) {
+                    $Allocation_Name = $row['Allocation_Name'];
+                    $Hours = $row['Hours'];
+                  echo'<tr>
                      
                       <td>
-                        -
+                        '.$Allocation_Name.'
                       </td>
                       <td>
-                        -
-                      </td>
-                      <td>
-                        -
+                        '.$Hours.'
                       </td>
                       
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                     
-                    </tr>
-                  </tbody>
+                    </tr>';}
+                    
+                  echo'</tbody>
                 </table>
               </div>
             </div>
@@ -687,7 +839,7 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">Standard Professional / Community Engagement Allocation</p>
-                  <h1>28835</h1>
+                  <h1>'.$total_comunity.'</h1>
                   
                   <p class="text-muted">Normally 184 hours for full-time, adjusted pro-rata for part-time fraction or when you have leave (annual leave excepted).
                   </p><br>
@@ -700,12 +852,18 @@
         }?>
 
 <?php if(@$_GET['q']==5) {
+  include_once 'dbConnection.php';
+  $email=$_SESSION['email'];
+
+  $result = mysqli_query($con, "SELECT * FROM leave1 WHERE email='$email'") or die(mysqli_error());
+          
+
   echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Professional / Community Engagement Roles</h4>
+              <h4 class="card-title">Leave</h4>
              <!-- <p class="card-description">
                 Add class <code>.table-striped</code>
               </p>-->
@@ -714,71 +872,37 @@
                   <thead>
                     <tr>
                       <th>
-                        User
+                        Allocation Name
                       </th>
                       <th>
-                        First name
+                        Hours
                       </th>
-                      <th>
-                        Progress
-                      </th>
+                      
                     
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody>';
+                  while($row = mysqli_fetch_array($result)) {
+                    $Allocation_Name = $row['Allocation_Name'];
+                    $Hours = $row['Hours'];
+
+                    if($Hours ==''){$Hours = 0;}else{$Hours=$Hours;}
+                  echo'
                     <tr>
                      
                       <td>
-                        -
+                        '.$Allocation_Name.'
                       </td>
                       <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
+                       '.$Hours.'
                       </td>
                      
-                    </tr>
-                  </tbody>
+                    </tr>';}
+                     
+                  echo'</tbody>
                 </table>
                 <br>
-                <p class="text-muted">Normally 184 hours for full-time, adjusted pro-rata for part-time fraction or when you have leave (annual leave excepted).
+                <p class="text-muted">This section does not list annual leave - only Research Leave, Long Service Leave, Parental Leave, Leave Without Pay or extended periods of Sick Leave.
                 </p>
                 <p class="text-muted">Annual leave is factored into your normal annualised teaching hours (1656hrs for a full-time member of staff).
                 </p>
@@ -1133,9 +1257,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Staff Member Details</h4>
                   <?php
-				include_once 'dbConnection.php';
-				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
-				$fetch = mysqli_fetch_array($query);
+			
         echo '
         <ul>
         <li><b>Name :</b> '.$fetch['name'].'</li>
@@ -1197,7 +1319,12 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+//--------------------------------kdounut chart----------------
 </script>
+
+
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -1218,13 +1345,13 @@ window.onclick = function(event) {
   <script src="js/dataTables.bootstrap4.js"></script>
   <!-- End custom js for this page-->
   <script src="js/jquery.cookie.js" type="text/javascript"></script>
-  <script src="././vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/chart.js/Chart.min.js"></script>
     <!-- End plugin js for this page-->
   <!-- inject:js -->
 
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="././js/chart.js"></script>
+  <script src="js/chart.js"></script>
 </body>
 
 </html>
