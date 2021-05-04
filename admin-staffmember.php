@@ -2730,7 +2730,207 @@ echo'
             </div>
            
           </div>';
-    
+
+          
+           //------------------Administration ---------------------------
+           $query99 = mysqli_query($con, "SELECT * FROM total_administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch88 = mysqli_fetch_assoc($query99);
+           $adm = $fetch88['Standard_Administration'];
+
+           $query10 = mysqli_query($con, "SELECT SUM(Hours) AS th FROM administration WHERE email='$email'") or die(mysqli_error());
+           //$fetch = mysqli_fetch_array($query1);
+           $fetch9 = mysqli_fetch_assoc($query10);
+           $th = $fetch9['th'];
+
+           $total_admis = $adm + $th;
+
+           $resultAd = mysqli_query($con, "SELECT * FROM administration WHERE email='$email'") or die(mysqli_error());
+           
+
+  echo'
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+              
+              <div class="tab-button" style="display:flex">
+              <button id="tab11" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab11" onclick="myFunction4()">Administration / Leadership</button>
+            </div>
+            <div id="myDIV4" style="display: none">
+
+            <h5>Standard Administration / Leadership Allocation - '.$total_admis.'</h5>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        Allocation Name
+                      </th>
+                      <th>
+                        Hours
+                      </th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>';
+
+                  while($row = mysqli_fetch_array($resultAd)) {
+                    $Allocation_Name1 = $row['Allocation_Name'];
+                    $Hours1 = $row['Hours'];
+                    
+                  echo'
+                    <tr>
+                     
+                      <td>
+                        '.$Allocation_Name1.'
+                      </td>
+                      <td>
+                        '.$Hours1.'
+                      </td>
+                      
+                      
+                    </tr>';}
+                     
+                  echo'</tbody>
+                </table>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+            </div>
+           
+          </div>';
+
+
+          //------------------Community Engadgement ---------------------------
+          $query11 = mysqli_query($con, "SELECT * FROM total_community_eng WHERE email='$email'") or die(mysqli_error());
+          //$fetch = mysqli_fetch_array($query1);
+          $fetch10 = mysqli_fetch_assoc($query11);
+          $sp = $fetch10['Standard_Professional'];
+          
+          $query12 = mysqli_query($con, "SELECT SUM(Hours) AS tc FROM community_eng WHERE email='$email'") or die(mysqli_error());
+          //$fetch = mysqli_fetch_array($query1);
+          $fetch11 = mysqli_fetch_assoc($query12);
+          $tc = $fetch11['tc'];
+          
+          $total_comunity = $sp + $tc;
+          
+          $resultco = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'") or die(mysqli_error());
+           
+
+ echo'
+         <div class="row">
+           <div class="col-md-12 grid-margin stretch-card">
+           <div class="card">
+           <div class="card-body">
+             
+             <div class="tab-button" style="display:flex">
+             <button id="tab12" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab12" onclick="myFunction5()">Professional / Community Engagement Roles</button>
+           </div>
+           <div id="myDIV5" style="display: none">
+
+           <h5>Standard Professional / Community Engagement Allocation - '.$total_comunity.'</h5>
+           <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        Allocation Name
+                      </th>
+                      <th>
+                        Hours
+                      </th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>';
+                    
+                  while($row = mysqli_fetch_array($resultco)) {
+                    $Allocation_Name2 = $row['Allocation_Name'];
+                    $Hours2 = $row['Hours'];
+                  echo'<tr>
+                     
+                      <td>
+                        '.$Allocation_Name2.'
+                      </td>
+                      <td>
+                        '.$Hours2.'
+                      </td>
+                      
+                    </tr>';}
+                    
+                  echo'</tbody>
+                </table>
+              </div>
+           </div>
+ 
+           </div>
+         </div>
+           </div>
+          
+         </div>';
+
+
+          //------------------Leave ---------------------------
+         
+  $resultleave = mysqli_query($con, "SELECT * FROM leave1 WHERE email='$email'") or die(mysqli_error());
+   
+
+ echo'
+         <div class="row">
+           <div class="col-md-12 grid-margin stretch-card">
+           <div class="card">
+           <div class="card-body">
+             
+             <div class="tab-button" style="display:flex">
+             <button id="tab13" style="padding-top:0px; margin-top:0px; padding-left:0px; background-color: inherit; float: left; border: none; outline: none;" class="tab13" onclick="myFunction6()">Leave</button>
+           </div>
+           <div id="myDIV6" style="display: none">
+
+          
+           <div class="table-responsive">
+           <table class="table table-striped">
+             <thead>
+               <tr>
+                 <th>
+                   Allocation Name
+                 </th>
+                 <th>
+                   Hours
+                 </th>
+                 
+               
+               </tr>
+             </thead>
+             <tbody>';
+             while($row = mysqli_fetch_array($resultleave)) {
+               $Allocation_Name3 = $row['Allocation_Name'];
+               $Hours3 = $row['Hours'];
+
+               if($Hours3 ==''){$Hours3 = 0;}else{$Hours3=$Hours3;}
+             echo'
+               <tr>
+                
+                 <td>
+                   '.$Allocation_Name3.'
+                 </td>
+                 <td>
+                  '.$Hours3.'
+                 </td>
+                
+               </tr>';}
+                
+             echo'</tbody>
+           </table></div>
+           </div>
+ 
+           </div>
+         </div>
+           </div>
+          
+         </div>';
 }
 }?>
 
@@ -2880,6 +3080,42 @@ function myFunction3() {
   } else {
     x.style.display = "none";
     document.getElementById("tab10").style.color = "#ccc";
+  }
+}
+
+function myFunction4() {
+  
+  var x = document.getElementById("myDIV4");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    document.getElementById("tab11").style.color = "#4a4a4a";
+  } else {
+    x.style.display = "none";
+    document.getElementById("tab11").style.color = "#ccc";
+  }
+}
+
+function myFunction5() {
+  
+  var x = document.getElementById("myDIV5");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    document.getElementById("tab12").style.color = "#4a4a4a";
+  } else {
+    x.style.display = "none";
+    document.getElementById("tab12").style.color = "#ccc";
+  }
+}
+
+function myFunction6() {
+  
+  var x = document.getElementById("myDIV6");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    document.getElementById("tab13").style.color = "#4a4a4a";
+  } else {
+    x.style.display = "none";
+    document.getElementById("tab13").style.color = "#ccc";
   }
 }
 </script>

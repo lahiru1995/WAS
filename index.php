@@ -917,90 +917,248 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
         }?>
 
 <?php if(@$_GET['q']==8) {
-  echo'
-          <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Professional / Community Engagement Roles</h4>
-             <!-- <p class="card-description">
-                Add class <code>.table-striped</code>
-              </p>-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        User
-                      </th>
-                      <th>
-                        First name
-                      </th>
-                      <th>
-                        Progress
-                      </th>
-                    
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                     
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                     
-                    </tr>
-                  </tbody>
-                </table>
-               
-              </div>
-            </div>
-          </div>
-            </div>
-           
-          </div>';
+   include_once 'dbConnection.php';
+   $email=$_SESSION['email'];
+   
+   $query1 = mysqli_query($con, "SELECT SUM(Workload_hours) AS sum FROM semester_teaching WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch = mysqli_fetch_assoc($query1);
+    $s = $fetch['sum'];
+
+    $query2 = mysqli_query($con, "SELECT SUM(Total_Hours) AS sum1 FROM course_coordination WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch1 = mysqli_fetch_assoc($query2);
+    $s1 = $fetch1['sum1'];
+
+    $query3 = mysqli_query($con, "SELECT SUM(Sum_Workload_Hours) AS sum2 FROM sim_semester WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch2 = mysqli_fetch_assoc($query3);
+    $s2 = $fetch2['sum2'];
+
+    $query4 = mysqli_query($con, "SELECT SUM(Hours) AS sum3 FROM online_teaching WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch3 = mysqli_fetch_assoc($query4);
+    $s3 = $fetch3['sum3'];
+
+    $query5 = mysqli_query($con, "SELECT SUM(Sum_of_workload) AS sum4 FROM suibe WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch4 = mysqli_fetch_assoc($query5);
+    $s4 = $fetch4['sum4'];
+
+    $query6 = mysqli_query($con, "SELECT SUM(hours) AS sum5 FROM tl_allowance WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch5 = mysqli_fetch_assoc($query6);
+    $s5 = $fetch5['sum5'];
+     
+   $total = $s+$s1+$s2+$s3+$s4+$s5;
+
+   $query7 = mysqli_query($con, "SELECT SUM(HDR_Hours) AS hdr FROM research WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch6 = mysqli_fetch_assoc($query7);
+    $hdr = $fetch6['hdr'];
+
+    $query8 = mysqli_query($con, "SELECT * FROM total_research WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch7 = mysqli_fetch_assoc($query8);
+    $resh = $fetch7['Total_Research_Hours'];
+
+    $query9 = mysqli_query($con, "SELECT * FROM total_administration WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch8 = mysqli_fetch_assoc($query9);
+    $adm = $fetch8['Standard_Administration'];
+
+    $query10 = mysqli_query($con, "SELECT SUM(Hours) AS th FROM administration WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch9 = mysqli_fetch_assoc($query10);
+    $th = $fetch9['th'];
+
+    $total_admis = $adm + $th;
+   
+    $query11 = mysqli_query($con, "SELECT * FROM total_community_eng WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch10 = mysqli_fetch_assoc($query11);
+    $sp = $fetch10['Standard_Professional'];
+
+    $query12 = mysqli_query($con, "SELECT SUM(Hours) AS tc FROM community_eng WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch11 = mysqli_fetch_assoc($query12);
+    $tc = $fetch11['tc'];
+
+    $total_comunity = $sp + $tc;
+
+    $query13 = mysqli_query($con, "SELECT SUM(Hours) AS tl FROM leave1 WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch12 = mysqli_fetch_assoc($query13);
+    $tl = $fetch12['tl'];
+    if($tl==''){$tl=0;}else{$tl=$tl;}
+
+    $unallocate = 1457 - ($total+$hdr+$resh+$total_admis+$total_comunity+$tl);
+
+    $total1 = 1457;
+
+   
+    include_once 'dbConnection.php';
+    $query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
+    $fetch = mysqli_fetch_array($query);
+    
+   
+
+     echo '
+     <div class="row">
+     <div class="col-lg-12 grid-margin stretch-card">
+       <div class="card">
+         <div class="card-body">
+           <h4 class="card-title">Workload Summary</h4>
+          <!-- <p class="card-description">
+             Add class <code>.table-striped</code>
+           </p>-->
+           <div class="table-responsive">
+             <table class="table table-striped">
+               <thead>
+                 <tr>
+                   <th>
+                   Category
+                   </th>
+                   <th>
+                   Actual
+                   </th>
+                   <th>
+                   Percent of Activity
+                   </th>
+                   <th>
+                   Indicative FTE WL
+                   </th>
+                   
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                  
+                   <td>
+                   Teaching / Teaching-Related
+                   </td>
+                   <td>
+                   '.$total.'
+                   </td>
+                   <td>
+                   '.round($total / $total1 * 100) .'%
+                   </td>
+                   <td>
+                   -
+                   </td>
+                 </tr>
+                  <tr>
+                  
+                   <td>
+                   HDR Supervision
+                   </td>
+                   <td>
+                   '.$hdr.'
+                   </td>
+                   <td>
+                     '.round($hdr / $total1 * 100) .'%
+                   </td>
+                   <td>
+                     -
+                   </td>
+                 </tr>
+      <tr>
+                  
+                   <td>
+                   Research
+                   </td>
+                   <td>
+                   '.$resh.'
+                   </td>
+                   <td>
+                     '.round($resh / $total1 * 100) .'%
+                   </td>
+                   <td>
+                     -
+                   </td>
+                 </tr>
+      <tr>
+                  
+                   <td>
+                   Leadership / Admin
+                   </td>
+                   <td>
+                   '.$total_admis.'
+                   </td>
+                   <td>
+                     '.round($total_admis / $total1 * 100) .'%
+                   </td>
+                   <td>
+                     -
+                   </td>
+                 </tr>
+                 <tr>
+                  
+                   <td>
+                   Prof / Comm Engagement
+                   </td>
+                   <td>
+                   '.$total_comunity.'
+                   </td>
+                   <td>
+                   '.round($total_comunity / $total1 * 100) .'%
+                   </td>
+                   <td>
+                     -
+                   </td>
+                 </tr>
+                 <tr>
+                  
+                 <td>
+                 Leave
+                 </td>
+                 <td>
+                   '.$tl.'
+                 </td>
+                 <td>
+                   '.round($tl / $total1 * 100) .'%
+                 </td>
+                 <td>
+                   -
+                 </td>
+               </tr>
+               <tr>
+                  
+               <td>
+               Unallocated*
+               </td>
+               <td>
+               '.$unallocate.'
+               </td>
+               <td>
+               '.round($unallocate / $total1 * 100) .'%
+               </td>
+               <td>
+                 -
+               </td>
+             </tr>
+             <tr>
+                  
+             <td>
+             <b>TOTAL</b>
+             </td>
+             <td>
+               '.$total1.'
+             </td>
+             <td>
+             '.round($total1 / $total1 * 100) .'%
+             </td>
+             <td>
+               -
+             </td>
+           </tr>
+               </tbody>
+             </table>
+           </div>
+         </div>
+       </div>
+     </div></div>
+   ';
 
           echo'
           <div class="row">

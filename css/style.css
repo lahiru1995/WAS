@@ -21972,14 +21972,14 @@ dl li {
 /*# sourceMappingURL=maps/style.css.map */
 
 
-.tab2, .tab3, .tab4, .tab5, .tab6, .tab7, .tab8, .tab9, .tab10{
+.tab2, .tab3, .tab4, .tab5, .tab6, .tab7, .tab8, .tab9, .tab10, .tab11, .tab12, .tab13{
   color: #ccc;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   font-size: .875rem;
   font-weight: bold;
 }
-.tab2.active, .tab3.active, .tab4.active, .tab5.active, .tab6.active, .tab7.active, .tab8.active, .tab9.active, .tab10.active{
+.tab2.active, .tab3.active, .tab4.active, .tab5.active, .tab6.active, .tab7.active, .tab8.active, .tab9.active, .tab10.active, .tab11.active, .tab12.active, .tab13.active{
  
   color:#4a4a4a;
 }
