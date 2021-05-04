@@ -178,6 +178,27 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" 
+            <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
+            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
+            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
+            data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi mdi-book-open-page-variant menu-icon"></i>
+              <span class="menu-title">Teaching</span>
+              <i <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
+            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
+            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
+            class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic" >
+              <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==11) echo'style=" font-weight:500;"'; ?> href="teaching.php?q=11">Course Coordination</a></li>
+                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==22) echo'style="font-weight:500;"'; ?> href="teaching.php?q=22">Teaching </a></li>
+                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==33) echo'style=" font-weight: 500;"'; ?> href="teaching.php?q=33">T & L Allowance </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="index.php?q=2">
               <i class="mdi mdi-flask-outline menu-icon"></i>
               <span class="menu-title">Research</span>
@@ -201,27 +222,7 @@
               <span class="menu-title">Leave</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" 
-            <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
-            data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi mdi-book-open-page-variant menu-icon"></i>
-              <span class="menu-title">Teaching</span>
-              <i <?php if(@$_GET['q']==11) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==22) echo'style=" color: #4d83ff;"'; ?>
-            <?php if(@$_GET['q']==33) echo'style=" color: #4d83ff;"'; ?>
-            class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic" >
-              <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==11) echo'style=" font-weight:500;"'; ?> href="teaching.php?q=11">Course Coordination</a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==22) echo'style="font-weight:500;"'; ?> href="teaching.php?q=22">Teaching </a></li>
-                <li class="nav-item"> <a class="nav-link" <?php if(@$_GET['q']==33) echo'style=" font-weight: 500;"'; ?> href="teaching.php?q=33">T & L Allowance </a></li>
-              </ul>
-            </div>
-          </li>
+          
           
          
           <li class="nav-item">

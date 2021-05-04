@@ -400,7 +400,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Striped Table</h4>
+                  <h4 class="card-title">Workload Summary</h4>
                  <!-- <p class="card-description">
                     Add class <code>.table-striped</code>
                   </p>-->
@@ -608,7 +608,7 @@
             <div class="col-md-7 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Striped Table</h4>
+              <h4 class="card-title">Research / H D R</h4>
              <!-- <p class="card-description">
                 Add class <code>.table-striped</code>
               </p>-->
@@ -1179,25 +1179,25 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                 <div class="row">
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Teaching &Teaching-Related</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Course Coordination</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Other L&T Activities</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>HDR Supervision</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
@@ -1206,32 +1206,32 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                     <div class="row">
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Research</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Leadership / Admin</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Prof/Comm Engagement</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                       <div class="col-md-3">
                       <div class="form-group">
-                      <label>Large input</label>
+                      <label>Leave</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
                     </div>
             
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-2">Calculate</button>
+                    <button type="submit" class="btn btn-success mr-2">Request</button>
                     <button class="btn btn-light">Cancel</button>
                     
                     </form>
