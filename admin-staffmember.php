@@ -362,7 +362,7 @@ if(@$_GET['q7'])
       </div>';
     }?>
         
-
+<!----------------------------------- Staff memeber list -------------------------------------------->
 <?php if(@$_GET['q']==3) {
 include_once 'dbConnection.php';
 $result = mysqli_query($con,"SELECT * FROM user WHERE login ='0'") or die('Error');
@@ -474,7 +474,7 @@ while($row = mysqli_fetch_array($result)) {
 
 
 
-
+<!----------------------------------------Manage Staff members------------------------------>
 <?php if(@$_GET['q']==8) {
 
 include_once 'dbConnection.php';
@@ -494,34 +494,71 @@ if(@$_GET['memail'] ) {
   $email = $fetch['email'];
   $file = $fetch['file'];
 
+
+
+
 echo'
 <a href="admin-staffmember.php?q=3" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
 Back</a>
 
-<div class="row">
+ <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
   <div class="card">
   <div class="card-body">
-  <div style="display:flex;  align-items:center; ">
-  <img src="./files/'.$file.'" style="margin-right: 30px; width:40px; heigth:40px; border-radius:50%"alt="Avatar" class="avatar">
-  <h5 style="padding-right:30px">Name: <small class="text-muted">'.$name.'</small></h5>
-  <h5 style="padding-right:30px">Employee No: <small class="text-muted">'.$Employee_No.'</small></h5>
-  <h5 style="padding-right:30px">Email: <small class="text-muted">'.$email.'</small></h5>
-  <h5 style="padding-right:30px">Position: <small class="text-muted">'.$Position.'</small></h5>
-  <a href="" style="margin: 0px 10px 0px 10px" type="button" class="btn btn-outline-primary btn-fw">Edit</a>
-  <a href="admin-staffmember.php?q=10&vemail='.$email.'" style="margin: 0px 10px 0px 10px" type="button" class="btn btn-outline-primary btn-fw">View</a>
-  </div>
-  
-  <!-- <p class="card-description">
-      Add class <code>.table-striped</code>
-    </p>-->
-    
-  </div>
-</div>
-  </div>
- 
-</div>';
 
+ <div class="tab-content py-0 px-0">
+ <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+ <div class="d-flex flex-wrap justify-content-xl-between">
+ <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+ 
+ <div class="d-flex flex-column justify-content-around">
+   
+   <img src="./files/'.$file.'" style="margin-right: 30px; width:40px; heigth:40px; border-radius:50%"alt="Avatar" class="avatar">
+ </div>
+</div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-star-circle mr-3 icon-lg text-danger"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Name:</small>
+       <h5 class="mr-2 mb-0">'.$name.'</h5>
+     </div>
+   </div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-watch mr-3 icon-lg text-success"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Employee No:</small>
+       <h5 class="mr-2 mb-0">'.$Employee_No.'</h5>
+     </div>
+   </div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-account-card-details mr-3 icon-lg text-warning"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Email:</small>
+       <h5 class="mr-2 mb-0">'.$email.'</h5>
+     </div>
+   </div>
+   <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-account mr-3 icon-lg text-danger"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Position</small>
+       <h5 class="mr-2 mb-0">'.$Position.'</h5>
+     </div>
+   </div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+    
+     <div class="d-flex flex-column justify-content-around">
+      
+     <a href="admin-staffmember.php?q=10&vemail='.$email.'" style="margin: 0px 10px 0px 10px" type="button" class="btn btn-outline-primary btn-fw">View</a>
+     </div>
+   </div>
+
+ </div>
+</div></div>
+
+</div>
+   </div>
+ </div>
+</div>';
 
     echo'
     
@@ -1398,7 +1435,7 @@ Back</a>
 }?>
 
 
-
+<!----------------------------------------Edit Staff Members------------------------------>
 <?php if(@$_GET['q']==22) {
 include_once 'dbConnection.php';
 
@@ -1508,6 +1545,7 @@ if(@$_GET['demail'] ) {
   
     }?>
 
+<!----------------------------------------view staffmember data------------------------------>
 <?php if(@$_GET['q']==10) {
 
 include_once 'dbConnection.php';
@@ -1597,6 +1635,12 @@ $query7 = mysqli_query($con, "SELECT SUM(HDR_Hours) AS hdr FROM research WHERE e
  $query = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
  $fetch = mysqli_fetch_array($query);
  
+ $teaching = 864;
+    $research_Sch = 504;
+    $prof_Community = 184;
+    $Leadership_Adm = 104;
+   $TT = ($fetch['F. T. E.'] * $teaching) + ($fetch['F. T. E.'] * $research_Sch) + ($fetch['F. T. E.'] * $Leadership_Adm) + ($fetch['F. T. E.'] * $prof_Community);
+   
 
 
  echo'
@@ -1652,161 +1696,165 @@ Back</a>
 
 
 
-  echo '
-  <div class="row">
-  <div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Workload Summary</h4>
-       <!-- <p class="card-description">
-          Add class <code>.table-striped</code>
-        </p>-->
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>
-                Category
-                </th>
-                <th>
-                Actual
-                </th>
-                <th>
-                Percent of Activity
-                </th>
-                <th>
-                Indicative FTE WL
-                </th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-               
-                <td>
-                Teaching / Teaching-Related
-                </td>
-                <td>
-                '.$total.'
-                </td>
-                <td>
-                '.round($total / $total1 * 100) .'%
-                </td>
-                <td>
-                -
-                </td>
-              </tr>
-               <tr>
-               
-                <td>
-                HDR Supervision
-                </td>
-                <td>
-                '.$hdr.'
-                </td>
-                <td>
-                  '.round($hdr / $total1 * 100) .'%
-                </td>
-                <td>
-                  -
-                </td>
-              </tr>
-   <tr>
-               
-                <td>
-                Research
-                </td>
-                <td>
-                '.$resh.'
-                </td>
-                <td>
-                  '.round($resh / $total1 * 100) .'%
-                </td>
-                <td>
-                  -
-                </td>
-              </tr>
-   <tr>
-               
-                <td>
-                Leadership / Admin
-                </td>
-                <td>
-                '.$total_admis.'
-                </td>
-                <td>
-                  '.round($total_admis / $total1 * 100) .'%
-                </td>
-                <td>
-                  -
-                </td>
-              </tr>
-              <tr>
-               
-                <td>
-                Prof / Comm Engagement
-                </td>
-                <td>
-                '.$total_comunity.'
-                </td>
-                <td>
-                '.round($total_comunity / $total1 * 100) .'%
-                </td>
-                <td>
-                  -
-                </td>
-              </tr>
-              <tr>
-               
+echo '
+<div class="row">
+<div class="col-lg-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Workload Summary</h4>
+     <!-- <p class="card-description">
+        Add class <code>.table-striped</code>
+      </p>-->
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+              Category
+              </th>
+              <th>
+              Actual
+              </th>
+              <th>
+              Percent of Activity
+              </th>
+              <th>
+              Indicative FTE WL
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+             
               <td>
-              Leave
+              Teaching / Teaching-Related
               </td>
               <td>
-                '.$tl.'
+              '.$total.'
               </td>
               <td>
-                '.round($tl / $total1 * 100) .'%
+              '.round($total / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetch['F. T. E.'] * $teaching.'
+              </td>
+            </tr>
+             <tr>
+             
+              <td>
+              HDR Supervision
+              </td>
+              <td>
+              '.$hdr.'
+              </td>
+              <td>
+                '.round($hdr / $total1 * 100) .'%
               </td>
               <td>
                 -
               </td>
             </tr>
+ <tr>
+             
+              <td>
+              Research
+              </td>
+              <td>
+              '.$resh.'
+              </td>
+              <td>
+                '.round($resh / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetch['F. T. E.'] * $research_Sch.'
+              </td>
+            </tr>
+ <tr>
+             
+              <td>
+              Leadership / Admin
+              </td>
+              <td>
+              '.$total_admis.'
+              </td>
+              <td>
+                '.round($total_admis / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetch['F. T. E.'] * $Leadership_Adm.'
+              </td>
+            </tr>
             <tr>
-               
+             
+              <td>
+              Prof / Comm Engagement
+              </td>
+              <td>
+              '.$total_comunity.'
+              </td>
+              <td>
+              '.round($total_comunity / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetch['F. T. E.'] * $prof_Community.'
+              </td>
+            </tr>
+            <tr>
+             
             <td>
-            Unallocated*
+            Leave
             </td>
             <td>
-            '.$unallocate.'
+              '.$tl.'
             </td>
             <td>
-            '.round($unallocate / $total1 * 100) .'%
+              '.round($tl / $total1 * 100) .'%
             </td>
             <td>
               -
             </td>
           </tr>
           <tr>
-               
+             
           <td>
-          <b>TOTAL</b>
+          Unallocated*
           </td>
           <td>
-            '.$total1.'
+          '.$unallocate.'
           </td>
           <td>
-          '.round($total1 / $total1 * 100) .'%
+          '.round($unallocate / $total1 * 100) .'%
           </td>
           <td>
             -
           </td>
         </tr>
-            </tbody>
-          </table></div>
-        </div>
+        <tr>
+             
+        <td>
+        <b>TOTAL</b>
+        </td>
+        <td>
+          '.$total1.'
+        </td>
+        <td>
+        '.round($total1 / $total1 * 100) .'%
+        </td>
+        <td>
+        '.$TT.'
+        </td>
+      </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>';
+  </div>
+</div>
+
+</div>
+
+';
 
 
   //------------------course coordination---------------------------

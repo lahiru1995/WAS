@@ -257,7 +257,7 @@
         <div class="content-wrapper">
           
         
-
+<!----------------------------------------Add User------------------------------>
 <?php if(@$_GET['q']==6) {
   /*----------------------------------- alart------------ ---*/
 if(@$_GET['q7'])
@@ -343,6 +343,8 @@ if(@$_GET['q7'])
       ';
         }?>
 
+
+<!----------------------------------------User List------------------------------>
 <?php if(@$_GET['q']==7) {
   include_once 'dbConnection.php';
   $result = mysqli_query($con,"SELECT * FROM user WHERE login ='2'") or die('Error');
@@ -438,6 +440,7 @@ if(@$_GET['q7'])
         }?>
 
 
+<!----------------------------------------Edit admin(users)------------------------------>
 <?php if(@$_GET['q']==66) {
 include_once 'dbConnection.php';
 

@@ -4,6 +4,7 @@
 	if(!ISSET($_SESSION['email'])){
 		header('location:index.php');
 	}
+  
 ?>
 <html lang="en">
 
@@ -245,6 +246,7 @@
       <div class="main-panel">
         <div class="content-wrapper">
           
+<!----------------------------------------staffmember dashboard------------------------------>
           <?php if(@$_GET['q']==1) {
           include_once 'dbConnection.php';
           $email=$_SESSION['email'];
@@ -329,6 +331,12 @@
            include_once 'dbConnection.php';
            $query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
            $fetch = mysqli_fetch_array($query);
+
+           $teaching = 864;
+           $research_Sch = 504;
+           $prof_Community = 184;
+           $Leadership_Adm = 104;
+          $TT = ($fetch['F. T. E.'] * $teaching) + ($fetch['F. T. E.'] * $research_Sch) + ($fetch['F. T. E.'] * $Leadership_Adm) + ($fetch['F. T. E.'] * $prof_Community);
            echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -436,7 +444,7 @@
                           '.round($total / $total1 * 100) .'%
                           </td>
                           <td>
-                          -
+                          '.$fetch['F. T. E.'] * $teaching.'
                           </td>
                         </tr>
                          <tr>
@@ -466,7 +474,7 @@
                             '.round($resh / $total1 * 100) .'%
                           </td>
                           <td>
-                            -
+                          '.$fetch['F. T. E.'] * $research_Sch.'
                           </td>
                         </tr>
 						 <tr>
@@ -481,7 +489,7 @@
                             '.round($total_admis / $total1 * 100) .'%
                           </td>
                           <td>
-                            -
+                          '.$fetch['F. T. E.'] * $Leadership_Adm.'
                           </td>
                         </tr>
                         <tr>
@@ -496,7 +504,7 @@
                           '.round($total_comunity / $total1 * 100) .'%
                           </td>
                           <td>
-                            -
+                          '.$fetch['F. T. E.'] * $prof_Community.'
                           </td>
                         </tr>
                         <tr>
@@ -541,7 +549,7 @@
                     '.round($total1 / $total1 * 100) .'%
                     </td>
                     <td>
-                      -
+                    '.$TT.'
                     </td>
                   </tr>
                       </tbody>
@@ -593,6 +601,7 @@
           
         }?>
 
+<!----------------------------------------Research / HDR------------------------------>
 <?php if(@$_GET['q']==2) {
   include_once 'dbConnection.php';
   $email=$_SESSION['email'];
@@ -685,6 +694,7 @@
           </div>';
         }?>
 
+<!----------------------------------------Administration------------------------------>
 <?php if(@$_GET['q']==3) {
    include_once 'dbConnection.php';
    $email=$_SESSION['email'];
@@ -773,6 +783,7 @@
           </div>';
         }?>
 
+<!----------------------------------------Community Eng------------------------------>
 <?php if(@$_GET['q']==4) {
 
 include_once 'dbConnection.php';
@@ -851,6 +862,7 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
           </div>';
         }?>
 
+<!----------------------------------------Leave------------------------------>
 <?php if(@$_GET['q']==5) {
   include_once 'dbConnection.php';
   $email=$_SESSION['email'];
@@ -916,6 +928,8 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
           </div>';
         }?>
 
+
+<!----------------------------------------Calculator------------------------------>
 <?php if(@$_GET['q']==8) {
    include_once 'dbConnection.php';
    $email=$_SESSION['email'];
@@ -994,6 +1008,7 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
 
     $unallocate = 1457 - ($total+$hdr+$resh+$total_admis+$total_comunity+$tl);
 
+  
     $total1 = 1457;
 
    
@@ -1001,394 +1016,242 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
     $query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
     $fetch = mysqli_fetch_array($query);
     
+    $teaching = 864;
+    $research_Sch = 504;
+    $prof_Community = 184;
+    $Leadership_Adm = 104;
+   $TT = ($fetch['F. T. E.'] * $teaching) + ($fetch['F. T. E.'] * $research_Sch) + ($fetch['F. T. E.'] * $Leadership_Adm) + ($fetch['F. T. E.'] * $prof_Community);
    
 
-     echo '
-     <div class="row">
-     <div class="col-lg-12 grid-margin stretch-card">
-       <div class="card">
-         <div class="card-body">
-           <h4 class="card-title">Workload Summary</h4>
-          <!-- <p class="card-description">
-             Add class <code>.table-striped</code>
-           </p>-->
-           <div class="table-responsive">
-             <table class="table table-striped">
-               <thead>
-                 <tr>
-                   <th>
-                   Category
-                   </th>
-                   <th>
-                   Actual
-                   </th>
-                   <th>
-                   Percent of Activity
-                   </th>
-                   <th>
-                   Indicative FTE WL
-                   </th>
-                   
-                 </tr>
-               </thead>
-               <tbody>
-                 <tr>
-                  
-                   <td>
-                   Teaching / Teaching-Related
-                   </td>
-                   <td>
-                   '.$total.'
-                   </td>
-                   <td>
-                   '.round($total / $total1 * 100) .'%
-                   </td>
-                   <td>
-                   -
-                   </td>
-                 </tr>
-                  <tr>
-                  
-                   <td>
-                   HDR Supervision
-                   </td>
-                   <td>
-                   '.$hdr.'
-                   </td>
-                   <td>
-                     '.round($hdr / $total1 * 100) .'%
-                   </td>
-                   <td>
-                     -
-                   </td>
-                 </tr>
-      <tr>
-                  
-                   <td>
-                   Research
-                   </td>
-                   <td>
-                   '.$resh.'
-                   </td>
-                   <td>
-                     '.round($resh / $total1 * 100) .'%
-                   </td>
-                   <td>
-                     -
-                   </td>
-                 </tr>
-      <tr>
-                  
-                   <td>
-                   Leadership / Admin
-                   </td>
-                   <td>
-                   '.$total_admis.'
-                   </td>
-                   <td>
-                     '.round($total_admis / $total1 * 100) .'%
-                   </td>
-                   <td>
-                     -
-                   </td>
-                 </tr>
-                 <tr>
-                  
-                   <td>
-                   Prof / Comm Engagement
-                   </td>
-                   <td>
-                   '.$total_comunity.'
-                   </td>
-                   <td>
-                   '.round($total_comunity / $total1 * 100) .'%
-                   </td>
-                   <td>
-                     -
-                   </td>
-                 </tr>
-                 <tr>
-                  
+   echo '
+   <div class="row">
+   <div class="col-lg-6 grid-margin stretch-card">
+     <div class="card">
+       <div class="card-body">
+         <h4 class="card-title">Workload Summary</h4>
+        <!-- <p class="card-description">
+           Add class <code>.table-striped</code>
+         </p>-->
+         <div class="table-responsive">
+           <table class="table table-striped">
+             <thead>
+               <tr>
+                 <th>
+                 Category
+                 </th>
+                 <th>
+                 Actual
+                 </th>
+                 <th>
+                 %
+                 </th>
+                 <th>
+                 FTE
+                 </th>
+                 
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                
                  <td>
-                 Leave
+                 Teaching / Teaching-Related
                  </td>
                  <td>
-                   '.$tl.'
+                 <p id="demo"> '.$total.'</p>
                  </td>
                  <td>
-                   '.round($tl / $total1 * 100) .'%
+                 <p id="demo1"> '.round($total / $total1 * 100) .'%</p>
+                 </td>
+                 <td>
+                 '.$fetch['F. T. E.'] * $teaching.'
+                 </td>
+               </tr>
+                <tr>
+                
+                 <td>
+                 HDR Supervision
+                 </td>
+                 <td>
+                 '.$hdr.'
+                 </td>
+                 <td>
+                   '.round($hdr / $total1 * 100) .'%
                  </td>
                  <td>
                    -
                  </td>
                </tr>
+    <tr>
+                
+                 <td>
+                 Research
+                 </td>
+                 <td>
+                 '.$resh.'
+                 </td>
+                 <td>
+                   '.round($resh / $total1 * 100) .'%
+                 </td>
+                 <td>
+                 '.$fetch['F. T. E.'] * $research_Sch.'
+                 </td>
+               </tr>
+    <tr>
+                
+                 <td>
+                 Leadership / Admin
+                 </td>
+                 <td>
+                 '.$total_admis.'
+                 </td>
+                 <td>
+                   '.round($total_admis / $total1 * 100) .'%
+                 </td>
+                 <td>
+                 '.$fetch['F. T. E.'] * $Leadership_Adm.'
+                 </td>
+               </tr>
                <tr>
-                  
+                
+                 <td>
+                 Prof / Comm Engagement
+                 </td>
+                 <td>
+                 '.$total_comunity.'
+                 </td>
+                 <td>
+                 '.round($total_comunity / $total1 * 100) .'%
+                 </td>
+                 <td>
+                 '.$fetch['F. T. E.'] * $prof_Community.'
+                 </td>
+               </tr>
+               <tr>
+                
                <td>
-               Unallocated*
+               Leave
                </td>
                <td>
-               '.$unallocate.'
+                 '.$tl.'
                </td>
                <td>
-               '.round($unallocate / $total1 * 100) .'%
+                 '.round($tl / $total1 * 100) .'%
                </td>
                <td>
                  -
                </td>
              </tr>
              <tr>
-                  
+                
              <td>
-             <b>TOTAL</b>
+             Unallocated*
              </td>
              <td>
-               '.$total1.'
+             '.$unallocate.'
              </td>
              <td>
-             '.round($total1 / $total1 * 100) .'%
+             '.round($unallocate / $total1 * 100) .'%
              </td>
              <td>
                -
              </td>
            </tr>
-               </tbody>
-             </table>
-           </div>
+           <tr>
+                
+           <td>
+           <b>TOTAL</b>
+           </td>
+           <td>
+             '.$total1.'
+           </td>
+           <td>
+           '.round($total1 / $total1 * 100) .'%
+           </td>
+           <td>
+           '.$TT.'
+           </td>
+         </tr>
+             </tbody>
+           </table>
          </div>
        </div>
-     </div></div>
-   ';
+     </div>
+   </div>
+   
 
-          echo'
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-            <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Professional / Community Engagement Roles</h4>
-             <!-- <p class="card-description">
-                Add class <code>.table-striped</code>
-              </p>-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        User
-                      </th>
-                      <th>
-                        First name
-                      </th>
-                      <th>
-                        Progress
-                      </th>
-                    
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                     
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                     
-                    </tr>
-                  </tbody>
-                </table>
-               
-              </div>
-            </div>
-          </div>
-            </div>
 
-            <div class="col-md-6 grid-margin stretch-card">
-            <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Professional / Community Engagement Roles</h4>
-             <!-- <p class="card-description">
-                Add class <code>.table-striped</code>
-              </p>-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        User
-                      </th>
-                      <th>
-                        First name
-                      </th>
-                      <th>
-                        Progress
-                      </th>
-                    
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                     
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-                     <tr>
-                     <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      
-                    </tr>
-         <tr>
-         <td>
-         -
-       </td>       
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                     
-                    </tr>
-                  </tbody>
-                </table>
-               
-              </div>
-            </div>
-          </div>
-            </div>
-           
-          </div>';
-
-          echo'
-          <div class="row">
-          <div class="col-md-12 grid-margin stretch-card">
+   <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <h4 class="card-title">Category hours can be amended by making changes to the following:</h4>
+                <h4 class="card-title">Category hours can be amended by making changes to the following:----[ Add (+) | Subtract (-) ]</h4>
+                
 
                 <form class="forms-sample">
                 <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-6">
                       <div class="form-group">
                       <label>Teaching &Teaching-Related</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input id="teaching123" name="teaching123" type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
                       </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>Course Coordination</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>Other L&T Activities</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>HDR Supervision</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
-                      </div>
-                    </div>
+                 
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Course Coordination</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  </div>
+                  </div>
+               </div>
 
-                    <div class="row">
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>Research</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
-                      </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>Leadership / Admin</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
-                      </div>
-                      <div class="col-md-3">
+               <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Other L&T Activities</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  </div>
+                  </div>
+                 
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>HDR Supervision</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  </div>
+                  </div>
+               </div>
+
+              <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Research</label>
+              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+              </div>
+              </div>
+         
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Leadership / Admin</label>
+              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+              </div>
+              </div>
+              </div>
+                      <div class="row">
+                      <div class="col-md-6">
                       <div class="form-group">
                       <label>Prof/Comm Engagement</label>
                       <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
                       </div>
-                      <div class="col-md-3">
-                      <div class="form-group">
-                      <label>Leave</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
-                    </div>
                       </div>
+ 
+                    <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Leave</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
                     </div>
-            
-                    <button type="submit" class="btn btn-primary mr-2">Calculate</button>
+                    </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary mr-2" onclick="javascript:addNumbers()">Calculate</button>
                     <button type="submit" class="btn btn-success mr-2">Request</button>
                     <button class="btn btn-light">Cancel</button>
                     
@@ -1396,10 +1259,194 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                     </div>
                 </div>
               </div>
-              </div>
-              ';
-        }?>
+ </div>
+ 
+ ';
 
+         
+
+          
+              
+
+              echo'
+              <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Professional / Community Engagement Roles</h4>
+                 <!-- <p class="card-description">
+                    Add class <code>.table-striped</code>
+                  </p>-->
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            First name
+                          </th>
+                          <th>
+                            Progress
+                          </th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                         
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+                         <tr>
+                         <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+             <tr>
+             <td>
+             -
+           </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+             <tr>
+             <td>
+             -
+           </td>       
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                   
+                  </div>
+                </div>
+              </div>
+                </div>
+    
+                <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Professional / Community Engagement Roles</h4>
+                 <!-- <p class="card-description">
+                    Add class <code>.table-striped</code>
+                  </p>-->
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            First name
+                          </th>
+                          <th>
+                            Progress
+                          </th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                         
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+                         <tr>
+                         <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+             <tr>
+             <td>
+             -
+           </td>
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                          
+                        </tr>
+             <tr>
+             <td>
+             -
+           </td>       
+                          <td>
+                            -
+                          </td>
+                          <td>
+                            -
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                   
+                  </div>
+                </div>
+              </div>
+                </div>
+               
+              </div>';
+        }?>
+<script language="javascript">
+ var total1 = <?php echo  $total1 ?>;
+ var total = <?php echo  $total ?>;
+                function addNumbers()
+                {
+                        var teach = parseInt(document.getElementById("teaching123").value);
+                        //var val2 = parseInt(document.getElementById("value2").value);
+                        //var ansD = document.getElementById("answer");
+                        //ansD.value = val1 + val2 + num; round($total / $total1 * 100)
+						document.getElementById("demo").innerHTML = total + teach;
+            document.getElementById("demo1").innerHTML = Math.round((total + teach) / total1 * 100) + '%';
+                }
+        </script>
         </div>
 
         <!--------------------------------- The Modal-------------------------------------- -->

@@ -154,7 +154,7 @@
                 <i class="mdi mdi-settings text-primary"></i>
                 Profile
               </a>
-              <a class="dropdown-item">
+              <a href="logout.php?q=login.php" class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
@@ -251,7 +251,7 @@
         <div class="content-wrapper">
           
         
-
+<!----------------------------------------teaching course coordination------------------------------>
 <?php if(@$_GET['q']==11) {
 
 include_once 'dbConnection.php';
@@ -376,7 +376,7 @@ $result = mysqli_query($con, "SELECT * FROM course_coordination WHERE email='$em
           </div>';
         }?>
 
-
+<!----------------------------------------All teaching------------------------------>
 <?php if(@$_GET['q']==22) {
 
 include_once 'dbConnection.php';
@@ -1057,7 +1057,7 @@ echo'
         }?>
 
 
-
+<!----------------------------------------T&L allowance------------------------------>
 <?php if(@$_GET['q']==33) {
 
 include_once 'dbConnection.php';

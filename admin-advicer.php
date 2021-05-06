@@ -258,7 +258,7 @@
         <div class="content-wrapper">
           
         
-
+<!---------------------------------------Add Advicers ---------------------------->
 <?php if(@$_GET['q']==4) {
 
   /*----------------------------------- alart------------ ---*/
@@ -345,6 +345,8 @@ if(@$_GET['q7'])
       ';
         }?>
 
+
+<!---------------------------------------Advicers List---------------------------->
 <?php if(@$_GET['q']==5) {
   include_once 'dbConnection.php';
   $result = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or die('Error');
@@ -440,6 +442,7 @@ if(@$_GET['q7'])
         }?>
 
 
+<!----------------------------------------Edit advicers------------------------------>
 <?php if(@$_GET['q']==44) {
 include_once 'dbConnection.php';
 
