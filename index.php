@@ -1073,10 +1073,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                  HDR Supervision
                  </td>
                  <td>
-                 '.$hdr.'
+                 <p id="hdr"> '.$hdr.'</p>
                  </td>
                  <td>
-                   '.round($hdr / $total1 * 100) .'%
+                   <p id="hdr1"> '.round($hdr / $total1 * 100) .'%</p>
                  </td>
                  <td>
                    -
@@ -1088,10 +1088,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                  Research
                  </td>
                  <td>
-                 '.$resh.'
+                 <p id="resh"> '.$resh.'</p>
                  </td>
                  <td>
-                   '.round($resh / $total1 * 100) .'%
+                   <p id="resh1"> '.round($resh / $total1 * 100).'%</p>
                  </td>
                  <td>
                  '.$fetch['F. T. E.'] * $research_Sch.'
@@ -1103,10 +1103,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                  Leadership / Admin
                  </td>
                  <td>
-                 '.$total_admis.'
+                 <p id="la"> '.$total_admis.'</p>
                  </td>
                  <td>
-                   '.round($total_admis / $total1 * 100) .'%
+                   <p id="la1"> '.round($total_admis / $total1 * 100).'%</p>
                  </td>
                  <td>
                  '.$fetch['F. T. E.'] * $Leadership_Adm.'
@@ -1118,10 +1118,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                  Prof / Comm Engagement
                  </td>
                  <td>
-                 '.$total_comunity.'
+                 <p id="profcom"> '.$total_comunity.'</p>
                  </td>
                  <td>
-                 '.round($total_comunity / $total1 * 100) .'%
+                 <p id="profcom1"> '.round($total_comunity / $total1 * 100).'%</p>
                  </td>
                  <td>
                  '.$fetch['F. T. E.'] * $prof_Community.'
@@ -1133,10 +1133,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                Leave
                </td>
                <td>
-                 '.$tl.'
+                <p id="lea"> '.$tl.'</p>
                </td>
                <td>
-                 '.round($tl / $total1 * 100) .'%
+                <p id="lea1"> '.round($tl / $total1 * 100).'%</p>
                </td>
                <td>
                  -
@@ -1148,10 +1148,10 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
              Unallocated*
              </td>
              <td>
-             '.$unallocate.'
+            <p id="un"> '.$unallocate.'</p>
              </td>
              <td>
-             '.round($unallocate / $total1 * 100) .'%
+             <p id="un1"> '.round($unallocate / $total1 * 100).'%</p>
              </td>
              <td>
                -
@@ -1192,14 +1192,14 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                       <div class="col-md-6">
                       <div class="form-group">
                       <label>Teaching &Teaching-Related</label>
-                      <input id="teaching123" name="teaching123" type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input id="teaching123" name="teaching123" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                     </div>
                       </div>
                  
                   <div class="col-md-6">
                   <div class="form-group">
                   <label>Course Coordination</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  <input id="course-codi" name="course-codi" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                   </div>
                   </div>
                </div>
@@ -1208,14 +1208,14 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                   <div class="col-md-6">
                   <div class="form-group">
                   <label>Other L&T Activities</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  <input id="other-LT" name="other-LT" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                   </div>
                   </div>
                  
                   <div class="col-md-6">
                   <div class="form-group">
                   <label>HDR Supervision</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                  <input id="hdr-sup" name="hdr-sup" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                   </div>
                   </div>
                </div>
@@ -1224,14 +1224,14 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
               <div class="col-md-6">
               <div class="form-group">
               <label>Research</label>
-              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+              <input id="resch" name="resch" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
               </div>
               </div>
          
               <div class="col-md-6">
               <div class="form-group">
               <label>Leadership / Admin</label>
-              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+              <input id="leadsp" name="leadsp" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
               </div>
               </div>
               </div>
@@ -1239,14 +1239,14 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                       <div class="col-md-6">
                       <div class="form-group">
                       <label>Prof/Comm Engagement</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input id="com_eng" name="com_eng" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                       </div>
                       </div>
  
                     <div class="col-md-6">
                     <div class="form-group">
                     <label>Leave</label>
-                    <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    <input id="leave1" name="leave1" type="text" class="form-control form-control-sm" placeholder="" aria-label="Username">
                     </div>
                     </div>
                     </div>
@@ -1437,15 +1437,81 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
 <script language="javascript">
  var total1 = <?php echo  $total1 ?>;
  var total = <?php echo  $total ?>;
+ var resh = <?php echo  $resh ?>;
+ var hdr = <?php echo  $hdr ?>;
+ var ta = <?php echo  $total_admis ?>;
+ var comu = <?php echo  $total_comunity ?>;
+ var tl = <?php echo  $tl ?>;
                 function addNumbers()
                 {
                         var teach = parseInt(document.getElementById("teaching123").value);
+                        var course_codi = parseInt(document.getElementById("course-codi").value);
+                        var other_LT = parseInt(document.getElementById("other-LT").value);
+                        var hdr_sup = parseInt(document.getElementById("hdr-sup").value);
+                        var resch = parseInt(document.getElementById("resch").value);
+                        
+                        var leadsp = parseInt(document.getElementById("leadsp").value);
+                        var com_eng = parseInt(document.getElementById("com_eng").value);
+                        var leave1 = parseInt(document.getElementById("leave1").value);
+                        
                         //var val2 = parseInt(document.getElementById("value2").value);
                         //var ansD = document.getElementById("answer");
                         //ansD.value = val1 + val2 + num; round($total / $total1 * 100)
-						document.getElementById("demo").innerHTML = total + teach;
-            document.getElementById("demo1").innerHTML = Math.round((total + teach) / total1 * 100) + '%';
-                }
+                        if ((isNaN(teach)) && (isNaN(course_codi)) && (isNaN(other_LT))) {document.getElementById("demo").style.color = "black"; document.getElementById("demo1").style.color = "black";}
+
+                        if ((isNaN(teach)) && (isNaN(course_codi)) && (isNaN(other_LT)) && (isNaN(hdr_sup)) && (isNaN(resch)) && (isNaN(leadsp)) && (isNaN(com_eng)) && (isNaN(leave1))) {document.getElementById("un").style.color = "black"; document.getElementById("un1").style.color = "black";}  
+                        else {document.getElementById("un").style.color = "#ff0000"; document.getElementById("un1").style.color = "#ff0000";} 
+
+                        if (isNaN(teach))  teach = 0; 
+                        else {document.getElementById("demo").style.color = "#ff0000"; document.getElementById("demo1").style.color = "#ff0000";} 
+
+                        if (isNaN(course_codi)) course_codi = 0;
+                        else {document.getElementById("demo").style.color = "#ff0000"; document.getElementById("demo1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(other_LT)) other_LT = 0;
+                        else {document.getElementById("demo").style.color = "#ff0000"; document.getElementById("demo1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(hdr_sup)) { hdr_sup = 0; document.getElementById("hdr").style.color = "black"; document.getElementById("hdr1").style.color = "black";} 
+                        else {document.getElementById("hdr").style.color = "#ff0000"; document.getElementById("hdr1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(resch)) { resch = 0; document.getElementById("resh").style.color = "black"; document.getElementById("resh1").style.color = "black";} 
+                        else {document.getElementById("resh").style.color = "#ff0000"; document.getElementById("resh1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(leadsp)) { leadsp = 0; document.getElementById("la").style.color = "black"; document.getElementById("la1").style.color = "black";} 
+                        else {document.getElementById("la").style.color = "#ff0000"; document.getElementById("la1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(com_eng)) { com_eng = 0; document.getElementById("profcom").style.color = "black"; document.getElementById("profcom1").style.color = "black";} 
+                        else {document.getElementById("profcom").style.color = "#ff0000"; document.getElementById("profcom1").style.color = "#ff0000";} 
+                        
+                        if (isNaN(leave1)) { leave1 = 0; document.getElementById("lea").style.color = "black"; document.getElementById("lea1").style.color = "black";}  
+                        else {document.getElementById("lea").style.color = "#ff0000"; document.getElementById("lea1").style.color = "#ff0000";} 
+                        
+                        
+                        document.getElementById("demo").innerHTML = total + teach + course_codi + other_LT;
+                        document.getElementById("demo1").innerHTML = Math.round((total + teach + course_codi + other_LT) / total1 * 100) + '%';
+            
+                        document.getElementById("hdr").innerHTML = hdr + hdr_sup;
+                        document.getElementById("hdr1").innerHTML = Math.round((hdr + hdr_sup) / total1 * 100) + '%';
+
+                        document.getElementById("resh").innerHTML = resh + resch;
+                        document.getElementById("resh1").innerHTML = Math.round((resh + resch) / total1 * 100) + '%';
+
+                        document.getElementById("la").innerHTML = ta + leadsp;
+                        document.getElementById("la1").innerHTML = Math.round((ta + leadsp) / total1 * 100) + '%';
+
+                        document.getElementById("profcom").innerHTML = comu + com_eng;
+                        document.getElementById("profcom1").innerHTML = Math.round((comu + com_eng) / total1 * 100) + '%';
+
+                        document.getElementById("lea").innerHTML = tl + leave1;
+                        document.getElementById("lea1").innerHTML = Math.round((tl + leave1) / total1 * 100) + '%';
+
+                        var un = 1457 - (total + teach + course_codi + other_LT + hdr + hdr_sup + resh + resch + ta + leadsp + comu + com_eng + tl + leave1);
+
+                        document.getElementById("un").innerHTML = un;
+                        document.getElementById("un1").innerHTML = Math.round(un / total1 * 100) + '%';
+
+                        
+                  }
         </script>
         </div>
 
