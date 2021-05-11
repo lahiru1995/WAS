@@ -210,113 +210,198 @@
           </div>';
         }?>
 
-
+<!---------------------------------------Advicers List---------------------------->
 <?php if(@$_GET['q']==2) {
-  echo'
- 
-  <div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">Staff Member List</h4>
-     <!-- <p class="card-description">
-        Add class <code>.table-striped</code>
-      </p>-->
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>
-                User
-              </th>
-              <th>
-                User
-              </th>
-              <th>
-                First name
-              </th>
+  include_once 'dbConnection.php';
 
-              <th>
-              Manage
-            </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+  $email=$_SESSION['email'];
+  $result = mysqli_query($con,"SELECT * FROM request WHERE advicer ='$email'") or die('Error');
+    echo'
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Advicer List</h4>
+       <!-- <p class="card-description">
+          Add class <code>.table-striped</code>
+        </p>-->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Emp No
+                </th>
+                <th>
+                  Email
+                </th>
+                
+                <th>
+                  Action
+                </th>
+               
+              </tr>
+            </thead><tbody>';
+  
+            $c=1;
+  while($row = mysqli_fetch_array($result)) {
+    $staff_member = $row['staff_member'];
+    $Employee_No = $row['Employee_No'];
+    $name = $row['name'];
+    
+  
+    echo'<tr>
+    <td>
+    '.$name.'
+    </td>
+    <td>
+    '.$Employee_No.'
+    </td>        
+    <td>
+    '.$staff_member.'
+    </td>
+    
+    <td>
+   <a href="advicer.php?q=3&semail='.$staff_member.'" type="button" class="btn btn-outline-primary btn-fw">View</a>
+    </td>
+    
+  </tr>
+  ';
+  }
+  
+            echo'
              
-              
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-                -
-              </td>
-              <td>
-              <a href="advicer.php?q=3" type="button" class="btn btn-outline-primary btn-fw">View</a>
-            </td>
-            </tr>
-            <tr>
-             
-              
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-            <a href="advicer.php?q=3" type="button" class="btn btn-outline-primary btn-fw">View</a>
-          </td>
-          </tr>
-            
-          </tbody>
-        </table>
-       
+            </tbody>
+          </table>
+         
+        </div>
       </div>
     </div>
-  </div>
-    </div>
-   
-  </div>';
+      </div>
+     
+    </div>';
         }?>
 
 <?php if(@$_GET['q']==3) {
+
+
+if(@$_GET['semail'] ) {
+  $email=@$_GET['semail'];
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $file = $fetch['file'];
+
+}
+
+$query1 = mysqli_query($con, "SELECT * FROM request WHERE staff_member='$email'") or die(mysqli_error());
+ //$fetch = mysqli_fetch_array($query1);
+$fetch11 = mysqli_fetch_assoc($query1);
+$teaching_rel = $fetch11['teaching_rel'];
+$hdr1 = $fetch11['hdr'];
+$research = $fetch11['research'];
+$leadership = $fetch11['leadership'];
+$community = $fetch11['community'];
+$leave1 = $fetch11['leave1'];
+
+
+ $total1 = 1457;
+
+
+    $total = $teaching_rel;
+    $hdr = $hdr1;
+    $resh = $research;
+    $total_admis = $leadership;
+    $total_comunity = $community;
+    $tl = $leave1;
+
+    $unallocate = 1457 - ($total+$hdr+$resh+$total_admis+$total_comunity+$tl);
+
+    include_once 'dbConnection.php';
+ $query = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+ $fetchs = mysqli_fetch_array($query);
+ 
+    $teaching = 864;
+    $research_Sch = 504;
+    $prof_Community = 184;
+    $Leadership_Adm = 104;
+    $TT = ($fetchs['F. T. E.'] * $teaching) + ($fetchs['F. T. E.'] * $research_Sch) + ($fetchs['F. T. E.'] * $Leadership_Adm) + ($fetchs['F. T. E.'] * $prof_Community);
+
+
 
 echo'
 <a href="advicer.php?q=2" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
 Back</a>
 
-<div class="row">
+ <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
   <div class="card">
   <div class="card-body">
-  <div style="display:flex; ">
-  <h5 style="padding-right:20px">Name: <small class="text-muted">00000</small></h5>
-  <h5 style="padding-right:20px">Employee: <small class="text-muted">00000</small></h5>
-  <h5 style="padding-right:20px">Psition: <small class="text-muted">00000</small></h5>
-  <h5 style="padding-right:20px">F.T.E.: <small class="text-muted">00000</small></h5></div>
-   <!-- <p class="card-description">
-      Add class <code>.table-striped</code>
-    </p>-->
-    
-  </div>
-</div>
-  </div>
+
+ <div class="tab-content py-0 px-0">
+ <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+ <div class="d-flex flex-wrap justify-content-xl-between">
+ <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
  
+ <div class="d-flex flex-column justify-content-around">
+   
+   <img src="./files/'.$file.'" style="margin-right: 30px; width:40px; heigth:40px; border-radius:50%"alt="Avatar" class="avatar">
+ </div>
+</div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-star-circle mr-3 icon-lg text-danger"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Name:</small>
+       <h5 class="mr-2 mb-0">'.$name.'</h5>
+     </div>
+   </div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-watch mr-3 icon-lg text-success"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Employee No:</small>
+       <h5 class="mr-2 mb-0">'.$Employee_No.'</h5>
+     </div>
+   </div>
+   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-account-card-details mr-3 icon-lg text-warning"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Email:</small>
+       <h5 class="mr-2 mb-0">'.$email.'</h5>
+     </div>
+   </div>
+   <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+     <i class="mdi mdi-account mr-3 icon-lg text-danger"></i>
+     <div class="d-flex flex-column justify-content-around">
+       <small class="mb-1 text-muted">Position</small>
+       <h5 class="mr-2 mb-0">'.$Position.'</h5>
+     </div>
+   </div>
+   
+
+ </div>
+</div></div>
+
+</div>
+   </div>
+ </div>
 </div>';
 
-  echo'
-  <div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
+  
+echo '
+<div class="row">
+<div class="col-lg-12 grid-margin stretch-card">
+  <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Staff Member List</h4>
+      <h4 class="card-title">Workload Summary</h4>
      <!-- <p class="card-description">
         Add class <code>.table-striped</code>
       </p>-->
@@ -325,64 +410,157 @@ Back</a>
           <thead>
             <tr>
               <th>
-                User
+              Category
               </th>
               <th>
-                User
+              Actual
               </th>
               <th>
-                First name
+              Percent of Activity
               </th>
-
               <th>
-              Manage
-            </th>
+              Indicative FTE WL
+              </th>
+              
             </tr>
           </thead>
           <tbody>
             <tr>
              
-              
               <td>
-                -
+              Teaching / Teaching-Related
+              </td>
+              <td>
+              '.$total.'
+              </td>
+              <td>
+              '.round($total / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetchs['F. T. E.'] * $teaching.'
+              </td>
+            </tr>
+             <tr>
+             
+              <td>
+              HDR Supervision
+              </td>
+              <td>
+              '.$hdr.'
+              </td>
+              <td>
+                '.round($hdr / $total1 * 100) .'%
               </td>
               <td>
                 -
               </td>
+            </tr>
+ <tr>
+             
               <td>
-                -
+              Research
               </td>
               <td>
-              -
-            </td>
+              '.$resh.'
+              </td>
+              <td>
+                '.round($resh / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetchs['F. T. E.'] * $research_Sch.'
+              </td>
+            </tr>
+ <tr>
+             
+              <td>
+              Leadership / Admin
+              </td>
+              <td>
+              '.$total_admis.'
+              </td>
+              <td>
+                '.round($total_admis / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetchs['F. T. E.'] * $Leadership_Adm.'
+              </td>
             </tr>
             <tr>
              
-              
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-                -
+              <td>
+              Prof / Comm Engagement
               </td>
+              <td>
+              '.$total_comunity.'
+              </td>
+              <td>
+              '.round($total_comunity / $total1 * 100) .'%
+              </td>
+              <td>
+              '.$fetchs['F. T. E.'] * $prof_Community.'
+              </td>
+            </tr>
+            <tr>
+             
+            <td>
+            Leave
+            </td>
+            <td>
+              '.$tl.'
+            </td>
+            <td>
+              '.round($tl / $total1 * 100) .'%
+            </td>
+            <td>
+              -
+            </td>
           </tr>
-            
+          <tr>
+             
+          <td>
+          Unallocated*
+          </td>
+          <td>
+          '.$unallocate.'
+          </td>
+          <td>
+          '.round($unallocate / $total1 * 100) .'%
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <tr>
+             
+        <td>
+        <b>TOTAL</b>
+        </td>
+        <td>
+          '.$total1.'
+        </td>
+        <td>
+        '.round($total1 / $total1 * 100) .'%
+        </td>
+        <td>
+        '.$TT.'
+        </td>
+      </tr>
           </tbody>
         </table>
-       
-        <button type="submit" class="btn btn-success mr-2">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
       </div>
+      <br>
+      <button type="button" class="btn btn-success mr-2" onclick="javascript:savedata()">Approve</button>
+                    <button class="btn btn-light">Cancel</button>
     </div>
   </div>
-    </div>
-  </div>';
+</div>
+
+
+
+
+</div>
+
+';
         }?>
         </div>
         <!-- content-wrapper ends -->

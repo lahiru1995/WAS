@@ -381,6 +381,18 @@ if(@$_GET['LEV-email'] ) {
     header("location:admin-staffmember.php?q=8&memail=$email&id=#lev");
 }
 
+
+//delete request
+
+if(@$_GET['rec_email'] ) {
+    $demail=@$_GET['rec_email'];
+   
+    $result = mysqli_query($con,"DELETE FROM request WHERE staff_member='$demail' ") or die('Error');
+    
+    header("location:index.php?q=8");
+}
+
+
         function UploadImage(){
             $target_dir = "files/";
             $fN = basename($_FILES['file']['name']);

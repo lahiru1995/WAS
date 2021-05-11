@@ -329,14 +329,20 @@
 
           
            include_once 'dbConnection.php';
+           
            $query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
-           $fetch = mysqli_fetch_array($query);
+           $fetchs = mysqli_fetch_array($query);
+
+           if($fetchs['F. T. E.'] == ''){
+            $fetchs['F. T. E.'] =0;
+           }
 
            $teaching = 864;
            $research_Sch = 504;
            $prof_Community = 184;
            $Leadership_Adm = 104;
-          $TT = ($fetch['F. T. E.'] * $teaching) + ($fetch['F. T. E.'] * $research_Sch) + ($fetch['F. T. E.'] * $Leadership_Adm) + ($fetch['F. T. E.'] * $prof_Community);
+           
+          $TT = ($fetchs['F. T. E.'] * $teaching) + ($fetchs['F. T. E.'] * $research_Sch) + ($fetchs['F. T. E.'] * $Leadership_Adm) + ($fetchs['F. T. E.'] * $prof_Community);
            echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -368,28 +374,28 @@
                <i class="mdi mdi-star-circle mr-3 icon-lg text-danger"></i>
                <div class="d-flex flex-column justify-content-around">
                  <small class="mb-1 text-muted">Employee No:</small>
-                 <h5 class="mr-2 mb-0">'.$fetch['Employee No'].'</h5>
+                 <h5 class="mr-2 mb-0">'.$fetchs['Employee No'].'</h5>
                </div>
              </div>
              <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                <i class="mdi mdi-watch mr-3 icon-lg text-success"></i>
                <div class="d-flex flex-column justify-content-around">
                  <small class="mb-1 text-muted">F. T. E.</small>
-                 <h5 class="mr-2 mb-0">'.$fetch['F. T. E.'].'</h5>
+                 <h5 class="mr-2 mb-0">'.$fetchs['F. T. E.'].'</h5>
                </div>
              </div>
              <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                <i class="mdi mdi-account-card-details mr-3 icon-lg text-warning"></i>
                <div class="d-flex flex-column justify-content-around">
                  <small class="mb-1 text-muted">Position</small>
-                 <h5 class="mr-2 mb-0">'.$fetch['Position'].'</h5>
+                 <h5 class="mr-2 mb-0">'.$fetchs['Position'].'</h5>
                </div>
              </div>
              <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                <i class="mdi mdi-account mr-3 icon-lg text-danger"></i>
                <div class="d-flex flex-column justify-content-around">
                  <small class="mb-1 text-muted">Workplan Advicer</small>
-                 <h5 class="mr-2 mb-0">'.$fetch['Workplan Advicer'].'</h5>
+                 <h5 class="mr-2 mb-0">'.$fetchs['Workplan Advicer'].'</h5>
                </div>
              </div>
            </div>
@@ -444,7 +450,7 @@
                           '.round($total / $total1 * 100) .'%
                           </td>
                           <td>
-                          '.$fetch['F. T. E.'] * $teaching.'
+                          '.$fetchs['F. T. E.'] * $teaching.'
                           </td>
                         </tr>
                          <tr>
@@ -474,7 +480,7 @@
                             '.round($resh / $total1 * 100) .'%
                           </td>
                           <td>
-                          '.$fetch['F. T. E.'] * $research_Sch.'
+                          '.$fetchs['F. T. E.'] * $research_Sch.'
                           </td>
                         </tr>
 						 <tr>
@@ -489,7 +495,7 @@
                             '.round($total_admis / $total1 * 100) .'%
                           </td>
                           <td>
-                          '.$fetch['F. T. E.'] * $Leadership_Adm.'
+                          '.$fetchs['F. T. E.'] * $Leadership_Adm.'
                           </td>
                         </tr>
                         <tr>
@@ -504,7 +510,7 @@
                           '.round($total_comunity / $total1 * 100) .'%
                           </td>
                           <td>
-                          '.$fetch['F. T. E.'] * $prof_Community.'
+                          '.$fetchs['F. T. E.'] * $prof_Community.'
                           </td>
                         </tr>
                         <tr>
@@ -933,6 +939,18 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
 <?php if(@$_GET['q']==8) {
    include_once 'dbConnection.php';
    $email=$_SESSION['email'];
+
+   $adv = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetchadv = mysqli_fetch_assoc($adv);
+    $advicer = $fetchadv['Workplan Advicer'];
+    $name = $fetchadv['name'];
+    $Employee_No = $fetchadv['Employee No'];
+
+    $adve = mysqli_query($con, "SELECT * FROM user WHERE name='$advicer'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetchadve = mysqli_fetch_assoc($adve);
+    $advicer_email = $fetchadve['email'];
    
    $query1 = mysqli_query($con, "SELECT SUM(Workload_hours) AS sum FROM semester_teaching WHERE email='$email'") or die(mysqli_error());
     //$fetch = mysqli_fetch_array($query1);
@@ -1184,7 +1202,8 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
    <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <h4 class="card-title">Category hours can be amended by making changes to the following:----[ Add (+) | Subtract (-) ]</h4>
+                <h4 class="card-title">Category hours can be amended by making changes to the following:</h4>
+                <h4 class="card-title">[ Add (+) | Subtract (-) ]</h4>
                 
 
                 <form class="forms-sample">
@@ -1252,10 +1271,47 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
                     </div>
 
                     <button type="button" class="btn btn-primary mr-2" onclick="javascript:addNumbers()">Calculate</button>
-                    <button type="submit" class="btn btn-success mr-2">Request</button>
+                    <button type="button" class="btn btn-success mr-2" onclick="javascript:savedata()">Request</button>
                     <button class="btn btn-light">Cancel</button>
+                    <div id="success_message" class="ajax_response" style="float:left"></div>
+                   
+                    </form>';
+
+    $querystatus = mysqli_query($con, "SELECT * FROM request WHERE staff_member='$email'") or die(mysqli_error());
+    //$fetch = mysqli_fetch_array($query1);
+    $fetch_status = mysqli_fetch_assoc($querystatus);
+    $statuss = $fetch_status['status'];
+
+    $display = 'block';
+    if($statuss == ''){
+      $display = 'none';
+    }else{
+      $display = 'block';
+    }
+    
+
+echo'
+<!-------------------------------------->
+<br><br>
+<div style="display:'.$display.'">
+      <table class="table table-striped">
+        
+          <tr>
+            <th>
+             <p>  Status: </p>
+            </th>
+            <th>
+              <p style="color:green">'.$statuss.'</p>
+            </th>
+            <th>
+            <a href="update.php?rec_email='.$email.'" type="button" class="btn btn-outline-primary btn-fw">Delete Request</a>
+            </th>
+            
+          </tr>
+       
+        </table></div>
                     
-                    </form>
+<!-------------------------------------->
                     </div>
                 </div>
               </div>
@@ -1268,7 +1324,7 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
           
               
 
-              echo'
+              /*echo'
               <div class="row">
                 <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
@@ -1432,8 +1488,9 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
               </div>
                 </div>
                
-              </div>';
+              </div>  ';*/
         }?>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>	
 <script language="javascript">
  var total1 = <?php echo  $total1 ?>;
  var total = <?php echo  $total ?>;
@@ -1442,6 +1499,11 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
  var ta = <?php echo  $total_admis ?>;
  var comu = <?php echo  $total_comunity ?>;
  var tl = <?php echo  $tl ?>;
+ var email = "<?php echo"$email"?>";
+ var advicer = "<?php echo"$advicer_email"?>";
+ var name = "<?php echo"$name"?>";
+ var Employee_No = "<?php echo"$Employee_No"?>";
+ 
                 function addNumbers()
                 {
                         var teach = parseInt(document.getElementById("teaching123").value);
@@ -1512,6 +1574,64 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
 
                         
                   }
+
+                  
+                       
+                  function savedata()
+                {
+                  
+
+                  var teach = parseInt(document.getElementById("teaching123").value);
+                        var course_codi = parseInt(document.getElementById("course-codi").value);
+                        var other_LT = parseInt(document.getElementById("other-LT").value);
+                        var hdr_sup = parseInt(document.getElementById("hdr-sup").value);
+                        var resch = parseInt(document.getElementById("resch").value);
+                        var leadsp = parseInt(document.getElementById("leadsp").value);
+                        var com_eng = parseInt(document.getElementById("com_eng").value);
+                        var leave1 = parseInt(document.getElementById("leave1").value);
+                       
+
+                        if (isNaN(teach))  teach = 0; 
+                        if (isNaN(course_codi)) course_codi = 0;
+                        if (isNaN(other_LT)) other_LT = 0;
+                        if (isNaN(hdr_sup))  hdr_sup = 0; 
+                        if (isNaN(resch))  resch = 0; 
+                        if (isNaN(leadsp))  leadsp = 0; 
+                        if (isNaN(com_eng))  com_eng = 0; 
+                        if (isNaN(leave1))  leave1 = 0; 
+                        
+                        
+                        var teaching_rel = total + teach + course_codi + other_LT;
+                        var hdr1 = hdr + hdr_sup;
+                        var researc1 = resh + resch;
+                        var leadership1 = ta + leadsp;
+                        var community1 = comu + com_eng;
+                        var leave11 = tl + leave1;
+                        var status = 'Pending';
+                        
+                        $.post("saveresuest.php",
+                          {
+                            teaching_rel: teaching_rel,
+                            hdr1: hdr1,
+                            researc1: researc1,
+                            leadership1: leadership1,
+                            community1: community1,
+                            leave11: leave11,
+                            email: email,
+                            advicer: advicer,
+                            Employee_No: Employee_No,
+                            name: name,
+                            status: status,
+                          },
+                          
+                          function(data,status){
+                            $('#success_message').fadeIn().html(data);
+                        setTimeout(function() {
+                          $('#success_message').fadeOut("slow");
+                        }, 2000 );});
+
+                       document.location.reload(true);
+                  } 
         </script>
         </div>
 

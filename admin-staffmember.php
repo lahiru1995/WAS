@@ -265,6 +265,9 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
       
 <!----------------------------------- Add Staff memeber -------------------------------------------->
 <?php if(@$_GET['q']==2) {
+  include_once 'dbConnection.php';
+  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or die('Error');
+  
 
 /*----------------------------------- alart------------ ---*/
 if(@$_GET['q7'])
@@ -276,6 +279,8 @@ if(@$_GET['q7'])
 </button>
 </div>
 ';}
+
+
 /*----------------------------------- alart end------------ ---*/
   echo'
 
@@ -332,7 +337,15 @@ if(@$_GET['q7'])
               <div class="col-md-6">
               <div class="form-group">
               <label>Workplan Advicer</label>
-              <input id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username">
+              <select class="form-control" id="Workplan_Advicer" name="Workplan_Advicer" placeholder="Workplan Advicer">
+              <option value="" disabled selected>Select Workplan Advicer</option>';
+              while($row = mysqli_fetch_array($result)) {
+                $name = $row['name'];
+                $email = $row['email'];
+                     echo' <option>'.$name.'</option>';
+              }
+                 echo'   </select>
+             <!-- <input id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username">-->
             </div>
               </div>
             </div>
@@ -1456,6 +1469,7 @@ if(@$_GET['demail'] ) {
   $file = $fetch['file'];
 
 }
+$select_advicer = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or die('Error');
   echo'
 
   <div class="row">
@@ -1511,7 +1525,15 @@ if(@$_GET['demail'] ) {
               <div class="col-md-6">
               <div class="form-group">
               <label>Workplan Advicer</label>
-              <input value='.$Workplan_Advicer.' id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username">
+              <select class="form-control" id="Workplan_Advicer" name="Workplan_Advicer" placeholder="Workplan Advicer">
+              <option value="" disabled selected>'.$Workplan_Advicer.'</option>';
+              while($row = mysqli_fetch_array($select_advicer)) {
+                $name = $row['name'];
+                $email = $row['email'];
+                     echo' <option>'.$name.'</option>';
+              }
+                 echo'   </select>
+              <!--<input value='.$Workplan_Advicer.' id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username"> -->
             </div>
               </div>
             </div>
