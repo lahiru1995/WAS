@@ -221,7 +221,7 @@
       <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Advicer List</h4>
+        <h4 class="card-title">Request List</h4>
        <!-- <p class="card-description">
           Add class <code>.table-striped</code>
         </p>-->
@@ -251,9 +251,29 @@
     $staff_member = $row['staff_member'];
     $Employee_No = $row['Employee_No'];
     $name = $row['name'];
+    $status = $row['status'];
     
-  
-    echo'<tr>
+    if($status=='approved'){
+      echo'<tr>
+      <td>
+      '.$name.'
+      </td>
+      <td>
+      '.$Employee_No.'
+      </td>        
+      <td>
+      '.$staff_member.'
+      </td>
+      
+      <td>
+     <a href="advicer.php?q=3&semail='.$staff_member.'" type="button" class="btn btn-outline-primary btn-fw">View</a>
+      </td>
+      <td>
+      <i class="mdi mdi-check-circle icon-md text-success"></i>
+      </td>';
+
+    }else{
+      echo'<tr>
     <td>
     '.$name.'
     </td>
@@ -266,9 +286,11 @@
     
     <td>
    <a href="advicer.php?q=3&semail='.$staff_member.'" type="button" class="btn btn-outline-primary btn-fw">View</a>
-    </td>
+    </td>';
+     
+    }
     
-  </tr>
+  echo'</tr>
   ';
   }
   
@@ -312,6 +334,7 @@ $research = $fetch11['research'];
 $leadership = $fetch11['leadership'];
 $community = $fetch11['community'];
 $leave1 = $fetch11['leave1'];
+$status = $fetch11['status'];
 
 
  $total1 = 1457;
@@ -548,10 +571,23 @@ echo '
           </tbody>
         </table>
       </div>
-      <br>
-      <button type="button" class="btn btn-success mr-2" onclick="javascript:savedata()">Approve</button>
-                    <button class="btn btn-light">Cancel</button>
-    </div>
+      <br>';
+                  if($status=='approved'){
+                  echo' <div class="col-md-4 d-flex align-items-center">
+                  <div class="d-flex flex-row align-items-center">
+                    <i class="mdi mdi-check-circle icon-md text-success"></i>
+                    <p class="mb-0 ml-1">
+                    Approved
+                    </p>
+                  </div>
+                </div>';
+                  }else{
+                    echo'
+                    <a href="update.php?aprv_email='.$email.'" type="button" class="btn btn-outline-primary btn-fw">Approve</a>
+                    <button class="btn btn-light">Cancel</button>';
+                  }
+
+    echo'</div>
   </div>
 </div>
 

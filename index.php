@@ -988,11 +988,13 @@ $result = mysqli_query($con, "SELECT * FROM community_eng WHERE email='$email'")
     //$fetch = mysqli_fetch_array($query1);
     $fetch6 = mysqli_fetch_assoc($query7);
     $hdr = $fetch6['hdr'];
+    if($hdr=='') $hdr= 0;
 
     $query8 = mysqli_query($con, "SELECT * FROM total_research WHERE email='$email'") or die(mysqli_error());
     //$fetch = mysqli_fetch_array($query1);
     $fetch7 = mysqli_fetch_assoc($query8);
     $resh = $fetch7['Total_Research_Hours'];
+    if($resh=='') $resh= 0;
 
     $query9 = mysqli_query($con, "SELECT * FROM total_administration WHERE email='$email'") or die(mysqli_error());
     //$fetch = mysqli_fetch_array($query1);
@@ -1294,9 +1296,23 @@ echo'
 <!-------------------------------------->
 <br><br>
 <div style="display:'.$display.'">
-      <table class="table table-striped">
+      <table class="table table-striped">';
         
-          <tr>
+      if($statuss == 'approved'){
+        echo'<tr>
+            <th>
+             <p>  Status: </p>
+            </th>
+            <th>
+              <p style="color:green">'.$statuss.'</p>
+            </th>
+            <th>
+             <p></p>
+            </th>
+            
+          </tr>';
+      }else{
+          echo'<tr>
             <th>
              <p>  Status: </p>
             </th>
@@ -1306,10 +1322,9 @@ echo'
             <th>
             <a href="update.php?rec_email='.$email.'" type="button" class="btn btn-outline-primary btn-fw">Delete Request</a>
             </th>
-            
-          </tr>
+          </tr>';}
        
-        </table></div>
+        echo'</table></div>
                     
 <!-------------------------------------->
                     </div>
@@ -1492,6 +1507,7 @@ echo'
         }?>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>	
 <script language="javascript">
+
  var total1 = <?php echo  $total1 ?>;
  var total = <?php echo  $total ?>;
  var resh = <?php echo  $resh ?>;
@@ -1499,6 +1515,7 @@ echo'
  var ta = <?php echo  $total_admis ?>;
  var comu = <?php echo  $total_comunity ?>;
  var tl = <?php echo  $tl ?>;
+
  var email = "<?php echo"$email"?>";
  var advicer = "<?php echo"$advicer_email"?>";
  var name = "<?php echo"$name"?>";
@@ -1630,7 +1647,8 @@ echo'
                           $('#success_message').fadeOut("slow");
                         }, 2000 );});
 
-                       document.location.reload(true);
+                       //document.location.reload(true);
+                       setTimeout("location.reload(true);", 1000);
                   } 
         </script>
         </div>

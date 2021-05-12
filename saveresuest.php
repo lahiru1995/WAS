@@ -17,11 +17,12 @@ $status = $_POST['status'];
 $c=0;
 
 //if (strlen($times) > 200000) {  $times = "";    }
+$result = mysqli_query($con,"DELETE FROM request WHERE staff_member='$email' ") or die('Error');
 
 $q3=mysqli_query($con,"INSERT INTO request VALUES  ('$c', '$teaching_rel' , '$hdr1', '$researc1', '$leadership1', '$community1', '$leave11', '$email', '$advicer', '$Employee_No', '$name', '$status')") or die('Error');
 
 echo'<br><div class="alert alert-warning alert-dismissible fade show" role="alert">
-<strong>Successfully</strong> send request to your workplan adviver!
+<strong>Successfully</strong> send request to your workplan advicer!
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"> 
 <span aria-hidden="true">&times;</span>
 </button>

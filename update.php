@@ -392,6 +392,16 @@ if(@$_GET['rec_email'] ) {
     header("location:index.php?q=8");
 }
 
+//approve request
+
+if(@$_GET['aprv_email'] ) {
+    $demail=@$_GET['aprv_email'];
+   
+    //$result = mysqli_query($con,"DELETE FROM request WHERE staff_member='$demail' ") or die('Error');
+    $result = mysqli_query($con,"UPDATE request SET status='approved' WHERE staff_member = '$demail'") or die('Error');
+
+    header("location:advicer.php?q=2");
+}
 
         function UploadImage(){
             $target_dir = "files/";
