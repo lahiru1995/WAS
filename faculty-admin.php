@@ -191,7 +191,7 @@
         <div class="content-wrapper">
           
         
-
+<!-- -------------------------Faculty admin dashboard----------------->
 <?php if(@$_GET['q']==1) {
   include_once 'dbConnection.php';
 
@@ -345,6 +345,8 @@
     </div>';
         }?>
 
+
+<!----------------------------------edit faculty admin details------------------->
 <?php if(@$_GET['q']==3) {
 
 
