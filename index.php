@@ -1669,11 +1669,11 @@ echo'
 			
         echo '
         <ul>
-        <li><b>Name :</b> '.$fetch['name'].'</li>
-        <li><b>Employee No :</b> '.$fetch['Employee No'].'</li>
-        <li><b>Position :</b> '.$fetch['Position'].'</li>
-        <li><b>FTE :</b> '.$fetch['F. T. E.'].'</li>
-        <li><b>Workplan Advicer :</b> '.$fetch['Workplan Advicer'].'</li>
+        <li><b>Name :</b> '.$fetchs['name'].'</li>
+        <li><b>Employee No :</b> '.$fetchs['Employee No'].'</li>
+        <li><b>Position :</b> '.$fetchs['Position'].'</li>
+        <li><b>FTE :</b> '.$fetchs['F. T. E.'].'</li>
+        <li><b>Workplan Advicer :</b> '.$fetchs['Workplan Advicer'].'</li>
       </ul>';
 	?>
                  

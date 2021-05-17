@@ -172,15 +172,15 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==1) echo'style=" color: #4d83ff;"'; ?> href="faculty-admin.php?q=1">
+            <a class="nav-link" <?php if(@$_GET['q']==1) echo'style=" color: #4d83ff;"'; ?> href="university-admin.php?q=1">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="faculty-admin.php?q=2">
+            <a class="nav-link" <?php if(@$_GET['q']==2) echo'style=" color: #4d83ff;"'; ?> href="university-admin.php?q=2">
               <i class="mdi mdi mdi-library-plus menu-icon"></i>
-              <span class="menu-title">Add New Department</span>
+              <span class="menu-title">Add New Faculty</span>
             </a>
           </li>
          
@@ -193,20 +193,12 @@
         
 
 <?php if(@$_GET['q']==1) {
-  include_once 'dbConnection.php';
-
-  $email=$_SESSION['email'];
-    
-  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
-  $fetch = mysqli_fetch_array($query1);
-
-  $fac_id = $fetch['fac_id'];
   echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-            <h2>Hi! Welcome To '.$fac_id.' Faculty - Admin Dashboad.</h2>
+            <h2>Hi! Welcome To University Admin Dashboad.</h2>
              <!-- <p class="card-description">
                 Add class <code>.table-striped</code>
               </p>-->
@@ -223,26 +215,21 @@
   include_once 'dbConnection.php';
 
   $email=$_SESSION['email'];
+  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='4'") or die('Error');
     
-  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
-  $fetch = mysqli_fetch_array($query1);
-
-  $fac_id = $fetch['fac_id'];
-
-  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='2'") or die('Error');
-  $position = 'department admin';
+  
   echo'
   <div id="tl" class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-              <h4 class="card-title">Add New Department & Department Admin</h4>
-              <form class="forms-sample" name="form" action="update.php?q=adddepadmin" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+              <h4 class="card-title">Add New Faculty & Faculty Admin</h4>
+              <form class="forms-sample" name="form" action="update.php?q=addfacltyadmin" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-4">
                 <div class="form-group">
-                <label>Department Name</label>
-                <input id="dep_id" name="dep_id" type="text" class="form-control form-control-sm" placeholder="Department Name" aria-label="Username">
+                <label>Faculty Name</label>
+                <input id="fac_id" name="fac_id" type="text" class="form-control form-control-sm" placeholder="Faculty Name" aria-label="Username">
               </div>
                 </div>
                 <div class="col-md-4">
@@ -257,9 +244,9 @@
                 <input id="password" name="password" type="text" class="form-control form-control-sm" placeholder="Password" aria-label="Username">
               </div>
                 </div></div>
-                <input id="login" name="login" type="hidden" value="2">
-                <input id="fac_id" name="fac_id" type="hidden" value="'.$fac_id.'">
-                <input id="Position" name="Position" type="hidden" value="'.$position.'">
+                <input id="login" name="login" type="hidden" value="4">
+                
+                <input id="Position" name="Position" type="hidden" value="faculty admin">
                 
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
               </form>
@@ -273,7 +260,7 @@
       <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
       <div class="card-body">
-        <h4 class="card-title">'.$fac_id.' - Faculty Admin List</h4>
+        <h4 class="card-title">Faculty Admin List</h4>
        <!-- <p class="card-description">
           Add class <code>.table-striped</code>
         </p>-->
@@ -282,7 +269,7 @@
             <thead>
               <tr>
                 <th>
-                  Department Name
+                  Faculty Name
                 </th>
                 <th>
                   Admin Email
@@ -302,11 +289,10 @@
     $fac_id = $row['fac_id'];
     $email = $row['email'];
     $password = $row['password'];
-    $dep_id = $row['dep_id'];
     
       echo'<tr>
       <td>
-      '.$dep_id.'
+      '.$fac_id.'
       </td>
       <td>
       '.$email.'
@@ -318,8 +304,8 @@
   <div class="btn-group">
   <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Action</button>
   <div class="dropdown-menu">
-    <a href="faculty-admin.php?q=3&femail='.$email.'" class="dropdown-item">Edit</a>
-    <a href="update.php?ddepemail='.$email.'" class="dropdown-item">Delete</a>
+    <a href="university-admin.php?q=3&femail='.$email.'" class="dropdown-item">Edit</a>
+    <a href="update.php?dfacemail='.$email.'" class="dropdown-item">Delete</a>
   </div>                          
 </div>
   </td>
@@ -354,7 +340,6 @@ if(@$_GET['femail'] ) {
   $fetch = mysqli_fetch_array($query1);
 
   $fac_id = $fetch['fac_id'];
-  $dep_id = $fetch['dep_id'];
   $email = $fetch['email'];
   $password = $fetch['password'];
   
@@ -362,7 +347,7 @@ if(@$_GET['femail'] ) {
 }
 
 echo'
-<a href="faculty-admin.php?q=2" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
+<a href="university-admin.php?q=2" type="button" class="" style="font-weight:bold; padding:10px"><i class="mdi mdi mdi-arrow-left btn-icon-prepend"></i>
 Back</a>
 
 <div id="tl" class="row">
@@ -370,7 +355,7 @@ Back</a>
           <div class="card">
             <div class="card-body">
             <h4 class="card-title">Update Faculty & Faculty Admin</h4>
-            <form class="forms-sample" name="form" action="update.php?edit_dep='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+            <form class="forms-sample" name="form" action="update.php?edit_fac='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data">
             <div class="row">
             <div class="col-md-4">
               <div class="form-group">
@@ -381,7 +366,7 @@ Back</a>
               <div class="col-md-4">
               <div class="form-group">
               <label>Faculty Name</label>
-              <input value="'.$dep_id.'" id="dep_id" name="dep_id" type="text" class="form-control form-control-sm" placeholder="Faculty Name" aria-label="Username">
+              <input value="'.$fac_id.'" id="fac_id" name="fac_id" type="text" class="form-control form-control-sm" placeholder="Faculty Name" aria-label="Username">
             </div>
               </div>
               

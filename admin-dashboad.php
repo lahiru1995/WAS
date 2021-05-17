@@ -146,12 +146,18 @@
 				include_once 'dbConnection.php';
 				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
 				$fetch = mysqli_fetch_array($query);
-        echo '<img src="./files/'.$fetch['file'].'" alt="profile"/>
-        <span class="nav-profile-name">'.$fetch['name'].'</span>';
+        $img = $fetch['file'];
+        $name = $fetch['name'];
+        if($img=='') {$img = 'avatar.png';}
+        if($name=='') {$name = 'your name';}
+
+        echo '<img src="./files/'.$img.'" alt="profile"/>
+        <span class="nav-profile-name">'.$name.'</span>';
 	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+            
+            <a id="myBtn" class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
@@ -222,7 +228,7 @@
             </div>
           </li>
 
-          <li class="nav-item">
+        <!--  <li class="nav-item">
             <a class="nav-link" 
             <?php if(@$_GET['q']==6) echo'style=" color: #4d83ff;"'; ?>
             <?php if(@$_GET['q']==7) echo'style=" color: #4d83ff;"'; ?>
@@ -242,7 +248,7 @@
                 
               </ul>
             </div>
-          </li>
+          </li>-->
           
           <li class="nav-item">
             <a class="nav-link" <?php if(@$_GET['q']==9) echo'style=" color: #4d83ff;"'; ?> href="admin-dashboad.php?q=9">
@@ -261,12 +267,21 @@
         
 <!-- -------------------------------Admin Dashboad ----------------------------->
 <?php if(@$_GET['q']==1) {
+   include_once 'dbConnection.php';
+
+   $email=$_SESSION['email'];
+     
+   $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+   $fetch = mysqli_fetch_array($query1);
+ 
+   $fac_id = $fetch['fac_id'];
+   $dep_id = $fetch['dep_id'];
   echo'
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-            <h2>Hi! Welcome To Admin Dashboad.</h2>
+            <h3>Hi! Welcome To '.$fac_id.' Faculty - '.$dep_id.' Department Admin Dashboad.</h3>
              <!-- <p class="card-description">
                 Add class <code>.table-striped</code>
               </p>-->
@@ -487,6 +502,206 @@ echo'
   </div>';
         }?>
 
+        <!----------------------------------------Edit admin(users)------------------------------>
+<?php if(@$_GET['q']==66) {
+include_once 'dbConnection.php';
+
+$email=$_SESSION['email'];
+
+if(@$_GET['demail'] ) {
+  $demail=@$_GET['demail'];
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$demail'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $password = $fetch['password'];
+  $file = $fetch['file'];
+
+
+  echo'
+
+  <div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+        <h4 class="card-title">Edit Admin</h4>
+
+        <form class="forms-sample" name="form" action="update.php?upemail='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+        <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Name</label>
+              <input value='.$name.' id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Employee No</label>
+              <input value='.$Employee_No.' id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
+            </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Position</label>
+              <input value='.$Position.' id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+                      <label>Upload Image</label>
+                      <input value="'.$file.'" type="file" name="file" class="file-upload-default">
+                      <div class="input-group col-xs-6">
+                        <input value="'.$file.'" type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            
+
+            <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Email</label>
+              <input value='.$email.' id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username" readonly>
+            </div>
+              </div>
+              <div class="col-md-6">
+              <div class="form-group">
+              <label>Password</label>
+              <input value='.$password.' id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
+            </div>
+              </div>
+            </div>
+            <input id="login" name="login" type="hidden" value="0">
+
+            <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+            </div>
+        </div>
+      </div>
+      </div>';
+ 
+ // $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
+  }
+  
+    }?>
+
+<div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+ 
+    <span class="close">&times;</span>
+    
+  
+                  <?php
+	
+  include_once 'dbConnection.php';
+
+$email=$_SESSION['email'];
+
+
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $password = $fetch['password'];
+  $file = $fetch['file'];
+
+      echo'
+
+      <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Edit Admin</h4>
+    
+            <form class="forms-sample" name="form" action="update.php?dep_email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+            <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Name</label>
+                  <input value="'.$name.'" id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Employee No</label>
+                  <input value="'.$Employee_No.'" id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
+                </div>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Position</label>
+                  <input value="'.$Position.'" id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                          <label>Upload Image</label>
+                          <input value="'.$file.'" type="file" name="file" class="file-upload-default">
+                          <div class="input-group col-xs-6">
+                            <input value="'.$file.'" type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                            <span class="input-group-append">
+                              <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+    
+                
+    
+                <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Email</label>
+                  <input value="'.$email.'" id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username" readonly>
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Password</label>
+                  <input value="'.$password.'" id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
+                </div>
+                  </div>
+                </div>
+                <input id="login" name="login" type="hidden" value="0">
+    
+                <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
+                <button class="btn btn-light">Cancel</button>
+              </form>
+                </div>
+            </div>
+          </div>
+          </div>';
+	?>
+                 
+                
+  </div>
+  
+</div>
 
         </div>
         <!-- content-wrapper ends -->
@@ -507,8 +722,36 @@ echo'
   
 
 
+<!-- ------------------------------------pop up box------------------------------------------------>
 <script>
-  
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+//--------------------------------kdounut chart----------------
 </script>
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>
@@ -533,7 +776,7 @@ echo'
   <script src="././vendors/chart.js/Chart.min.js"></script>
     <!-- End plugin js for this page-->
   <!-- inject:js -->
-
+  <script src="././js/file-upload.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="././js/chart.js"></script>

@@ -60,6 +60,40 @@ $email=$_SESSION['email'];
         }
         
         }
+
+
+        //update dep admin
+        if(@$_GET['dep_email'] ) {
+            $upemail=@$_GET['dep_email'];
+           
+            $name =  $_POST['name'];
+            $Employee_No =  $_POST['Employee_No'];
+            $Position = $_POST['Position'];
+            $FTE =  $_POST['FTE'];
+            $Workplan_Advicer =  $_POST['Workplan_Advicer'];
+            $email =  $_POST['email'];
+            $password =  $_POST['password'];
+    
+            $filename = UploadImage();
+            $location =  $filename ;
+            
+            //, email='$email', password='$password', F. T. E.='$FTE', Employee No='$Employee_No', Position='$Position', Workplan Advicer='$Workplan_Advicer', file='$location'
+    //$result1 = mysqli_query($con,"UPDATE user SET `name`=$name,email='$email', password='$password', F. T. E.='$FTE', Employee No='$Employee_No', Position='$Position', Workplan Advicer='$Workplan_Advicer', file='$location' WHERE email = '$upemail'") or die('Error');
+            $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$upemail'") or die(mysqli_error());
+            $fetch = mysqli_fetch_array($query1);
+            $login = $fetch['login'];
+            $f1 = $fetch['file'];
+    
+            if($location=="")
+            $location =$f1;
+    
+            $result = mysqli_query($con,"UPDATE user SET name='$name', `Employee No`='$Employee_No', password='$password', `F. T. E.`='$FTE', Position='$Position', `Workplan Advicer`='$Workplan_Advicer', file='$location' WHERE email = '$upemail'") or die('Error');
+    
+           
+                header("location:admin-dashboad.php?q=1");
+           
+            
+            }
         
  //add input field       
 //,`email`=$email,`password`=$password, `F. T. E.`=$FTE, `Employee No`=$Employee_No, `Position`=$Position, `Workplan Advicer`=$Workplan_Advicer, `file`=$location
@@ -401,6 +435,94 @@ if(@$_GET['aprv_email'] ) {
     $result = mysqli_query($con,"UPDATE request SET status='approved' WHERE staff_member = '$demail'") or die('Error');
 
     header("location:advicer.php?q=2");
+}
+
+//add facuty admin
+if(@$_GET['q']== 'addfacltyadmin') {
+
+    $name = '';
+    $Employee_No = '';
+    $email = $_POST['email'];
+    $Position = $_POST['Position'];
+    $FTE = '';
+    $password = $_POST['password'];
+    $Workplan_Advicer = '';
+    $login = $_POST['login'];
+    
+    $fac_id = $_POST['fac_id'];
+    $dep_id = '';
+    
+    $location = '' ;
+    
+    $page = "admin-staffmember.php?q=2";
+    
+    $q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$email' , '$password','$login' ,'$Employee_No', '$Position', '$FTE', '$Workplan_Advicer', '$location', '$fac_id', '$dep_id')");
+    header("location:university-admin.php?q=2");
+}
+//delete faculty admin
+
+if(@$_GET['dfacemail'] ) {
+    $demail=@$_GET['dfacemail'];
+   
+    $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
+    
+    header("location:university-admin.php?q=2");
+}
+
+//delete Dep admin
+
+if(@$_GET['ddepemail'] ) {
+    $demail=@$_GET['ddepemail'];
+   
+    $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
+    
+    header("location:faculty-admin.php?q=2");
+}
+
+
+//update faculty admin
+if(@$_GET['edit_fac'] ) {
+    $email=@$_GET['edit_fac'];
+
+    $password = $_POST['password'];
+    $fac_id = $_POST['fac_id'];
+   
+    $result = mysqli_query($con,"UPDATE user SET password='$password', fac_id='$fac_id' WHERE email = '$email'") or die('Error');
+    header("location:university-admin.php?q=2");
+}
+
+//add Department admin
+if(@$_GET['q']== 'adddepadmin') {
+
+    $name = '';
+    $Employee_No = '';
+    $email = $_POST['email'];
+    $Position = $_POST['Position'];
+    $FTE = '';
+    $password = $_POST['password'];
+    $Workplan_Advicer = '';
+    $login = $_POST['login'];
+    
+    $fac_id = $_POST['fac_id'];
+    $dep_id = $_POST['dep_id'];;
+    
+    $location = '' ;
+    
+    $page = "admin-staffmember.php?q=2";
+    
+    $q4=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$email' , '$password','$login' ,'$Employee_No', '$Position', '$FTE', '$Workplan_Advicer', '$location', '$fac_id', '$dep_id')");
+    header("location:faculty-admin.php?q=2");
+}
+
+//update deartment admin
+if(@$_GET['edit_dep'] ) {
+    $email=@$_GET['edit_dep'];
+
+    $password = $_POST['password'];
+    $dep_id = $_POST['dep_id'];
+   
+    $result = mysqli_query($con,"UPDATE user SET password='$password', dep_id='$dep_id' WHERE email = '$email'") or die('Error');
+    header("location:faculty-admin.php?q=2");
 }
 
         function UploadImage(){

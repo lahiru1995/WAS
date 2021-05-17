@@ -150,12 +150,18 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
 				include_once 'dbConnection.php';
 				$query = mysqli_query($con, "SELECT * FROM user WHERE email='$_SESSION[email]'") or die(mysqli_error());
 				$fetch = mysqli_fetch_array($query);
-        echo '<img src="./files/'.$fetch['file'].'" alt="profile"/>
-        <span class="nav-profile-name">'.$fetch['name'].'</span>';
+        $img = $fetch['file'];
+        $name = $fetch['name'];
+        if($img=='') {$img = 'avatar.png';}
+        if($name=='') {$name = 'your name';}
+
+        echo '<img src="./files/'.$img.'" alt="profile"/>
+        <span class="nav-profile-name">'.$name.'</span>';
 	?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+            
+            <a id="myBtn" class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
@@ -226,7 +232,7 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
             </div>
           </li>
 
-          <li class="nav-item">
+         <!-- <li class="nav-item">
             <a class="nav-link" 
             <?php if(@$_GET['q']==6) echo'style=" color: #4d83ff;"'; ?>
             <?php if(@$_GET['q']==7) echo'style=" color: #4d83ff;"'; ?>
@@ -246,7 +252,7 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
                 
               </ul>
             </div>
-          </li>
+          </li>-->
           <li class="nav-item">
             <a class="nav-link" <?php if(@$_GET['q']==9) echo'style=" color: #4d83ff;"'; ?> href="admin-dashboad.php?q=9">
               <i class="mdi mdi-calendar-check menu-icon"></i>
@@ -266,8 +272,17 @@ var b = document.forms["form"]["cpassword"].value;if (a!=b){alert("Passwords mus
 <!----------------------------------- Add Staff memeber -------------------------------------------->
 <?php if(@$_GET['q']==2) {
   include_once 'dbConnection.php';
-  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or die('Error');
   
+  
+  $email=$_SESSION['email'];
+    
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+
+  $fac_id = $fetch['fac_id'];
+  $dep_id = $fetch['dep_id'];
+
+  $result = mysqli_query($con,"SELECT * FROM user WHERE login ='1' AND fac_id ='$fac_id' AND dep_id='$dep_id'") or die('Error');
 
 /*----------------------------------- alart------------ ---*/
 if(@$_GET['q7'])
@@ -365,6 +380,8 @@ if(@$_GET['q7'])
               </div>
             </div>
             <input id="login" name="login" type="hidden" value="0">
+            <input id="fac_id" name="fac_id" type="hidden" value="'.$fac_id.'">
+            <input id="dep_id" name="dep_id" type="hidden" value="'.$dep_id.'">
 
             <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
             <button class="btn btn-light">Cancel</button>
@@ -378,7 +395,16 @@ if(@$_GET['q7'])
 <!----------------------------------- Staff memeber list -------------------------------------------->
 <?php if(@$_GET['q']==3) {
 include_once 'dbConnection.php';
-$result = mysqli_query($con,"SELECT * FROM user WHERE login ='0'") or die('Error');
+$email=$_SESSION['email'];
+    
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+
+  $fac_id = $fetch['fac_id'];
+  $dep_id = $fetch['dep_id'];
+
+$result = mysqli_query($con,"SELECT * FROM user WHERE login ='0' AND fac_id ='$fac_id' AND dep_id='$dep_id'") or die('Error');
+
   echo'
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -1483,13 +1509,13 @@ $select_advicer = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or di
               <div class="col-md-6">
               <div class="form-group">
               <label>Name</label>
-              <input value='.$name.' id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
+              <input value="'.$name.'" id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
               <div class="form-group">
               <label>Employee No</label>
-              <input value='.$Employee_No.' id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
+              <input value="'.$Employee_No.'" id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
             </div>
               </div>
             </div>
@@ -1498,7 +1524,7 @@ $select_advicer = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or di
               <div class="col-md-6">
               <div class="form-group">
               <label>Position</label>
-              <input value='.$Position.' id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
+              <input value="'.$Position.'" id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
             </div>
               </div>
               <div class="col-md-6">
@@ -1533,7 +1559,7 @@ $select_advicer = mysqli_query($con,"SELECT * FROM user WHERE login ='1'") or di
                      echo' <option>'.$name.'</option>';
               }
                  echo'   </select>
-              <!--<input value='.$Workplan_Advicer.' id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username"> -->
+              <!--<input value="'.$Workplan_Advicer.'" id="Workplan_Advicer" name="Workplan_Advicer" type="text" class="form-control" placeholder="Workplan Advicer" aria-label="Username"> -->
             </div>
               </div>
             </div>
@@ -3004,6 +3030,111 @@ echo'
 }
 }?>
 
+<div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+ 
+    <span class="close">&times;</span>
+    
+  
+                  <?php
+	
+  include_once 'dbConnection.php';
+
+$email=$_SESSION['email'];
+
+
+  $query1 = mysqli_query($con, "SELECT * FROM user WHERE email='$email'") or die(mysqli_error());
+  $fetch = mysqli_fetch_array($query1);
+  $login = $fetch['login'];
+  $name = $fetch['name'];
+  $Employee_No = $fetch['Employee No'];
+  $Position = $fetch['Position'];
+  $FTE = $fetch['F. T. E.'];
+  $Workplan_Advicer = $fetch['Workplan Advicer'];
+  $email = $fetch['email'];
+  $password = $fetch['password'];
+  $file = $fetch['file'];
+
+      echo'
+
+      <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Edit Admin</h4>
+    
+            <form class="forms-sample" name="form" action="update.php?dep_email='.$email.'" onSubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+            <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Name</label>
+                  <input value="'.$name.'" id="name" name="name" type="text" class="form-control" placeholder="Name" aria-label="Username">
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Employee No</label>
+                  <input value="'.$Employee_No.'" id="Employee_No" name="Employee_No" type="text" class="form-control" placeholder="Employee No" aria-label="Username">
+                </div>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Position</label>
+                  <input value="'.$Position.'" id="Position" name="Position" type="text" class="form-control" placeholder="Position" aria-label="Username">
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                          <label>Upload Image</label>
+                          <input value="'.$file.'" type="file" name="file" class="file-upload-default">
+                          <div class="input-group col-xs-6">
+                            <input value="'.$file.'" type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                            <span class="input-group-append">
+                              <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+    
+                
+    
+                <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Email</label>
+                  <input value="'.$email.'" id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Username" readonly>
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                  <label>Password</label>
+                  <input value="'.$password.'" id="password" name="password" type="password" class="form-control" placeholder="Username" aria-label="Username">
+                </div>
+                  </div>
+                </div>
+                <input id="login" name="login" type="hidden" value="0">
+    
+                <button type="submit" name="upload" class="btn btn-primary mr-2">Save</button>
+                <button class="btn btn-light">Cancel</button>
+              </form>
+                </div>
+            </div>
+          </div>
+          </div>';
+	?>
+                 
+                
+  </div>
+  
+</div>
+
+
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -3020,7 +3151,37 @@ echo'
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  
+  <!-- ------------------------------------pop up box------------------------------------------------>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+//--------------------------------kdounut chart----------------
+</script>
 
   
   <script>
@@ -3188,6 +3349,8 @@ function myFunction6() {
     document.getElementById("tab13").style.color = "#ccc";
   }
 }
+
+
 </script>
 
   <!-- plugins:js -->

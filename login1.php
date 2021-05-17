@@ -29,6 +29,10 @@ if($v==0){
 }
 elseif($v==2){
 	header("location:admin-dashboad.php?q=1");
+}elseif($v==5){
+	header("location:university-admin.php?q=1");
+}elseif($v==4){
+	header("location:faculty-admin.php?q=1");
 }
 //header("location:account.php?q=1");
 } 

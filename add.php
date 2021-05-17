@@ -2,6 +2,8 @@
  
 include_once 'dbConnection.php';
 ob_start();
+
+
 $name = $_POST['name'];
 $name= ucwords(strtolower($name));
 $Employee_No = $_POST['Employee_No'];
@@ -12,6 +14,11 @@ $password = $_POST['password'];
 $Workplan_Advicer = $_POST['Workplan_Advicer'];
 $login = $_POST['login'];
 
+
+
+$fac_id = $_POST['fac_id'];
+$dep_id = $_POST['dep_id'];
+
 $filename = UploadImage();
 $location = $filename ;
 
@@ -19,7 +26,7 @@ $page = "admin-staffmember.php?q=2";
 
 
 
-$q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$email' , '$password','$login' ,'$Employee_No', '$Position', '$FTE', '$Workplan_Advicer', '$location')");
+$q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$email' , '$password','$login' ,'$Employee_No', '$Position', '$FTE', '$Workplan_Advicer', '$location', '$fac_id', '$dep_id')");
 if($q3)
 {
 
